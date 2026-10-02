@@ -1,0 +1,110 @@
+<?php
+
+namespace App\Models\Requisicion;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property integer $id
+ * @property integer $requisicion_estatus_id
+ * @property integer $solicitante
+ * @property integer $id_area
+ * @property integer $id_status_delete
+ * @property string $folio
+ * @property string $fecha_entrega
+ * @property string $fecha_solicitud
+ * @property string $created_at
+ * @property string $updated_at
+ * @property integer $iduserCreated
+ * @property integer $iduserUpdated
+ * @property User $user
+ * @property RequisicionEstatus $requisicionEstatus
+ * @property User $user
+ * @property User $user
+ * @property AreaPersonal $areaPersonal
+ * @property SiafStatus $siafStatus
+ * @property RequisicionPartida[] $requisicionPartidas
+ */
+class Requisicion extends Model
+{
+    /**
+     * The table associated with the model.
+     * 
+     * @var string
+     */
+    protected $table = 'requisicion';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'integer';
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['licitaciones_id', 'requisicion_estatus_id', 'solicitante', 'id_area', 'id_status_delete', 'folio', 'fecha_entrega', 'fecha_solicitud', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated', 'motivo_desactivar'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function licitaciones()
+    {
+        return $this->belongsTo('App\Models\Licitacion\Licitacion', 'licitaciones_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function areaPersonal()
+    {
+        return $this->belongsTo('App\Models\Requisicion\AreaPersonal', 'id_area');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userCreated()
+    {
+        return $this->belongsTo('App\Models\User', 'iduserCreated');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userUpdated()
+    {
+        return $this->belongsTo('App\Models\User', 'iduserUpdated');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function siafStatus()
+    {
+        return $this->belongsTo('App\Models\Requisicion\SiafStatus', 'id_status_delete');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function requisicionEstatus()
+    {
+        return $this->belongsTo('App\Models\Requisicion\RequisicionEstatus');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function requisicionPartidas()
+    {
+        return $this->hasMany('App\Models\Requisicion\RequisicionPartida');
+    }
+
+    public function usersolicitante()
+    {
+        return $this->belongsTo('App\Models\User', 'solicitante');
+    }
+
+}

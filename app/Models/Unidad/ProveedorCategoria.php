@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Models\Unidad;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property integer $id
+ * @property string $categoria
+ * @property string $created_at
+ * @property string $updated_at
+ * @property integer $iduserCreated
+ * @property integer $iduserUpdated
+ * @property boolean $id_status_delete
+ * @property User $user
+ * @property User $user
+ */
+class ProveedorCategoria extends Model
+{
+    /**
+     * The table associated with the model.
+     * 
+     * @var string
+     */
+    protected $table = 'proveedor_categoria';
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['categoria', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated', 'id_status_delete'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userCreated()
+    {
+        return $this->belongsTo('App\Models\Unidad\User', 'iduserCreated');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userUpdated()
+    {
+        return $this->belongsTo('App\Models\Unidad\User', 'iduserUpdated');
+    }
+}

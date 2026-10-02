@@ -1,0 +1,355 @@
+@extends('layouts.app')
+@section('title')
+    Agregar información a la partida sin concurso
+@endsection
+@push('scripts')
+    <script src="{{ asset('js/licitaciones/requisicion/AgregarEquipamento.js') }}"></script>
+@endpush
+@section('content')
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Card-->
+            <div class="card card-custom gutter-b">
+                <div class="card-header">
+                    <h3 class="card-title">Agregar información a la partida sin concurso</h3>
+                </div>
+                <!--begin::Form-->
+                <form class="form" action="{{ route('requisiciones.guardarinfopartida') }}" method="post"
+                    id="formAgregarInformacion" enctype="multipart/form-data">
+                    @csrf
+                    <input type='hidden' id='cadena_grupo' value='{{ $cadena_grupo }}'>
+                    <input type='hidden' id='cadena_tipo_transporte' value='{{ $cadena_tipo_transporte }}'>
+                    <input type='hidden' id='cadena_entidad_federativa' value='{{ $cadena_entidad_federativa }}'>
+                    <input type='hidden' id='cadena_tipo_placas' value='{{ $cadena_tipo_placas }}'>
+                    <input type='hidden' id='cadena_combustible' value='{{ $cadena_combustible }}'>
+                    <input type='hidden' id='url_subgrupos' value='{{ route('requisiciones.obtenersubgrupos') }}'>
+                    <input type='hidden' id='url_coberturas' value='{{ route('requisiciones.obtenercoberturas') }}'>
+                    <input type='hidden' id='cantidad_partida' value='{{ $info_partida->cantidad }}'>
+                    <input type="hidden" name="requisicion_id" id="requisicion_id" value="{{ $info_partida->requisicion_id }}">
+                    <input type="hidden" name="partida_id" id="partida_id" value="{{ $info_partida->id }}">
+                    <input type="hidden" name="desactivarEquipamiento" id="desactivarEquipamiento" value="{{ route('requisiciones.desactivarequipamiento') }}">
+                    <input type="hidden" name="desactivarAseguramiento" id="desactivarAseguramiento" value="{{ route('requisiciones.desactivaraseguramiento') }}">
+                    <input type="hidden" name="desactivarEmplacamiento" id="desactivarEmplacamiento" value="{{ route('requisiciones.desactivaremplacamiento') }}">
+                    <input type="hidden" name="desactivarLugarEntrega" id="desactivarLugarEntrega" value="{{ route('requisiciones.desactivarlugarentrega') }}">
+                    <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row form-group">
+                                    <div class="col-lg-3">
+                                        <label for="folio">Folio de la requisición:</label>
+                                        <p>{{ $info_partida->requisicion->folio }}</p>
+                                    </div>
+                                    <div class="col-lg-3 text-capitalize">
+                                        <label for="tipo_vehiculo">Descripción:</label>
+                                        <p>
+                                            {{ $info_partida->segmento->segmentoTipoVehiculo->tipo_vehiculo }},
+                                            {{ $info_partida->segmento->segmentoNoCilindro->no_cilindro }} cilindros,
+                                            {{ $info_partida->segmento->segmentoTransmision->transmision }},
+                                            {{ $info_partida->segmento->segmentoMotor->motor }}
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label for="cantidad">Cantidad:</label>
+                                        <p>{{ $info_partida->cantidad }}</p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label for="observaciones">Observaciones:</label>
+                                        <p>{{ $info_partida->observaciones }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--begin::tabs-->
+                        <ul class="nav nav-tabs nav-tabs-line">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">Equipamiento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Aseguramiento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3">Emplacamiento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4">Lugar de entrega del
+                                    vehículo</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-5" id="myTabContent">
+                            {{-- Equipamiento --}}
+                            <div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel"
+                                aria-labelledby="kt_tab_pane_2">
+
+                                <div class="row form-group">
+                                    <div class="col-lg-12" id="tblArchivos">
+                                        <h4 class="card-label">Equipamiento</h4>
+                                        <table class='table table-bordered table-hover' id='tblRegistros'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Cantidad</th>
+                                                    <th>Grupo</th>
+                                                    <th>Documento</th>
+                                                    <th>Observaciones</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id='tbodyDocumentos'>
+                                                @foreach ($equipamientos as $equipamiento)
+                                                    <tr id="trRegistro{{ $equipamiento->id }}">
+                                                        <td>
+                                                            <p>{{ $equipamiento->cantidad }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $equipamiento->requisicionGrupo->descripcion }}
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                           <a href="{{ route('archivo.archivorequisicionequipamientosinconcurso', ['id'=>$equipamiento->id]) }}" class="link-primary" target="_blank"> {{ $equipamiento->archivo_equipamiento }} </a>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $equipamiento->observaciones }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <button type='button'
+                                                                class='btn btn-clean btn-icon btn-outline-success hrefEliminarDocumento'
+                                                                data-id='{{ $equipamiento->id }}' data-toggle="tooltip"
+                                                                data-theme="dark" title="Eliminar registro"><i
+                                                                    class=' flaticon-delete'></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-12">
+                                        <a href="#"
+                                            class="btn btn-icon btn-outline-success btn-circle btn-sm mr-2 buttonAgregarRegistro"
+                                            data-toggle="tooltip" data-theme="dark" title="Agregar equipamento">
+                                            <i class="flaticon2-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {{-- /Equipamiento --}}
+                            {{-- Aseguramiento --}}
+                            <div class="tab-pane fade mt-10" id="kt_tab_pane_2" role="tabpanel"
+                                aria-labelledby="kt_tab_pane_2">
+                                
+                                <div class="row form-group">
+                                    <div class="col-lg-12" id="tblArchivos2">
+                                        <h4 class="card-label">Aseguramiento</h4>
+                                        <table class='table table-bordered table-hover' id='tblRegistros2'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Cantidad</th>
+                                                    <th>Tipo de transporte</th>
+                                                    <th>Cobertura</th>
+                                                    <th>Vigencia inicial</th>
+                                                    <th>Vigencia final</th>
+                                                    <th>Observaciones</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id='tbodyDocumentos2'>
+                                                @foreach ($aseguramientos as $aseguramiento)
+                                                    <tr id="trRegistroAseguramiento{{ $aseguramiento->id }}">
+                                                        <td>
+                                                            <p>{{ $aseguramiento->cantidad }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $aseguramiento->requisicionTipoTransporte->descripcion }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('archivo.archivorequisicionaseguramientosinconcurso', ['id'=>$equipamiento->id]) }}" class="link-primary" target="_blank"> {{ $equipamiento->archivo_equipamiento }} </a>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $aseguramiento->vigencia }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $aseguramiento->vigencia_fin }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $aseguramiento->observaciones }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <button type='button'
+                                                                class='btn btn-clean btn-icon btn-outline-success hrefEliminarDocumento2'
+                                                                data-id='{{ $aseguramiento->id }}' data-toggle="tooltip"
+                                                                data-theme="dark" title="Eliminar registro"><i
+                                                                    class=' flaticon-delete'></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-12">
+                                        <a href="#"
+                                            class="btn btn-icon btn-outline-success btn-circle btn-sm mr-2 buttonAgregarRegistro2"
+                                            data-toggle="tooltip" data-theme="dark" title="Agregar aseguramiento">
+                                            <i class="flaticon2-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {{-- /Aseguramiento --}}
+                            {{-- Emplacamiento --}}
+                            <div class="tab-pane fade mt-10" id="kt_tab_pane_3" role="tabpanel"
+                                aria-labelledby="kt_tab_pane_3">
+                                
+                                <div class="row form-group">
+                                    <div class="col-lg-12" id="tblArchivos3">
+                                        <h4 class="card-label">Emplacamiento</h4>
+                                        <table class='table table-bordered table-hover' id='tblRegistros3'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Cantidad</th>
+                                                    <th>Entidad federativa</th>
+                                                    <th>Tipo de placas</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id='tbodyDocumentos3'>
+                                                {{-- emplacamientos --}}
+                                                @foreach ($emplacamientos as $emplacamiento)
+                                                    <tr id="trRegistroEmplacamiento{{ $emplacamiento->id }}">
+                                                        <td>
+                                                            <p>{{ $emplacamiento->cantidad }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $emplacamiento->requisicionEntidadFederativa->descripcion }}
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $emplacamiento->requisicionTipoPlacas->descripcion }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <button type='button'
+                                                                class='btn btn-clean btn-icon btn-outline-success hrefEliminarDocumento3'
+                                                                data-id='{{ $emplacamiento->id }}' data-toggle="tooltip"
+                                                                data-theme="dark" title="Eliminar registro"><i
+                                                                    class=' flaticon-delete'></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-12">
+                                        <a href="#"
+                                            class="btn btn-icon btn-outline-success btn-circle btn-sm mr-2 buttonAgregarRegistro3"
+                                            data-toggle="tooltip" data-theme="dark" title="Agregar emplacamiento">
+                                            <i class="flaticon2-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {{-- /Emplacamiento --}}
+                            {{-- Lugar de entrega del vehículo --}}
+                            <div class="tab-pane fade mt-10" id="kt_tab_pane_4" role="tabpanel"
+                                aria-labelledby="kt_tab_pane_4">
+                                
+                                <div class="row form-group">
+                                    <div class="col-lg-12" id="tblArchivos4">
+                                        <h4 class="card-label">Lugar de entrega del vehículo</h4>
+                                        <table class='table table-bordered table-hover' id='tblRegistros4'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Cantidad</th>
+                                                    <th>Fecha de entrega</th>
+                                                    <th>Entidad federativa</th>
+                                                    <th>Municipio</th>
+                                                    <th>Localidad</th>
+                                                    <th>Combustible</th>
+                                                    <th>Observaciones</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id='tbodyDocumentos4'>
+                                                {{-- foreach lugares_entrega --}}
+                                                @foreach ($lugares_entrega as $lugarEntrega)
+                                                    <tr id="trRegistroLugarEntrega{{ $lugarEntrega->id }}">
+                                                        <td>
+                                                            <p>{{ $lugarEntrega->cantidad }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $lugarEntrega->fecha_entrega }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $lugarEntrega->requisicionEntidadFederativa->descripcion }}
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $lugarEntrega->municipio }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $lugarEntrega->localidad }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $lugarEntrega->requisicionCombustible->descripcion }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{ $lugarEntrega->observaciones }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <button type='button'
+                                                                class='btn btn-clean btn-icon btn-outline-success hrefEliminarDocumento4'
+                                                                data-id='{{ $lugarEntrega->id }}' data-toggle="tooltip"
+                                                                data-theme="dark" title="Eliminar registro"><i
+                                                                    class=' flaticon-delete'></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-12">
+                                        <a href="#"
+                                            class="btn btn-icon btn-outline-success btn-circle btn-sm mr-2 buttonAgregarRegistro4"
+                                            data-toggle="tooltip" data-theme="dark" title="Agregar emplacamiento">
+                                            <i class="flaticon2-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {{-- /Lugar de entrega del vehículo --}}
+
+                        </div>
+                        <!--end::tabs-->
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <button type="button" id="btnGuardarInformacion"
+                                    class="btn btn-success mr-2"><i class="la la-plus"></i>Guardar</button>
+                                <a href="{{ route('requisiciones.addinfopartidas', $requisicion) }}"
+                                    class="btn btn-secondary"> <i class="la la-arrow-left"></i>Regresar</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Card-->
+        </div>
+    </div>
+    <!--end::Card-->
+@endsection
