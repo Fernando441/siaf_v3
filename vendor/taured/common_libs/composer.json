@@ -1,0 +1,57 @@
+{
+    "name": "taured/common_libs",
+    "description": "Taured CommonLibs PHP",
+    "keywords": ["php", "Taured"],
+    "license": "",
+    "authors": [
+        {
+            "name": "Pablo Hernández",
+            "email": "phernandez@taured.mx"
+        }
+    ],
+    "require": {
+        "php": "^8.1.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.20",
+        "pestphp/pest": "^2.36",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.0",
+        "symfony/var-dumper": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Taured\\CommonLibs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "refacto": "rector",
+        "lint": "pint",
+        "test:refacto": "rector --dry-run",
+        "test:lint": "pint --test",
+        "test:typos": "peck",
+        "test:types": "phpstan analyse --ansi",
+        "test:unit": "pest --colors=always --coverage --parallel --min=100",
+        "test": [
+            "@test:refacto",
+            "@test:lint",
+            "@test:typos",
+            "@test:types",
+            "@test:unit"
+        ]
+    }
+}
