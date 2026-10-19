@@ -1228,7 +1228,7 @@
                                         </div>
                                      </li>
                                 @endif
-                {{-- END CATALOGOS DE DIRECCION DE ADMINISTRACION Y FINANZAS --}}
+                {{-- END CATALOGOS DE ADMINISTRACION DEL SISTEMA --}}
 
                                 @if (in_array("37", Session::get('permisos')) || in_array("41", Session::get('permisos')) || in_array("162", Session::get('permisos')) || in_array("146", Session::get('permisos')) || in_array("150", Session::get('permisos')) || in_array("154", Session::get('permisos')) || in_array("158", Session::get('permisos')) || in_array("166", Session::get('permisos')) || in_array("170", Session::get('permisos')) || in_array("174", Session::get('permisos')) || in_array("178", Session::get('permisos')) || in_array("182", Session::get('permisos')) || in_array("186", Session::get('permisos')) || in_array("190", Session::get('permisos')) || in_array("194", Session::get('permisos')) || in_array("288", Session::get('permisos')) || in_array("65", Session::get('permisos')) || in_array("69", Session::get('permisos')) || in_array("73", Session::get('permisos')) || in_array("77", Session::get('permisos')) || in_array("81", Session::get('permisos')) || in_array("85", Session::get('permisos')) || in_array("89", Session::get('permisos')) || in_array("93", Session::get('permisos')) || in_array("97", Session::get('permisos')) || in_array("101", Session::get('permisos')) || in_array("105", Session::get('permisos')) || in_array("316", Session::get('permisos')) || in_array("320", Session::get('permisos')) || in_array("324", Session::get('permisos')) || in_array("328", Session::get('permisos')) || in_array("332", Session::get('permisos'))  || in_array("336", Session::get('permisos')))
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover" id="sub_menu_segmento">
@@ -3049,8 +3049,6 @@
                                     </li>
                                 @endif
                 {{-- END CATALOGOS DE DIRECCION DE ADMINISTRACION Y FINANZAS --}}
-
-
 
 {{-- 
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover" id="sub_sub_menu_listado-contratos">

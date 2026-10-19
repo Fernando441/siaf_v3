@@ -52,7 +52,6 @@ class InformacionPropietarioController extends Controller
         /* Getting the direction of the sort. */
         $order_dir = $order_arr['dir'];
 
-        /* Getting the column name from the array of columns. */
         $order_column_name = $columnName_arr[$order_column_index]['data'];
         $order_column_dir = $order_dir;
 
@@ -74,7 +73,7 @@ class InformacionPropietarioController extends Controller
                     $valor = trim($columna['search']['value']);
 
                     $records = InformacionPropietario::select('unidad_informacion_propietario.id', 'unidad_informacion_propietario.nombre_propietario', 'unidad_informacion_propietario.rfc', 
-        	 'unidad_informacion_propietario.no_identificacion', 'unidad_informacion_propietario.direccion', 'unidad_informacion_propietario.id_status_delete')
+        	       'unidad_informacion_propietario.no_identificacion', 'unidad_informacion_propietario.direccion', 'unidad_informacion_propietario.id_status_delete')
                     ->where('unidad_informacion_propietario.id_status_delete', 1)
                     ->where("unidad_informacion_propietario.nombre_propietario", '=' , $valor)
                     ->orderBy($order_column_name, $order_column_dir)

@@ -107,7 +107,7 @@ class EstimacionesFinanzasController extends Controller
         $seguimiento = EstimacionesSeguimientocliente::where('estimacion_id', $estimacion)->get();
 
         $documento = EstimacionesTipoDocumento::where('id_status_delete',1)->get();
-        //tipo de documentos en formato json
+
         $cadenaTipoDocumento = "";
         foreach($documento as $doc){
             $cadenaTipoDocumento .= '"'.$doc->id.'":"'.$doc->tipo_documento.'",';

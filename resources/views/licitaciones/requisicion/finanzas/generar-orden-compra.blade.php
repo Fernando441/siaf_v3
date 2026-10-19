@@ -224,7 +224,7 @@
                         </div>
                     </div>
 
-<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+                    <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
 
 
                     <div class="row mt-4">

@@ -1041,7 +1041,7 @@ class UnidadController extends Controller
 
     public function agregarinformacionbasica($request, $op)
     {
-        // 'id_ubicacion' => $request->id_ubicacion ? $request->id_ubicacion : null,
+
         $data = [
             'folio' => $this->folio->getFolioUnidad(),
             'id_marca' => $request->id_marca ? $request->id_marca : null,
@@ -1616,7 +1616,6 @@ class UnidadController extends Controller
             ->leftjoin("proyectos as pro", "pro.id", "unidad_registro_asignacion.proyectos_id")
             ->leftjoin("ubicacion_unidad as uu", "uu.id", "unidad_registro_asignacion.ubicacion_id")
             ->where('unidad_registro_asignacion.unidad_id', $unidad_id)->get();
-        // dd($unidad_movimiento);
 
 
         $solicitudes = TallerSolicitud::where('unidad_id', $unidad_id)->get();
@@ -1670,8 +1669,8 @@ class UnidadController extends Controller
             'iduserUpdated' =>auth()->user()->id,
             'created_at' =>date('Y-m-d H:i:s'),
             'updated_at' =>date('Y-m-d H:i:s')
-
         ];
+        
         $id = InformacionSeguroUnidad::insert($data);
 
 
@@ -1697,7 +1696,6 @@ class UnidadController extends Controller
             'telefono_compania' => $request->telefono_compania,
             'iduserUpdated' =>auth()->user()->id,
             'updated_at' =>date('Y-m-d H:i:s')
-
         ];
      
         InformacionSeguroUnidad::where('unidad_id', $request->unidad_id)->update($data);   

@@ -128,3 +128,6 @@
 
     //DocumentoTraslado
     Route::get('/documento-traslado/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'documentoTraslado'])->name('archivo.documentotraslado');
+
+    //EvidenciaPendiente
+    Route::get('/evidencia-pendiente/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'evidenciapendiente'])->name('archivo.evidenciapendiente');

@@ -36,6 +36,12 @@ Route::get('/tablero', [App\Http\Controllers\Tablero\TableroController::class, '
 
 Route::get('/tablero/{licitacion?}', [App\Http\Controllers\Tablero\TableroController::class, 'vernotconcurso'])->name('tablero.vernotconcurso');
 
+Route::post('/pendiente', [App\Http\Controllers\Tablero\TableroController::class, 'guardarpendiente'])->name('taller.guardarpendiente');
 
+Route::get('/pendiente/{id}', [App\Http\Controllers\Tablero\TableroController::class, 'verpendiente'])->name('taller.verpendiente');
+
+Route::post('/pendiente-finalizado', [App\Http\Controllers\Tablero\TableroController::class, 'pendientefinalizado'])->name('taller.pendientefinalizado');
+
+Route::post('/pendiente-evidencia', [App\Http\Controllers\Tablero\TableroController::class, 'pendienteevidencia'])->name('taller.pendienteevidencia');
 
 require __DIR__.'/auth.php';

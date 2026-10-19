@@ -64,6 +64,7 @@ use App\Models\Logistica\AsignacionDocumento;
 use App\Models\Taller\TallerPagoFinanzas;
 use App\Models\Logistica\SustitutoEvidencia;
 use App\Models\Translados\TrasladoUnidadDocumento;
+use App\Models\Tablero\PendientesEvidencia;
 
 class ArchivoController extends Controller
 {
@@ -715,5 +716,18 @@ class ArchivoController extends Controller
         }else{
             return abort('403');
         } 
+    }
+
+    public function evidenciapendiente(Request $request)
+    {
+        $user = auth()->user()->id;
+        $id = $request->id;
+        $documento = PendientesEvidencia::findOrFail($id);
+        $existeArchivo = Storage::exists('pendiente/'.$user .'/'.$documento->nombre_archivo);
+        if($user && $documento && $existeArchivo) {
+            return Storage::download('pendiente/'.$user .'/'.$documento->nombre_archivo, $documento->nombre_archivo, ['Content-Disposition'=>'inline; filename="'.$documento->nombre_archivo.'"']);
+        }else{
+            return abort('403');
+        }        
     }
 }
