@@ -384,8 +384,59 @@
 								</tfoot>
 							</table>
 						</div>
+
 						<div class="tab-pane fade mt-10" id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">
-							tickets
+							<form class="row g-3" method="POST">
+								@csrf
+								<div class="tab-content mt-5" id="myTabContent">
+									<div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel"
+										aria-labelledby="kt_tab_pane_1">
+										<div class="form-group row">
+											<div class="col-lg-6">
+												<label>Categoria:</label>
+												<div class="input-group">
+													<select class="form-control" id="categoria" name="categoria" required>
+														<option value="">Selecciona una opción</option>
+														@foreach ($categoria as $item)
+															<option value="{{ $item->id }}">{{ $item->nombre_categoria }}
+															</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<label>Tipo de problema:</label>
+												<div class="input-group">
+													<select class="form-control" id="sub_categoria" name="sub_categoria"
+														required>
+														<option value="">Selecciona una opción</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<label>Problema:</label>
+												<div class="input-group">
+													<select class="form-control" id="problema" name="problema" required>
+														<option value="">Selecciona una opción</option>
+													</select>
+												</div>
+											</div><br>
+											<div class="col-lg-6">
+												<label>Descripcion:</label>
+												<div class="input-group">
+													<input type="text" name="descripcion" id="descripcion"
+														class="form-control specialCharts" required />
+												</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<button type="button" id="btnGuardar" class="btn btn-success">
+												<i class="#"></i>Guardar
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 					<!--begin: Datatable-->
