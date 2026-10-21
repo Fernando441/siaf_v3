@@ -23,6 +23,8 @@ class Pendientes extends Model
     /**
      * @var array
      */
+    protected $table = 'pendientes';
+    
     protected $fillable = ['titulo', 'descripcion', 'fecha_hora_inicio', 'fecha_hora_final', 'prioridad', 'op_finalizado', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated'];
 
     public function userCreated()
