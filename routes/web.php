@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ticket\TicketsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tablero\TableroController;
 
@@ -43,5 +44,8 @@ Route::get('/pendiente/{id}', [App\Http\Controllers\Tablero\TableroController::c
 Route::post('/pendiente-finalizado', [App\Http\Controllers\Tablero\TableroController::class, 'pendientefinalizado'])->name('taller.pendientefinalizado');
 
 Route::post('/pendiente-evidencia', [App\Http\Controllers\Tablero\TableroController::class, 'pendienteevidencia'])->name('taller.pendienteevidencia');
+
+//Route::get('show', [TicketsController::class, 'cargarCategorias'])->name('show');
+
 
 require __DIR__.'/auth.php';
