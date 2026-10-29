@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Notificaciones\Notificaciones;
 use App\Models\Notificaciones\NotificacionesUsuario;
 
-use App\Models\Ticket\TicketsCategoria;
-use App\Models\Ticket\TicketsSubCategoria;
-use App\Models\Ticket\TicketsProblema;
+
 
 use App\Models\Cliente\Cliente;
 
@@ -52,10 +50,10 @@ class TableroController extends Controller
         $pendiente_pri_media = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 1)->orderBy('id', 'ASC')->get(); //Prioridad_Media
         $pendiente_pri_baja = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 2)->orderBy('id', 'ASC')->get(); //Prioridad_Media
 
-        $categoria = TicketsCategoria::orderBy('id', 'ASC')->get();
-        //$subcategorias = Subcategoria::where('id', $id)->get();
-        //dd($categoria);
-        return view('tablero.show', compact('not', 'categoria','concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
+        //$tickets_activos = Tickets::orderBy('id', 'ASC')->get();
+        //dd($tickets_activos);
+        
+        return view('tablero.show', compact('not','concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
     }
 
     public function vernotconcurso($licitacion)
@@ -156,5 +154,6 @@ class TableroController extends Controller
         return redirect()->route('taller.verpendiente', $request->id_evidencia);
 
     }
+    
 
 }

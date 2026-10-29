@@ -306,9 +306,6 @@
 						<li class="nav-item">
 							<a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">Pendientes</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Tickets</a>
-						</li>
 					</ul>
 					<div class="tab-content mt-5" id="myTabContent">
 						<div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel"
@@ -385,302 +382,249 @@
 							</table>
 						</div>
 
-						<div class="tab-pane fade mt-10" id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">
-							<form class="row g-3" method="POST">
-								@csrf
-								<div class="tab-content mt-5" id="myTabContent">
-									<div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel"
-										aria-labelledby="kt_tab_pane_1">
-										<div class="form-group row">
-											<div class="col-lg-6">
-												<label>Categoria:</label>
-												<div class="input-group">
-													<select class="form-control" id="categoria" name="categoria" required>
-														<option value="">Selecciona una opción</option>
-														@foreach ($categoria as $item)
-															<option value="{{ $item->id }}">{{ $item->nombre_categoria }}
-															</option>
-														@endforeach
-													</select>
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<label>Tipo de problema:</label>
-												<div class="input-group">
-													<select class="form-control" id="sub_categoria" name="sub_categoria"
-														required>
-														<option value="">Selecciona una opción</option>
-													</select>
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<label>Problema:</label>
-												<div class="input-group">
-													<select class="form-control" id="problema" name="problema" required>
-														<option value="">Selecciona una opción</option>
-													</select>
-												</div>
-											</div><br>
-											<div class="col-lg-6">
-												<label>Descripcion:</label>
-												<div class="input-group">
-													<input type="text" name="descripcion" id="descripcion"
-														class="form-control specialCharts" required />
-												</div>
-											</div>
-										</div>
-										<div class="form-group row">
-											<button type="button" id="btnGuardar" class="btn btn-success">
-												<i class="#"></i>Guardar
-											</button>
-										</div>
-									</div>
-								</div>
+
+						<!--begin: Datatable-->
+
+						<!--end: Datatable-->
+						<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="card">
+
+					<div id="calendario">
+						<div id="anterior" onclick="mesantes()"></div>
+						<div id="posterior" onclick="mesdespues()"></div>
+						<h2 id="titulos"></h2>
+						<table id="diasc">
+							<tr id="fila0">
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr id="fila1">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr id="fila2">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr id="fila3">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr id="fila4">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr id="fila5">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr id="fila6">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						<div id="fechaactual"><i onclick="actualizar()">HOY: </i></div>
+						<div id="buscafecha">
+							<form action="#" name="buscar">
+								<p>Buscar ... MES
+									<select name="buscames">
+										<option value="0">Enero</option>
+										<option value="1">Febrero</option>
+										<option value="2">Marzo</option>
+										<option value="3">Abril</option>
+										<option value="4">Mayo</option>
+										<option value="5">Junio</option>
+										<option value="6">Julio</option>
+										<option value="7">Agosto</option>
+										<option value="8">Septiembre</option>
+										<option value="9">Octubre</option>
+										<option value="10">Noviembre</option>
+										<option value="11">Diciembre</option>
+									</select>
+									... AÑO ...
+									<input type="text" name="buscaanno" maxlength="4" size="4" />
+									...
+									<input type="button" value="BUSCAR" onclick="mifecha()" />
+								</p>
 							</form>
 						</div>
 					</div>
-					<!--begin: Datatable-->
-
-					<!--end: Datatable-->
-					<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
 				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-4">
-			<div class="card">
-
-				<div id="calendario">
-					<div id="anterior" onclick="mesantes()"></div>
-					<div id="posterior" onclick="mesdespues()"></div>
-					<h2 id="titulos"></h2>
-					<table id="diasc">
-						<tr id="fila0">
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-						<tr id="fila1">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr id="fila2">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr id="fila3">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr id="fila4">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr id="fila5">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr id="fila6">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-					<div id="fechaactual"><i onclick="actualizar()">HOY: </i></div>
-					<div id="buscafecha">
-						<form action="#" name="buscar">
-							<p>Buscar ... MES
-								<select name="buscames">
-									<option value="0">Enero</option>
-									<option value="1">Febrero</option>
-									<option value="2">Marzo</option>
-									<option value="3">Abril</option>
-									<option value="4">Mayo</option>
-									<option value="5">Junio</option>
-									<option value="6">Julio</option>
-									<option value="7">Agosto</option>
-									<option value="8">Septiembre</option>
-									<option value="9">Octubre</option>
-									<option value="10">Noviembre</option>
-									<option value="11">Diciembre</option>
-								</select>
-								... AÑO ...
-								<input type="text" name="buscaanno" maxlength="4" size="4" />
-								...
-								<input type="button" value="BUSCAR" onclick="mifecha()" />
-							</p>
-						</form>
-					</div>
-				</div>
-			</div>
-			{{-- //Claendario --}}
+				{{-- //Claendario --}}
 
 
-			<div class="card mt-2">
+				<div class="card mt-2">
 
-				<div class="card card-custom">
-					<div class="card-header">
-						<div class="card-title">
+					<div class="card card-custom">
+						<div class="card-header">
+							<div class="card-title">
 
-							<h3 class="card-label">Prioridad</h3>
+								<h3 class="card-label">Prioridad</h3>
+							</div>
+
 						</div>
 
-					</div>
-
-					<div class="card-body">
-						<div>
-							<span>Alta = {{ count($pendiente_pri_alta) }}</span><br>
-							<span>Media = {{ count($pendiente_pri_media) }}</span><br>
-							<span>Baja = {{ count($pendiente_pri_baja) }}</span>
+						<div class="card-body">
+							<div>
+								<span>Alta = {{ count($pendiente_pri_alta) }}</span><br>
+								<span>Media = {{ count($pendiente_pri_media) }}</span><br>
+								<span>Baja = {{ count($pendiente_pri_baja) }}</span>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="card mt-2">
+				<div class="card mt-2">
 
-				<div class="card card-custom">
-					<div class="card-header">
-						<div class="card-title">
-							<h3 class="card-label">Estatus</h3>
+					<div class="card card-custom">
+						<div class="card-header">
+							<div class="card-title">
+								<h3 class="card-label">Estatus</h3>
+							</div>
+
 						</div>
 
-					</div>
+						<div class="card-body">
+							<div>
+								<span>Pendientes = {{ count($pendiente_no_finalizado) }}</span><br>
+								<span>Finalizadas = {{ count($pendiente_finalizado) }}</span><br>
+							</div>
 
-					<div class="card-body">
-						<div>
-							<span>Pendientes = {{ count($pendiente_no_finalizado) }}</span><br>
-							<span>Finalizadas = {{ count($pendiente_finalizado) }}</span><br>
+							<div>
+								<canvas id="grafica_pendiente" style="width: 100px;"></canvas>
+								<input type="hidden" id="pendiente_no" value="{{ count($pendiente_no_finalizado) }}">
+								<input type="hidden" id="pendiente_si" value="{{ count($pendiente_finalizado) }}">
+							</div>
+
 						</div>
-
-						<div>
-							<canvas id="grafica_pendiente" style="width: 100px;"></canvas>
-							<input type="hidden" id="pendiente_no" value="{{ count($pendiente_no_finalizado) }}">
-							<input type="hidden" id="pendiente_si" value="{{ count($pendiente_finalizado) }}">
-						</div>
-
 					</div>
 				</div>
+
 			</div>
-
-		</div>
-		{{-- END Direccion Comercial --}}
+			{{-- END Direccion Comercial --}}
 
 
-		{{-- Modal Pendientes --}}
-		<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-			id="kt_modal_1">
-			<div class="modal-dialog">
-				<div class="modal-content max-w-[600px] top-[10%]">
-					<div class="modal-header">
-						<h5 class="modal-title">Agregar Pendiente</h5>
+			{{-- Modal Pendientes --}}
+			<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+				id="kt_modal_1">
+				<div class="modal-dialog">
+					<div class="modal-content max-w-[600px] top-[10%]">
+						<div class="modal-header">
+							<h5 class="modal-title">Agregar Pendiente</h5>
 
-						<div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-							aria-label="Close">
-							<span class="svg-icon svg-icon-2x"></span>
+							<div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+								aria-label="Close">
+								<span class="svg-icon svg-icon-2x"></span>
+							</div>
 						</div>
-					</div>
 
-					<div class="modal-body">
-						<form action="{{ route('taller.guardarpendiente') }}" method="post" id="submit_pendiente">
-							@csrf
-							<input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-							<div class="row form-group">
-								<div class="col-lg-12">
-									<label>Prioridad</label>
-									<div class="radio-inline">
-										<label class="radio">
-											<input type="radio" checked name="prioridad" value="0" required />
-											<span></span>
-											Alta
-										</label>
+						<div class="modal-body">
+							<form action="{{ route('taller.guardarpendiente') }}" method="post" id="submit_pendiente">
+								@csrf
+								<input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+								<div class="row form-group">
+									<div class="col-lg-12">
+										<label>Prioridad</label>
+										<div class="radio-inline">
+											<label class="radio">
+												<input type="radio" checked name="prioridad" value="0" required />
+												<span></span>
+												Alta
+											</label>
 
-										<label class="radio">
-											<input type="radio" name="prioridad" value="1" required />
-											<span></span>
-											Media
-										</label>
+											<label class="radio">
+												<input type="radio" name="prioridad" value="1" required />
+												<span></span>
+												Media
+											</label>
 
-										<label class="radio">
-											<input type="radio" name="prioridad" value="2" required />
-											<span></span>
-											Baja
-										</label>
+											<label class="radio">
+												<input type="radio" name="prioridad" value="2" required />
+												<span></span>
+												Baja
+											</label>
 
+										</div>
 									</div>
 								</div>
-							</div>
 
 
-							<div class="row form-group">
-								<div class="col-lg-12 mt-2">
-									<label>Título</label>
-									<input type="text" class="form-control" name="titulo" id="titulo" />
+								<div class="row form-group">
+									<div class="col-lg-12 mt-2">
+										<label>Título</label>
+										<input type="text" class="form-control" name="titulo" id="titulo" />
+									</div>
+
+									<div class="col-lg-12 mt-2">
+										<label>Descripción</label>
+										<textarea class="form-control specialCharts" name="descripcion"
+											id="descripcion"></textarea>
+									</div>
+
+									<div class="col-lg-6 mt-2">
+										<label>Fecha y hora de inicio</label>
+										<input type="datetime-local" class="form-control" name="fecha_hora_inicio"
+											id="fecha_inicio" />
+									</div>
+									<div class="col-lg-6 mt-2">
+										<label>Fecha y hora final</label>
+										<input type="datetime-local" class="form-control" name="fecha_hora_final"
+											id="fecha_final" />
+									</div>
+
 								</div>
+							</form>
+						</div>
 
-								<div class="col-lg-12 mt-2">
-									<label>Descripción</label>
-									<textarea class="form-control specialCharts" name="descripcion"
-										id="descripcion"></textarea>
-								</div>
-
-								<div class="col-lg-6 mt-2">
-									<label>Fecha y hora de inicio</label>
-									<input type="datetime-local" class="form-control" name="fecha_hora_inicio"
-										id="fecha_inicio" />
-								</div>
-								<div class="col-lg-6 mt-2">
-									<label>Fecha y hora final</label>
-									<input type="datetime-local" class="form-control" name="fecha_hora_final"
-										id="fecha_final" />
-								</div>
-
-							</div>
-						</form>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
-								class="la la-times"></i>Cancelar</button>
-						<button type="button" id="send_pendiente" class="btn btn-success"><i
-								class="la la-plus"></i>Guardar</button>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
+									class="la la-times"></i>Cancelar</button>
+							<button type="button" id="send_pendiente" class="btn btn-success"><i
+									class="la la-plus"></i>Guardar</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
 
 
