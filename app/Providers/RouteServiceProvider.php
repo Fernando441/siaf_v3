@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSolicitudRoutes();
         $this->mapBusquedaRoutes();
         $this->mapSeminuevosRoutes();
+        $this->mapTicketsRoutes();
     }
 
     protected function mapApiRoutes()
@@ -182,5 +183,13 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('seminuevos')
             ->namespace($this->namespace . '\Unidad')
             ->group(base_path('routes/seminuevos.php'));
+    }
+
+    protected function mapTicketsRoutes()
+    {
+        Route::middleware('web')
+            ->prefix('tickets')
+            ->namespace($this->namespace . '\Tickets')
+            ->group(base_path('routes/tickets.php'));
     }
 }

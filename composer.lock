@@ -778,6 +778,7 @@
         },
         {
             "name": "dragonmantank/cron-expression",
+<<<<<<< Updated upstream
             "version": "v3.5.0",
             "source": {
                 "type": "git",
@@ -788,6 +789,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/1b2de7f4a468165dca07b142240733a1973e766d",
                 "reference": "1b2de7f4a468165dca07b142240733a1973e766d",
+=======
+            "version": "v3.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dragonmantank/cron-expression.git",
+                "reference": "4189372ffeff09bf14f731f67a9de90c7b413ebe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/4189372ffeff09bf14f731f67a9de90c7b413ebe",
+                "reference": "4189372ffeff09bf14f731f67a9de90c7b413ebe",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -798,8 +811,8 @@
             },
             "require-dev": {
                 "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^1.12.32|^2.1.31",
-                "phpunit/phpunit": "^8.5.48|^9.0"
+                "phpstan/phpstan": "^2.1.31",
+                "phpunit/phpunit": "^11.5.43 || ^12.4"
             },
             "type": "library",
             "extra": {
@@ -830,7 +843,11 @@
             ],
             "support": {
                 "issues": "https://github.com/dragonmantank/cron-expression/issues",
+<<<<<<< Updated upstream
                 "source": "https://github.com/dragonmantank/cron-expression/tree/v3.5.0"
+=======
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.6.1"
+>>>>>>> Stashed changes
             },
             "funding": [
                 {
@@ -838,7 +855,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2025-10-31T18:36:32+00:00"
+=======
+            "time": "2026-10-19T17:53:57+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "egulias/email-validator",
@@ -3423,6 +3444,7 @@
         },
         {
             "name": "nette/utils",
+<<<<<<< Updated upstream
             "version": "v4.0.10",
             "source": {
                 "type": "git",
@@ -3437,6 +3459,22 @@
             },
             "require": {
                 "php": "8.0 - 8.5"
+=======
+            "version": "v4.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/utils.git",
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/utils/zipball/6bf24518accf32cf845bca305e0b92078700fd01",
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01",
+                "shasum": ""
+            },
+            "require": {
+                "php": "8.2 - 8.6"
+>>>>>>> Stashed changes
             },
             "conflict": {
                 "nette/finder": "<3",
@@ -3506,9 +3544,15 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
+<<<<<<< Updated upstream
                 "source": "https://github.com/nette/utils/tree/v4.0.10"
             },
             "time": "2025-12-01T17:30:42+00:00"
+=======
+                "source": "https://github.com/nette/utils/tree/v4.1.6"
+            },
+            "time": "2026-10-20T17:07:56+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "nikic/php-parser",
@@ -6695,6 +6739,7 @@
         },
         {
             "name": "symfony/string",
+<<<<<<< Updated upstream
             "version": "v6.4.48",
             "source": {
                 "type": "git",
@@ -6705,6 +6750,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/string/zipball/9459a27a00b1f0fec1954e9eb362d00aedcfe048",
                 "reference": "9459a27a00b1f0fec1954e9eb362d00aedcfe048",
+=======
+            "version": "v7.4.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/string.git",
+                "reference": "9bc35d074ad16a58c21cd52b18c5cacc4f4c3981"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/string/zipball/9bc35d074ad16a58c21cd52b18c5cacc4f4c3981",
+                "reference": "9bc35d074ad16a58c21cd52b18c5cacc4f4c3981",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -6760,7 +6817,11 @@
                 "utf8"
             ],
             "support": {
+<<<<<<< Updated upstream
                 "source": "https://github.com/symfony/string/tree/v6.4.48"
+=======
+                "source": "https://github.com/symfony/string/tree/v7.4.21"
+>>>>>>> Stashed changes
             },
             "funding": [
                 {
@@ -6780,7 +6841,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2026-10-03T14:51:46+00:00"
+=======
+            "time": "2026-10-03T15:15:30+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/translation",
@@ -10052,6 +10117,7 @@
         },
         {
             "name": "symfony/yaml",
+<<<<<<< Updated upstream
             "version": "v6.4.48",
             "source": {
                 "type": "git",
@@ -10062,6 +10128,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/yaml/zipball/91288fddb497a598b564343ea663ea272370a7dc",
                 "reference": "91288fddb497a598b564343ea663ea272370a7dc",
+=======
+            "version": "v7.4.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "044907929c7999814378be22da34722c7a86bad4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/044907929c7999814378be22da34722c7a86bad4",
+                "reference": "044907929c7999814378be22da34722c7a86bad4",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -10104,7 +10182,11 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< Updated upstream
                 "source": "https://github.com/symfony/yaml/tree/v6.4.48"
+=======
+                "source": "https://github.com/symfony/yaml/tree/v7.4.21"
+>>>>>>> Stashed changes
             },
             "funding": [
                 {
@@ -10124,7 +10206,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2026-10-12T09:18:28+00:00"
+=======
+            "time": "2026-10-12T12:34:30+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "theseer/tokenizer",
