@@ -1004,7 +1004,6 @@
 
 
 
-
                                                 @if (in_array("124", Session::get('permisos')) || in_array("125", Session::get('permisos')))
                                                     <li class="menu-item menu-item-submenu" aria-haspopup="true"
                                                         data-menu-toggle="hover" id="menuTallerMantenimiento">
