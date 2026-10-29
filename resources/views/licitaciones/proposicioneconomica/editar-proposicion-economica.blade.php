@@ -31,6 +31,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
         $lici_id = $lic->id;
         $tipo_contrato = $lic->tipo_contrato;
         $acto_fallo = $lic->acto_fallo;
+        $tipo_partida = $lic->tipo_partida;
     @endphp
 @endforeach
                     <div class="card-toolbar">
@@ -172,7 +173,11 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                         <table class="table table-hover table-checkable table-responsive">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    @if($tipo_partida == 0)
+                                        <th>Partida</th>
+                                    @else
+                                        <th>Subpartidas</th>
+                                    @endif
                                     <th>Tipo de vehículo</th>
                                     <th>Carrocería</th>
                                     <th>Motor</th>
@@ -199,7 +204,14 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                 @php $precio_unitario = 0; $iva = 0; $total_monto=0; $subtotal_calculo=0; $iva_calculo=0; @endphp
                                 @foreach($segmento as $unid)
                                     <tr>
-                                        <td><input type="text" class="form-control partida_text" name="partida[]" value="{{ $unid->partida }}"></td>
+                                        @if($tipo_partida == 0)
+                                            <td>
+                                                <input type="hidden" name="partida[]" value="0">
+                                                <input type="text" class="form-control partida_text" name="" disabled placeholder="Partida Unica" value="">
+                                            </td>
+                                        @else
+                                            <td><input type="text" class="form-control partida_text" name="partida[]" value="{{ $unid->partida }}"></td>
+                                        @endif
                                         <td>{{ $unid->tipo_vehiculo }}</td>
                                         <td>{{ $unid->carroceria }}</td>
                                         <td>{{ $unid->motor }}</td>

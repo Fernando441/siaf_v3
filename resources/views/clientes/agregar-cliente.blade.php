@@ -37,7 +37,7 @@
                                     <div class="col-lg-6">
                                         <label>RFC</label>
                                         <div class="input-group">
-                                            <input type="text" name="rfc" id="rfc"  class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                            <input type="text" name="rfc" id="rfc" minlength="12"  maxlength="13" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -57,7 +57,7 @@
                                     <div class="col-lg-6">
                                         <label>Calle y Número (Domicilio Fiscal)</label>
                                         <div class="input-group">
-                                            <input type="text" name="calle_numero" id="calle_numero" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                            <input type="text" name="calle_numero" id="calle_numero" class="form-control specialCharts"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
                                 </div>
@@ -65,20 +65,20 @@
                                     <div class="col-lg-6">
                                         <label>Colonia / Delegación</label>
                                         <div class="input-group">
-                                            <input type="text" name="colonia" id="colonia"  class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                            <input type="text" name="colonia" id="colonia"  class="form-control specialCharts"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <label>Codigo Postal</label>
                                         <div class="input-group">
-                                            <input type="text" name="codigo_postal" id="codigo_postal"  class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                            <input type="text" name="codigo_postal" id="codigo_postal" minlength="4" maxlength="5"  class="form-control specialCharts"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-6">
                                         <label>Estado</label>
-                                        <select class="form-control" id="id_estado" name="id_estado"  required >
+                                        <select class="form-control" id="id_estado" name="id_estado"   >
                                             <option value="">Selecciona una opción</option>
                                             @foreach($estados as $estado)
                                                 <option value="{{ $estado->id_estado }}" >{{ $estado->estado_nombre }}</option>
@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <label>Municipio y/o Alcaldía.</label>
-                                        <select class="form-control" id="id_municipio" name="id_municipio"  required>
+                                        <select class="form-control" id="id_municipio" name="id_municipio"  >
                                             <option></option>
 {{--                                             <option value="">Selecciona una opción</option>
                                             @foreach($municipios as $municipio)
@@ -98,9 +98,9 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-6">
-                                        <label>Cédula fiscal</label>
+                                        <label>CURP</label>
                                         <div class="input-group">
-                                            <input type="text" name="cedula_fiscal" id="cedula_fiscal"  class="form-control" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                            <input type="text" name="cedula_fiscal" id="cedula_fiscal"  class="form-control" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
                                 </div>

@@ -1547,3 +1547,17 @@
 				document.getElementById("op_usocfdi").value = 0;
 			}
 		});
+
+// M O D U L O   D E  D I R E C C I O N   D E  L O G I S T I C A 
+
+		$("#all_traslados").click(function(){
+			($(this).is(":checked") ? $('.traslados_check').prop("checked", true) :    $('.traslados_check').prop("checked", false))
+		});
+
+		$("#all_asignacionunid").click(function(){
+			($(this).is(":checked") ? $('.asignacionunid_check').prop("checked", true) :    $('.asignacionunid_check').prop("checked", false))
+		});
+
+		$("#all_unidadessust").click(function(){
+			($(this).is(":checked") ? $('.unidadessust_check').prop("checked", true) :    $('.unidadessust_check').prop("checked", false))
+		});

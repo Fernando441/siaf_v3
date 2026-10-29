@@ -16,6 +16,7 @@
         Route::get('/ver-cliente/{id}', [App\Http\Controllers\Cliente\ClienteController::class, 'verCliente'])->name('cliente.vercliente');
         Route::post('/eliminar-documento-cliente', [App\Http\Controllers\Cliente\ClienteController::class, 'eliminardocumentocliente'])->name('cliente.eliminardocumentocliente');
         Route::post('/obtener-municipios', [App\Http\Controllers\Cliente\ClienteController::class, 'obtenermunicipios'])->name('cliente.obtenermunicipios');
+        Route::post('/cargamasiva-clientes', [App\Http\Controllers\Cliente\ClienteController::class, 'cargamasivaexcel'])->name('cliente.cargamasivauser'); 
 
     //Listado de estados
     	Route::get('/catalogo-estados', [App\Http\Controllers\Cliente\EstadoController::class, 'catalogoEstado'])->name('cliente.catalogoEstado');

@@ -266,3 +266,38 @@ $(".activar-cliente").click(function() {
     }
   });
 });
+
+$("#carga_masiva_cli").click(function(){
+
+  var num_carga = document.getElementById("num_carga").value;
+    if(num_carga == 0){
+      document.getElementById("num_carga").value= 1;
+      $("#div_cargamasiva").show();
+    }
+
+    if(num_carga == 1){
+      var op = 0;
+      document.getElementById("num_carga").value=0;
+      $("#div_cargamasiva").hide();
+    }
+
+});
+
+
+  $("#send_carga").click(function(){
+
+    var file_carga = document.getElementById("file_carga").value;
+
+     if(file_carga == ""){
+         Swal.fire("Para continuar debes agregar un archivo .csv");
+     }else{
+         Swal.fire({
+             position: "top-center",
+             icon: "success",
+             title: "Espere un momento, la información esta siendo procesada",
+             showConfirmButton: false
+         });
+         document.getElementById("submit_carga").submit();
+     }
+
+});

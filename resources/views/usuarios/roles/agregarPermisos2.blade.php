@@ -60,7 +60,7 @@
                                                         <span class="nav-icon">
                                                             <i class="flaticon2-notepad "></i>
                                                         </span>
-                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección comercial</span>
+                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección Comercial</span>
                                                     </a>
                                                 </li>
                                                
@@ -70,17 +70,26 @@
                                                         <span class="nav-icon">
                                                             <i class="flaticon2-list"></i>
                                                         </span>
-                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de administración de contratos</span>
+                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de Administración de Contratos</span>
                                                     </a>
                                                 </li>
                                                 
-                                                
+                                                <li class="nav-item mb-2">
+                                                    <a class="nav-link" id="profile-tab-5" data-toggle="tab" href="#tabDirLogistica" aria-controls="profile">
+                                                        <span class="nav-icon">
+                                                            <i class="flaticon2-files-and-folders menu-icon"></i>
+                                                        </span>
+                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de Logistica y Control de Flotillas</span>
+                                                    </a>
+                                                </li>
+
+
                                                 <li class="nav-item mb-2">
                                                     <a class="nav-link" id="profile-tab-5" data-toggle="tab" href="#tabDirOperaciones" aria-controls="profile">
                                                         <span class="nav-icon">
                                                             <i class="flaticon2-console"></i>
                                                         </span>
-                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de operaciones</span>
+                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de Operaciones</span>
                                                     </a>
                                                 </li>
                                                
@@ -89,7 +98,7 @@
                                                         <span class="nav-icon">
                                                             <i class="flaticon2-chart"></i>
                                                         </span>
-                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de administración y finanzas</span>
+                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de Administración y Finanzas</span>
                                                     </a>
                                                 </li>
                                                
@@ -2175,7 +2184,189 @@
                                                     </div>    
                                                 </div>
                                                 
-                                                
+                                                <div class="tab-pane fade" id="tabDirLogistica" role="tabpanel" aria-labelledby="profile-tab-5">
+                                                    <div class="accordion accordion-solid accordion-toggle-plus" id="accordionDireccionLogistica">
+                                                        <div class="card">
+                                                            <div class="card-header" id="heading">
+                                                                <div class="card-title collapsed" data-toggle="collapse" data-target="#accordionTraslados">
+                                                                    <i class="flaticon2-document"></i>Traslados
+                                                                </div>
+                                                                <div id="accordionTraslados" class="collapse" data-parent="#accordionDireccionLogistica">
+                                                                    <div class="card-body">
+
+                                                                        <div class="form-group row">
+                                                                            <div class="col-9">
+                                                                                <div class="checkbox-inline">
+                                                                                    <label class="checkbox mb-2">
+                                                                                    <input type="checkbox" id='all_unidad'>
+                                                                                    <span></span>Seleccionar todos</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group row">
+                                                                        </div>
+
+                                                                        @foreach($unidades as $value)
+                                                                        <div class="row mt-2">
+                                                                            <div class="col-md-8">
+                                                                                <label>{{ $value->guard_names }}</label>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <span class="switch switch-icon">
+                                                                                    <label>
+                                                                                        <input type="checkbox" name="permission[]" class="unidad_check all_unidades" value="{{ $value->id }}">
+                                                                                        <span></span>
+                                                                                    </label>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>       
+                                                                        @endforeach   
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        {{-- end translados --}}
+                                                        <div class="card">
+                                                            <div class="card-header" id="heading">
+                                                                <div class="card-title collapsed" data-toggle="collapse" data-target="#accordionAsignacionU">
+                                                                    <i class="flaticon2-document"></i>Asignacion de unidades
+                                                                </div>
+                                                            </div>
+
+                                                            <div id="accordionAsignacionU" class="collapse" data-parent="#accordionDireccionLogistica">
+                                                                <div class="card-body">
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-9">
+                                                                            <div class="checkbox-inline">
+                                                                                <label class="checkbox mb-2">
+                                                                                <input type="checkbox" id='all_asignacionunid'>
+                                                                                <span></span>Seleccionar todos</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                    </div>
+
+                                                                    @foreach($asgn_unidades as $value)
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-md-8">
+                                                                            <label>{{ $value->guard_names }}</label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <span class="switch switch-icon">
+                                                                                <label>
+                                                                                    <input type="checkbox"  name="permission[]" class="asignacionunid_check all_unidades" value="{{ $value->id }}">
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>       
+                                                                    @endforeach   
+                                                                </div>
+                                                            </div>
+
+                                                        </div> 
+                                                        {{-- END Asignacion unidades --}}
+                                                        <div class="card">
+                                                            <div class="card-header" id="heading">
+                                                                <div class="card-title collapsed" data-toggle="collapse" data-target="#accordionUnidadesSust">
+                                                                    <i class="flaticon2-document"></i>Unidades sustitutas
+                                                                </div>
+                                                            </div>
+
+                                                            <div id="accordionUnidadesSust" class="collapse" data-parent="#accordionDireccionLogistica">
+                                                                <div class="card-body">
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-9">
+                                                                            <div class="checkbox-inline">
+                                                                                <label class="checkbox mb-2">
+                                                                                <input type="checkbox" id='all_unidadessust'>
+                                                                                <span></span>Seleccionar todos</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                    </div>
+
+                                                                    @foreach($unidades_sustitutas as $value)
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-md-8">
+                                                                            <label>{{ $value->guard_names }}</label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <span class="switch switch-icon">
+                                                                                <label>
+                                                                                    <input type="checkbox" name="permission[]" class="unidadessust_check all_unidades" value="{{ $value->id }}">
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>       
+                                                                    @endforeach   
+                                                                </div>
+                                                            </div>
+
+                                                        </div> 
+                                                        {{-- END Unidades Sustitutas --}}
+                                                        <div class="card">
+                                                            <div class="card-header" id="heading">
+                                                                <div class="card-title collapsed" data-toggle="collapse" data-target="#accordionrequnidasig">
+                                                                    <i class="flaticon2-document"></i>Requisiciones
+                                                                </div>
+                                                            </div>
+                                                            <div id="accordionrequnidasig" class="collapse" data-parent="#accordionDireccionLogistica">
+                                                                <div class="card-body">
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-9">
+                                                                            <div class="checkbox-inline">
+                                                                                <label class="checkbox mb-2">
+                                                                                <input type="checkbox" id='all_requnidasig'>
+                                                                                <span></span>Seleccionar todos</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                    </div>
+
+                                                                    @foreach($unid_req_asignacion as $value)
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-md-8">
+                                                                            <label>{{ $value->guard_names }}</label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <span class="switch switch-icon">
+                                                                                <label>
+                                                                                    <input type="checkbox"  name="permission[]" class="requnidasig_check all_unidades" value="{{ $value->id }}">
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>       
+                                                                    @endforeach   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- END Requisiciones --}}
+
+
+                                                    </div>
+                                                </div>
 
 
                                                 <div class="tab-pane fade" id="tabDirOperaciones" role="tabpanel" aria-labelledby="profile-tab-5">
@@ -2268,7 +2459,7 @@
                                                         </div>
 
 
-                                                        <div class="card">
+{{--                                                         <div class="card">
                                                             <div class="card-header" id="heading">
                                                                 <div class="card-title collapsed" data-toggle="collapse" data-target="#accordionasignacionunid">
                                                                     <i class="flaticon2-document"></i>Asignación de unidades
@@ -2309,10 +2500,10 @@
                                                                     @endforeach   
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
 
-                                                        <div class="card">
+{{--                                                         <div class="card">
                                                             <div class="card-header" id="heading">
                                                                 <div class="card-title collapsed" data-toggle="collapse" data-target="#accordionrequnidasig">
                                                                     <i class="flaticon2-document"></i>Requisiciones
@@ -2354,7 +2545,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
+ --}}
 
 
                                                         <div class="card">
@@ -2399,18 +2590,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
                                                     </div>    
                                                 </div>

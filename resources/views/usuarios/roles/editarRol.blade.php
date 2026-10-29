@@ -30,7 +30,7 @@
                             <div class="col-lg-6">
                                 <label>Color del Menú</label>
                                 <div class="input-group">
-                                    <input type="color" class="form-control" name="color_menu" id="color_menu"/>
+                                    <input type="color" class="form-control" name="color_menu" value="{{ $rolInfo->color_menu }}" id="color_menu"/>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-lg-6">
-                                <button type="button"  id="btnGuardar" class="btn btn-success"><i class="la la-plus"></i>Guardar</button>
+                                <button type="button"  id="btnGuardar" class="btn btn-success"><i class="la la-plus"></i>Continuar</button>
                                 <a href="{{ route('rol.catalogoroles') }}"  class="btn btn-secondary"><i class="la la-arrow-left"></i>Regresar</a>
                             </div>
                         </div>

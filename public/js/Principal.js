@@ -499,9 +499,154 @@ var Principal = (function () {
             $("#menuInventarioVehiculos").addClass("menu-item-open");
         }
 
+
+        //ruta para menuControlSolicitudes
+        if (routeName.includes("controlsol")) {
+            activeMenuGerenciaOperaciones();
+            switch (routeName) {
+                case "controlsol.controlsolicitudes":
+                    $("#menuConttolSol").addClass("menu-item-active");
+                    $("#menuConttolSol").addClass("menu-item-open");
+                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
+                    break;
+                case "controlsol.versolmantenimiento":
+                    $("#menuConttolSol").addClass("menu-item-active");
+                    $("#menuConttolSol").addClass("menu-item-open");
+                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
+                    break;
+                case "controlsol.versolsustitutos":
+                    $("#menuConttolSol").addClass("menu-item-active");
+                    $("#menuConttolSol").addClass("menu-item-open");
+                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
+                    break;
+                case "controlsol.versolasignacion":
+                    $("#menuConttolSol").addClass("menu-item-active");
+                    $("#menuConttolSol").addClass("menu-item-open");
+                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
+                    break;
+                case "controlsol.versoltraslado":
+                    $("#menuConttolSol").addClass("menu-item-active");
+                    $("#menuConttolSol").addClass("menu-item-open");
+                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
+                    break;
+                case "controlsol.versolgps":
+                    $("#menuConttolSol").addClass("menu-item-active");
+                    $("#menuConttolSol").addClass("menu-item-open");
+                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
+                    break;
+
+            }
+        }
+
+
+
+
+        //------------------------------------------------------------------------------ END MENU DIRECCION DE OPERACIONES
+
+        //activar menu de Gerencia de Operaciones
+        function activeMenuGerenciaLogistica() {
+            $("#menuDireccionLogistica").addClass("menu-item-active");
+            $("#menuDireccionLogistica").addClass("menu-item-open");
+        }
+
+        //ruta para menuAsignacionUnidades
+        if (routeName.includes("movimientoslog")) {
+            activeMenuGerenciaLogistica();
+            switch (routeName) {
+                case "movimientoslog.listadomovimientos":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlista").addClass("menu-item-open");
+                    break;
+                case "movimientoslog.solicitudmovimiento":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlista").addClass("menu-item-open");
+                    break;
+                case "movimientoslog.asignarunidades":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlista").addClass("menu-item-open");
+                    break;
+                case "movimientoslog.editarsolicitud":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlista").addClass("menu-item-open");
+                    break;
+                case "movimientoslog.versolicitud":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlista").addClass("menu-item-open");
+                    break;
+                case "movimientoslog.verinfounidadtraslado":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlista").addClass("menu-item-open");
+                    break;
+
+            }
+        }
+
+
+
+
+        //ruta para menuAsignacionUnidades
+        if (routeName.includes("transladistassol")) {
+            activeMenuGerenciaLogistica();
+            switch (routeName) {
+                case "transladistassol.listadomovimientostransladistas":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
+                    break;
+                case "transladistassol.unidadestranslado":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
+                    break;
+                case "transladistassol.inventarioentrega":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
+                    break;
+                    
+                case "transladistassol.versolicitudtransladista":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
+                    break;
+
+            }
+        }
+        
+
+        //ruta para menuAsignacionUnidades
+        if (routeName.includes("transladooperador")) {
+            activeMenuGerenciaLogistica();
+            switch (routeName) {
+                case "transladooperador.listadotransladooperador":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlistaOperador").addClass("menu-item-open");
+                    break;
+                case "transladooperador.unidadestrasladooper":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlistaOperador").addClass("menu-item-open");
+                    break;
+                case "transladooperador.inventarioentregaoperador":
+                    $("#menuListadoMovimientos").addClass("menu-item-active");
+                    $("#menuListadoMovimientos").addClass("menu-item-open");
+                    $("#menuListadoMovlistaOperador").addClass("menu-item-open");
+                    break;
+
+            }
+        }
+        
+
         //ruta para menuAsignacionUnidades
         if (routeName.includes("unidad")) {
-            activeMenuGerenciaOperaciones();
+            activeMenuGerenciaLogistica();
             // console.log('ok2');
             switch (routeName) {
                 case "asignarunidad.asignacioncontratos":
@@ -524,7 +669,7 @@ var Principal = (function () {
 
         //ruta para menuUnidadesSustitutas
         if (routeName.includes("unidad")) {
-            activeMenuGerenciaOperaciones();
+            activeMenuGerenciaLogistica();
             // console.log('ok2');
             switch (routeName) {
                 case "unidadessustitutas.listadounidadessustitutas":
@@ -567,137 +712,33 @@ var Principal = (function () {
         }
 
 
-        //ruta para menuControlSolicitudes
-        if (routeName.includes("controlsol")) {
-            activeMenuGerenciaOperaciones();
-            switch (routeName) {
-                case "controlsol.controlsolicitudes":
-                    $("#menuConttolSol").addClass("menu-item-active");
-                    $("#menuConttolSol").addClass("menu-item-open");
-                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
-                    break;
-                case "controlsol.versolmantenimiento":
-                    $("#menuConttolSol").addClass("menu-item-active");
-                    $("#menuConttolSol").addClass("menu-item-open");
-                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
-                    break;
-                case "controlsol.versolsustitutos":
-                    $("#menuConttolSol").addClass("menu-item-active");
-                    $("#menuConttolSol").addClass("menu-item-open");
-                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
-                    break;
-                case "controlsol.versolasignacion":
-                    $("#menuConttolSol").addClass("menu-item-active");
-                    $("#menuConttolSol").addClass("menu-item-open");
-                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
-                    break;
-                case "controlsol.versoltraslado":
-                    $("#menuConttolSol").addClass("menu-item-active");
-                    $("#menuConttolSol").addClass("menu-item-open");
-                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
-                    break;
-                case "controlsol.versolgps":
-                    $("#menuConttolSol").addClass("menu-item-active");
-                    $("#menuConttolSol").addClass("menu-item-open");
-                    $("#menuListadoControlSolicitudes").addClass("menu-item-open");
-                    break;
-
-            }
+        if (routeUrl.includes("licitacion/listado-requisiciones-operaciones")) {
+            activeMenuGerenciaLogistica();
+            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
+            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
+        }
+        if (routeName.includes("reqoperaciones.verrequisicionoperaciones")) {
+            activeMenuGerenciaLogistica();
+            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
+            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
+        }
+        if (routeName.includes("reqoperaciones.verpartidaoperaciones")) {
+            activeMenuGerenciaLogistica();
+            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
+            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
+        }
+        if (routeName.includes("reqoperaciones.asignacionunidades")) {
+            activeMenuGerenciaLogistica();
+            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
+            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
+        }
+        if (routeName.includes("reqoperaciones.unidadesenpatioreq")) {
+            activeMenuGerenciaLogistica();
+            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
+            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
         }
 
-
-        //ruta para menuAsignacionUnidades
-        if (routeName.includes("movimientoslog")) {
-            activeMenuGerenciaOperaciones();
-            switch (routeName) {
-                case "movimientoslog.listadomovimientos":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlista").addClass("menu-item-open");
-                    break;
-                case "movimientoslog.solicitudmovimiento":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlista").addClass("menu-item-open");
-                    break;
-                case "movimientoslog.asignarunidades":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlista").addClass("menu-item-open");
-                    break;
-                case "movimientoslog.editarsolicitud":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlista").addClass("menu-item-open");
-                    break;
-                case "movimientoslog.versolicitud":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlista").addClass("menu-item-open");
-                    break;
-                case "movimientoslog.verinfounidadtraslado":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlista").addClass("menu-item-open");
-                    break;
-
-            }
-        }
-
-
-        //ruta para menuAsignacionUnidades
-        if (routeName.includes("transladistassol")) {
-            activeMenuGerenciaOperaciones();
-            switch (routeName) {
-                case "transladistassol.listadomovimientostransladistas":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
-                    break;
-                case "transladistassol.unidadestranslado":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
-                    break;
-                case "transladistassol.inventarioentrega":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
-                    break;
-                    
-                case "transladistassol.versolicitudtransladista":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlistaTransladistas").addClass("menu-item-open");
-                    break;
-
-            }
-        }
-        
-
-        //ruta para menuAsignacionUnidades
-        if (routeName.includes("transladooperador")) {
-            activeMenuGerenciaOperaciones();
-            switch (routeName) {
-                case "transladooperador.listadotransladooperador":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlistaOperador").addClass("menu-item-open");
-                    break;
-                case "transladooperador.unidadestrasladooper":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlistaOperador").addClass("menu-item-open");
-                    break;
-                case "transladooperador.inventarioentregaoperador":
-                    $("#menuListadoMovimientos").addClass("menu-item-active");
-                    $("#menuListadoMovimientos").addClass("menu-item-open");
-                    $("#menuListadoMovlistaOperador").addClass("menu-item-open");
-                    break;
-
-            }
-        }
-
+        //--------------------------------------------------------------------------------------------- END MENU DE LOGISTICA
 
 
         //ruta para menuInventarioVehiculos
@@ -980,31 +1021,7 @@ var Principal = (function () {
             $("#menuListadoPatios").addClass("menu-item-open");
         }
 
-        if (routeUrl.includes("licitacion/listado-requisiciones-operaciones")) {
-            activeMenuGerenciaOperaciones();
-            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
-            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
-        }
-        if (routeName.includes("reqoperaciones.verrequisicionoperaciones")) {
-            activeMenuGerenciaOperaciones();
-            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
-            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
-        }
-        if (routeName.includes("reqoperaciones.verpartidaoperaciones")) {
-            activeMenuGerenciaOperaciones();
-            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
-            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
-        }
-        if (routeName.includes("reqoperaciones.asignacionunidades")) {
-            activeMenuGerenciaOperaciones();
-            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
-            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
-        }
-        if (routeName.includes("reqoperaciones.unidadesenpatioreq")) {
-            activeMenuGerenciaOperaciones();
-            $("#menuListadoRequisicionesOP").addClass("menu-item-active menu-item-open");
-            $("#menuListadoRequisicionesOperaciones").addClass("menu-item-active menu-item-open");
-        }
+
 
         //activar menu de Gerencia de Operaciones
         function activeMenuCatalogos() {
