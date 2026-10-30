@@ -23,6 +23,9 @@ use App\Models\RolPermiso;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ClientesImport;
+
 class ClienteController extends Controller
 {
 
@@ -442,6 +445,14 @@ class ClienteController extends Controller
         }
         $cadena_municipio = '{' . rtrim($cadena_municipio, ',') . '}';
         return response()->json(['success' => $cadena_municipio]);
+    }
+
+    public function cargamasivaexcel(Request $request)
+    {
+        Excel::import( new ClientesImport(), $request->file('file_carga'));
+
+        session()->flash('success', 'Se importó correctamente el archivo.');
+        return redirect()->route('cliente.catalogoCliente');
     }
 
 }

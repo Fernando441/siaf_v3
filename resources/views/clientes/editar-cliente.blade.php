@@ -39,7 +39,7 @@
                                 <div class="col-lg-6">
                                     <label>RFC</label>
                                     <div class="input-group">
-                                        <input type="text" name="rfc" id="rfc"  class="form-control specialCharts" value="{{ $cliente->rfc }}" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                        <input type="text" name="rfc" id="rfc" minlength="12" maxlength="13" class="form-control specialCharts" value="{{ $cliente->rfc }}" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -59,7 +59,7 @@
                                 <div class="col-lg-6">
                                     <label>Calle y Número (Domicilio Fiscal)</label>
                                     <div class="input-group">
-                                        <input type="text" name="calle_numero" id="calle_numero" class="form-control specialCharts" value="{{ $cliente->calle_numero }}" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                        <input type="text" name="calle_numero" id="calle_numero" class="form-control specialCharts" value="{{ $cliente->calle_numero }}"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                     </div>
                                 </div>
                             </div>
@@ -67,13 +67,13 @@
                                 <div class="col-lg-6">
                                     <label>Colonia / Delegación</label>
                                     <div class="input-group">
-                                        <input type="text" name="colonia" id="colonia"  class="form-control specialCharts" value="{{ $cliente->colonia }}" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                        <input type="text" name="colonia" id="colonia"  class="form-control specialCharts" value="{{ $cliente->colonia }}"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Codigo Postal</label>
                                     <div class="input-group">
-                                        <input type="text" name="codigo_postal" id="codigo_postal"  class="form-control specialCharts" value="{{ $cliente->codigo_postal }}" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                        <input type="text" name="codigo_postal" id="codigo_postal" minlength="4" maxlength="5" class="form-control specialCharts" value="{{ $cliente->codigo_postal }}"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                     </div>
                                 </div>
                             </div>
@@ -101,9 +101,9 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-6">
-                                        <label>Cédula fiscal</label>
+                                        <label>CURP</label>
                                         <div class="input-group">
-                                            <input type="text" name="cedula_fiscal" id="cedula_fiscal" value="{{ $cliente->cedula_fiscal }}"  class="form-control" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                            <input type="text" name="cedula_fiscal" id="cedula_fiscal" value="{{ $cliente->cedula_fiscal }}"  class="form-control" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
                                 </div>

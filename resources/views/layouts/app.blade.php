@@ -700,6 +700,162 @@
                                         </div>
                                     </li>
                                 @endif
+
+                    {{-- INIT: DIRECCIÓN DE LOGISTICA Y CONTROL DE FLOTILLAS --}}
+                    @if ( in_array("368", Session::get('permisos')) || in_array("372", Session::get('permisos')) || in_array("374", Session::get('permisos'))|| in_array("376", Session::get('permisos')) || in_array("380", Session::get('permisos')) || in_array("382", Session::get('permisos')) || in_array("384", Session::get('permisos')) )
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover" id="menuDireccionLogistica">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                                <i class="flaticon2-files-and-folders menu-icon"></i>
+                                <span class="menu-text">Dirección de Logistica y Control de Flotillas</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    @if ( in_array("368", Session::get('permisos')) || in_array("372", Session::get('permisos')) || in_array("374", Session::get('permisos'))  )
+                                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover" id="menuListadoMovimientos">
+                                            <a href="javascript:;" class="menu-link menu-toggle">
+                                                <i class="flaticon2-browser-2 menu-icon"></i>
+                                                <span class="menu-text">Traslados</span>
+                                                <i class="menu-arrow"></i>
+                                            </a>
+                                            <div class="menu-submenu">
+                                                <i class="menu-arrow"></i>
+                                                <ul class="menu-subnav">
+                                                    @if (in_array("368", Session::get('permisos')))
+                                                        <li class="menu-item" aria-haspopup="true" id="menuListadoMovlista">
+                                                            <a href="{{ route('movimientoslog.listadomovimientos') }}" class="menu-link">
+                                                                <i class="menu-bullet menu-bullet-dot">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">Listado de traslados</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+
+                                                    @if (in_array("372", Session::get('permisos')))
+                                                        <li class="menu-item" aria-haspopup="true" id="menuListadoMovlistaTransladistas">
+                                                            <a href="{{ route('transladistassol.listadomovimientostransladistas') }}" class="menu-link">
+                                                                <i class="menu-bullet menu-bullet-dot">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">Listado de traslados</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+
+                                                    @if (in_array("374", Session::get('permisos')))
+                                                        <li class="menu-item" aria-haspopup="true" id="menuListadoMovlistaOperador">
+                                                            <a href="{{ route('transladooperador.listadotransladooperador') }}" class="menu-link">
+                                                                <i class="menu-bullet menu-bullet-dot">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">Listado de traslados</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    {{-- END traslados --}}
+
+                                    @if (in_array("376", Session::get('permisos')))
+                                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover" id="asignacionunidades">
+                                            <a href="javascript:;" class="menu-link menu-toggle">
+                                                <i class="flaticon2-browser-2 menu-icon"></i>
+                                                <span class="menu-text">Asignación de unidades</span>
+                                                <i class="menu-arrow"></i>
+                                            </a>
+                                            <div class="menu-submenu">
+                                                <i class="menu-arrow"></i>
+                                                <ul class="menu-subnav">
+                                                    @if (in_array("131", Session::get('permisos')))
+                                                        <li class="menu-item" aria-haspopup="true" id="asignarunid">
+                                                            <a href="{{ route('asignarunidad.asignacioncontratos') }}" class="menu-link">
+                                                                <i class="menu-bullet menu-bullet-dot">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">Listado de asignaciones</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    {{-- end asignacion unidades --}}
+                                    @if ( in_array("380", Session::get('permisos')) || in_array("382", Session::get('permisos'))   )
+                                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover" id="unidadessustitutas">
+                                            <a href="javascript:;" class="menu-link menu-toggle">
+                                                <i class="flaticon2-browser-2 menu-icon"></i>
+                                                <span class="menu-text">Unidades sustitutas</span>
+                                                <i class="menu-arrow"></i>
+                                            </a>
+                                            <div class="menu-submenu">
+                                                <i class="menu-arrow"></i>
+                                                <ul class="menu-subnav">
+                                                    @if (in_array("380", Session::get('permisos')))
+                                                        <li class="menu-item" aria-haspopup="true" id="sustitutasid">
+                                                            <a href="{{ route('unidadessustitutas.listadounidadessustitutas') }}" class="menu-link">
+                                                                <i class="menu-bullet menu-bullet-dot">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">Listado de solicitudes</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+
+                                                    @if (in_array("382", Session::get('permisos')))
+                                                        <li class="menu-item" aria-haspopup="true" id="sustitutasidrevision">
+                                                            <a href="{{ route('unidadessustitutas.listadosustitutologistica') }}" class="menu-link">
+                                                                <i class="menu-bullet menu-bullet-dot">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">Revision de solicitudes</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    {{-- END unidades sustitutas --}}
+                                    @if (in_array("384", Session::get('permisos')))
+                                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover" id="menuListadoRequisicionesOP">
+                                            <a href="javascript:;" class="menu-link menu-toggle">
+                                                <i class="flaticon2-browser-2 menu-icon"></i>
+                                                <span class="menu-text">Requisiciones</span>
+                                                <i class="menu-arrow"></i>
+                                            </a>
+                                            <div class="menu-submenu">
+                                                <i class="menu-arrow"></i>
+                                                <ul class="menu-subnav">
+                                                    @if (in_array("384", Session::get('permisos')))
+                                                        <li class="menu-item" aria-haspopup="true" id="menuListadoRequisicionesOperaciones">
+                                                            <a href="{{ route('reqoperaciones.catalogorequisicionoperaciones') }}" class="menu-link">
+                                                                <i class="menu-bullet menu-bullet-dot">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">Listado de requisiciones</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    {{-- END Requisiciones de logistica --}}
+
+                                </ul>
+                            </div>
+                        </li>
+                    @endif
+                    {{-- END: DIRECCIÓN DE LOGISTICA Y CONTROL DE FLOTILLAS --}}
+
+
                                 {{-- GERENCIA DE OPERACIONES --}}
                                 @if ((in_array("9", Session::get('permisos')) || in_array("10", Session::get('permisos')) || in_array("21", Session::get('permisos')) || in_array("124", Session::get('permisos')) || in_array("125", Session::get('permisos'))) && Session::get('role_id') !== 17)
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover"
@@ -846,154 +1002,6 @@
                                                 </li>
                                                 {{-- listado de solicitudes --}}
 
-                                                <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                                    data-menu-toggle="hover" id="menuListadoMovimientos">
-                                                    <a href="javascript:;" class="menu-link menu-toggle">
-                                                        <i class="flaticon2-browser-2 menu-icon"></i>
-                                                        <span class="menu-text">Traslados</span>
-                                                        <i class="menu-arrow"></i>
-                                                    </a>
-                                                    <div class="menu-submenu">
-                                                        <i class="menu-arrow"></i>
-                                                        <ul class="menu-subnav">
-                                                            @if (in_array("131", Session::get('permisos')))
-                                                                <li class="menu-item" aria-haspopup="true" id="menuListadoMovlista">
-                                                                    <a href="{{ route('movimientoslog.listadomovimientos') }}"
-                                                                        class="menu-link">
-                                                                        <i class="menu-bullet menu-bullet-dot">
-                                                                            <span></span>
-                                                                        </i>
-                                                                        <span class="menu-text">Listado de traslados</span>
-                                                                    </a>
-                                                                </li>
-                                                            @endif
-
-                                                            @if (in_array("131", Session::get('permisos')))
-                                                                <li class="menu-item" aria-haspopup="true"
-                                                                    id="menuListadoMovlistaTransladistas">
-                                                                    <a href="{{ route('transladistassol.listadomovimientostransladistas') }}"
-                                                                        class="menu-link">
-                                                                        <i class="menu-bullet menu-bullet-dot">
-                                                                            <span></span>
-                                                                        </i>
-                                                                        <span class="menu-text">Listado de traslados</span>
-                                                                    </a>
-                                                                </li>
-                                                            @endif
-
-                                                            @if (in_array("131", Session::get('permisos')))
-                                                                <li class="menu-item" aria-haspopup="true"
-                                                                    id="menuListadoMovlistaOperador">
-                                                                    <a href="{{ route('transladooperador.listadotransladooperador') }}"
-                                                                        class="menu-link">
-                                                                        <i class="menu-bullet menu-bullet-dot">
-                                                                            <span></span>
-                                                                        </i>
-                                                                        <span class="menu-text">Listado de traslados</span>
-                                                                    </a>
-                                                                </li>
-                                                            @endif
-
-
-
-                                                        </ul>
-                                                    </div>
-                                                </li>
-
-
-                                                <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                                    data-menu-toggle="hover" id="asignacionunidades">
-                                                    <a href="javascript:;" class="menu-link menu-toggle">
-                                                        <i class="flaticon2-browser-2 menu-icon"></i>
-                                                        <span class="menu-text">Asignación de unidades</span>
-                                                        <i class="menu-arrow"></i>
-                                                    </a>
-                                                    <div class="menu-submenu">
-                                                        <i class="menu-arrow"></i>
-                                                        <ul class="menu-subnav">
-                                                            @if (in_array("131", Session::get('permisos')))
-                                                                <li class="menu-item" aria-haspopup="true" id="asignarunid">
-                                                                    <a href="{{ route('asignarunidad.asignacioncontratos') }}"
-                                                                        class="menu-link">
-                                                                        <i class="menu-bullet menu-bullet-dot">
-                                                                            <span></span>
-                                                                        </i>
-                                                                        <span class="menu-text">Listado de asignaciones</span>
-                                                                    </a>
-                                                                </li>
-                                                            @endif
-                                                        </ul>
-                                                    </div>
-                                                </li>
-
-
-
-                                                <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                                    data-menu-toggle="hover" id="unidadessustitutas">
-                                                    <a href="javascript:;" class="menu-link menu-toggle">
-                                                        <i class="flaticon2-browser-2 menu-icon"></i>
-                                                        <span class="menu-text">Unidades sustitutas</span>
-                                                        <i class="menu-arrow"></i>
-                                                    </a>
-                                                    <div class="menu-submenu">
-                                                        <i class="menu-arrow"></i>
-                                                        <ul class="menu-subnav">
-                                                            {{-- @if (in_array("131", Session::get('permisos'))) --}}
-                                                            <li class="menu-item" aria-haspopup="true" id="sustitutasid">
-                                                                <a href="{{ route('unidadessustitutas.listadounidadessustitutas') }}"
-                                                                    class="menu-link">
-                                                                    <i class="menu-bullet menu-bullet-dot">
-                                                                        <span></span>
-                                                                    </i>
-                                                                    <span class="menu-text">Listado de solicitudes</span>
-                                                                </a>
-                                                            </li>
-                                                            {{-- @endif --}}
-
-                                                            {{-- @if (in_array("131", Session::get('permisos'))) --}}
-                                                            <li class="menu-item" aria-haspopup="true"
-                                                                id="sustitutasidrevision">
-                                                                <a href="{{ route('unidadessustitutas.listadosustitutologistica') }}"
-                                                                    class="menu-link">
-                                                                    <i class="menu-bullet menu-bullet-dot">
-                                                                        <span></span>
-                                                                    </i>
-                                                                    <span class="menu-text">Revision de solicitudes</span>
-                                                                </a>
-                                                            </li>
-                                                            {{-- @endif --}}
-
-
-                                                        </ul>
-                                                    </div>
-                                                </li>
-
-
-                                                <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                                    data-menu-toggle="hover" id="menuListadoRequisicionesOP">
-                                                    <a href="javascript:;" class="menu-link menu-toggle">
-                                                        <i class="flaticon2-browser-2 menu-icon"></i>
-                                                        <span class="menu-text">Requisiciones</span>
-                                                        <i class="menu-arrow"></i>
-                                                    </a>
-                                                    <div class="menu-submenu">
-                                                        <i class="menu-arrow"></i>
-                                                        <ul class="menu-subnav">
-                                                            @if (in_array("131", Session::get('permisos')))
-                                                                <li class="menu-item" aria-haspopup="true"
-                                                                    id="menuListadoRequisicionesOperaciones">
-                                                                    <a href="{{ route('reqoperaciones.catalogorequisicionoperaciones') }}"
-                                                                        class="menu-link">
-                                                                        <i class="menu-bullet menu-bullet-dot">
-                                                                            <span></span>
-                                                                        </i>
-                                                                        <span class="menu-text">Listado de requisiciones</span>
-                                                                    </a>
-                                                                </li>
-                                                            @endif
-                                                        </ul>
-                                                    </div>
-                                                </li>
 
 
                                                 @if (in_array("124", Session::get('permisos')) || in_array("125", Session::get('permisos')))

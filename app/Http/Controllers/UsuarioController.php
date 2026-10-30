@@ -507,13 +507,20 @@ class UsuarioController extends Controller
             //Catalogos
                 $penalizaciones = Permission::where('modulo_permiso', 50)->get(); 
 
+        //Direccin de Logistica
+                $traslados = Permission::where('modulo_permiso', 84)->get();
+                $asgn_unidades = Permission::where('modulo_permiso', 85)->get();
+                $unidades_sustitutas = Permission::where('modulo_permiso', 86)->get();
+                $unid_req_asignacion = Permission::where('modulo_permiso', 52)->get();
+
+
         //Direccion Operaciones
             //Modulos
                 $unidades = Permission::where('modulo_permiso', 3)->get();
                 $ubicaciones = Permission::where('modulo_permiso', 6)->get();
                 $mantenimientos = Permission::where('modulo_permiso', 33)->get();
                 $asignacionunidades = Permission::where('modulo_permiso', 51)->get();
-                $unid_req_asignacion = Permission::where('modulo_permiso', 52)->get();
+                
 
             //Catalogos
                 $marcas = Permission::where('modulo_permiso', 4)->get();
@@ -552,7 +559,7 @@ class UsuarioController extends Controller
                 $forma_pago = Permission::where('modulo_permiso', 68)->get();
                 $uso_cdfi = Permission::where('modulo_permiso', 69)->get();
 
-        return view('usuarios.agregar-rol', compact( 'rol', 'usuarios', 'unidades', 'marcas', 'modelos', 'ubicaciones', 'estatus','aseguradoras', 'cliente', 'estado', 'municipio', 'tipovehiculo','agencia', 'tipo_documento', 'tipo_asignacion', 'admin_segmento','as_tipovehiculo','as_puertas','as_carroceria','as_numcilindros','as_pasajeros','as_motor','as_llantarefaccion','as_espejoslaterales','as_accesorios','as_postencia','as_transmision','tablero','concursos','cli_unidades','requisiciones','gestor_doc','mantenimientos','admin_contratos','admin_finanzas','orden_compra', 'doc_concursos', 'pub_concurso', 'tip_contratacion', 'tip_doc_contrato', 'doc_cliente', 'admin_contrato_cat', 'tipo_convenio_mod', 'tipo_fianza', 'req_equipamiento', 'req_transporte', 'req_entidadfederativa', 'req_placas', 'req_combustible', 'penalizaciones', 'asignacionunidades', 'unid_req_asignacion', 'info_propietario', 'tramite_emplacamiento', 'tramite_tenencia', 'tramite_verificacion', 'tramite_reemplacamiento', 'tramite_cambiopropietario', 'tramite_aseguramiento', 'tramite_bv_venta', 'tramite_bv_robo', 'tramite_bv_siniestro', 'mantenimiento_solicitud', 'cat_afianzadora', 'doc_compra', 'proveedor_compra', 'metodo_pago', 'forma_pago', 'uso_cdfi', 'area_personal', 'as_radio', 'as_direccion', 'as_blindaje', 'as_capacidad', 'as_gps', 'as_inventario', 'servicios_talleres', 'tip_documento_talleres', 'estatus_siniestro', 'tramite_gps', 'estimaciones_fin'));        
+        return view('usuarios.agregar-rol', compact( 'rol', 'usuarios', 'unidades', 'marcas', 'modelos', 'ubicaciones', 'estatus','aseguradoras', 'cliente', 'estado', 'municipio', 'tipovehiculo','agencia', 'tipo_documento', 'tipo_asignacion', 'admin_segmento','as_tipovehiculo','as_puertas','as_carroceria','as_numcilindros','as_pasajeros','as_motor','as_llantarefaccion','as_espejoslaterales','as_accesorios','as_postencia','as_transmision','tablero','concursos','cli_unidades','requisiciones','gestor_doc','mantenimientos','admin_contratos','admin_finanzas','orden_compra', 'doc_concursos', 'pub_concurso', 'tip_contratacion', 'tip_doc_contrato', 'doc_cliente', 'admin_contrato_cat', 'tipo_convenio_mod', 'tipo_fianza', 'req_equipamiento', 'req_transporte', 'req_entidadfederativa', 'req_placas', 'req_combustible', 'penalizaciones', 'asignacionunidades', 'unid_req_asignacion', 'info_propietario', 'tramite_emplacamiento', 'tramite_tenencia', 'tramite_verificacion', 'tramite_reemplacamiento', 'tramite_cambiopropietario', 'tramite_aseguramiento', 'tramite_bv_venta', 'tramite_bv_robo', 'tramite_bv_siniestro', 'mantenimiento_solicitud', 'cat_afianzadora', 'doc_compra', 'proveedor_compra', 'metodo_pago', 'forma_pago', 'uso_cdfi', 'area_personal', 'as_radio', 'as_direccion', 'as_blindaje', 'as_capacidad', 'as_gps', 'as_inventario', 'servicios_talleres', 'tip_documento_talleres', 'estatus_siniestro', 'tramite_gps', 'estimaciones_fin', 'traslados', 'asgn_unidades', 'unidades_sustitutas'));        
     }
 
     public function agregarrol2(Request $request)
@@ -638,7 +645,7 @@ class UsuarioController extends Controller
         $ubicaciones = Permission::where('modulo_permiso', 6)->get();
         $mantenimientos = Permission::where('modulo_permiso', 33)->get();
         $asignacionunidades = Permission::where('modulo_permiso', 51)->get();
-        $unid_req_asignacion = Permission::where('modulo_permiso', 52)->get();
+        
 
         //Catalogos
         $marcas = Permission::where('modulo_permiso', 4)->get();
@@ -665,6 +672,13 @@ class UsuarioController extends Controller
         $estatus_siniestro = Permission::where('modulo_permiso', 80)->get();
         $tramite_gps = Permission::where('modulo_permiso', 81)->get();
             
+
+        //Direccin de Logistica
+            $traslados = Permission::where('modulo_permiso', 84)->get();
+            $asgn_unidades = Permission::where('modulo_permiso', 85)->get();
+            $unidades_sustitutas = Permission::where('modulo_permiso', 86)->get();
+            $unid_req_asignacion = Permission::where('modulo_permiso', 52)->get();
+
         //Direccion administración y finanzas
         //Modulos
         $admin_finanzas = Permission::where('modulo_permiso', 35)->get();
@@ -696,7 +710,7 @@ class UsuarioController extends Controller
             'tramite_reemplacamiento', 'tramite_cambiopropietario', 'tramite_aseguramiento', 'tramite_bv_venta',
             'tramite_bv_robo', 'tramite_bv_siniestro', 'mantenimiento_solicitud', 'servicios_talleres', 'tip_documento_talleres',
             'estatus_siniestro', 'tramite_gps', 'admin_finanzas', 'orden_compra', 'estimaciones_fin', 'doc_compra', 'proveedor_compra',
-            'metodo_pago', 'forma_pago', 'uso_cdfi'
+            'metodo_pago', 'forma_pago', 'uso_cdfi', 'traslados', 'asgn_unidades', 'unidades_sustitutas'
         ));
     }
 
@@ -810,13 +824,20 @@ class UsuarioController extends Controller
             //Catalogos
                 $penalizaciones = Permission::where('modulo_permiso', 50)->get(); 
 
+        //Direccin de Logistica
+            $traslados = Permission::where('modulo_permiso', 84)->get();
+            $asgn_unidades = Permission::where('modulo_permiso', 85)->get();
+            $unidades_sustitutas = Permission::where('modulo_permiso', 86)->get();
+            $unid_req_asignacion = Permission::where('modulo_permiso', 87)->get();
+
+
         //Direccion Operaciones
             //Modulos
                 $unidades = Permission::where('modulo_permiso', 3)->get();
                 $ubicaciones = Permission::where('modulo_permiso', 6)->get();
                 $mantenimientos = Permission::where('modulo_permiso', 33)->get();
                 $asignacionunidades = Permission::where('modulo_permiso', 51)->get();
-                $unid_req_asignacion = Permission::where('modulo_permiso', 52)->get();
+                
 
             //Catalogos
                 $marcas = Permission::where('modulo_permiso', 4)->get();
@@ -855,7 +876,7 @@ class UsuarioController extends Controller
                 $forma_pago = Permission::where('modulo_permiso', 68)->get();
                 $uso_cdfi = Permission::where('modulo_permiso', 69)->get();
 
-        return view('usuarios.roles.editarPermisos', compact('permisos_rol', 'rolInfo', 'rol', 'usuarios', 'unidades', 'marcas', 'modelos', 'ubicaciones', 'estatus','aseguradoras', 'cliente', 'estado', 'municipio', 'tipovehiculo', 'agencia', 'tipo_documento', 'tipo_asignacion', 'tablero','admin_segmento','as_tipovehiculo','as_puertas','as_carroceria','as_numcilindros','as_pasajeros','as_motor','as_llantarefaccion','as_espejoslaterales','as_accesorios','as_postencia','as_transmision','concursos','requisiciones','cli_unidades','gestor_doc','mantenimientos','admin_contratos','admin_finanzas', 'orden_compra', 'doc_concursos', 'pub_concurso', 'tip_contratacion', 'tip_doc_contrato', 'doc_cliente', 'admin_contrato_cat', 'tipo_convenio_mod', 'tipo_fianza', 'req_equipamiento', 'req_transporte', 'req_entidadfederativa', 'req_placas', 'req_combustible', 'penalizaciones', 'asignacionunidades', 'unid_req_asignacion', 'info_propietario', 'tramite_emplacamiento', 'tramite_tenencia', 'tramite_verificacion', 'tramite_reemplacamiento', 'tramite_cambiopropietario', 'tramite_aseguramiento', 'tramite_bv_venta', 'tramite_bv_robo', 'tramite_bv_siniestro', 'mantenimiento_solicitud', 'cat_afianzadora', 'doc_compra', 'proveedor_compra', 'metodo_pago', 'forma_pago', 'uso_cdfi', 'area_personal', 'as_radio', 'as_direccion', 'as_blindaje', 'as_capacidad', 'as_gps', 'as_inventario', 'servicios_talleres', 'tip_documento_talleres', 'estatus_siniestro', 'tramite_gps', 'estimaciones_fin'));   
+        return view('usuarios.roles.editarPermisos', compact('permisos_rol', 'rolInfo', 'rol', 'usuarios', 'unidades', 'marcas', 'modelos', 'ubicaciones', 'estatus','aseguradoras', 'cliente', 'estado', 'municipio', 'tipovehiculo', 'agencia', 'tipo_documento', 'tipo_asignacion', 'tablero','admin_segmento','as_tipovehiculo','as_puertas','as_carroceria','as_numcilindros','as_pasajeros','as_motor','as_llantarefaccion','as_espejoslaterales','as_accesorios','as_postencia','as_transmision','concursos','requisiciones','cli_unidades','gestor_doc','mantenimientos','admin_contratos','admin_finanzas', 'orden_compra', 'doc_concursos', 'pub_concurso', 'tip_contratacion', 'tip_doc_contrato', 'doc_cliente', 'admin_contrato_cat', 'tipo_convenio_mod', 'tipo_fianza', 'req_equipamiento', 'req_transporte', 'req_entidadfederativa', 'req_placas', 'req_combustible', 'penalizaciones', 'asignacionunidades', 'unid_req_asignacion', 'info_propietario', 'tramite_emplacamiento', 'tramite_tenencia', 'tramite_verificacion', 'tramite_reemplacamiento', 'tramite_cambiopropietario', 'tramite_aseguramiento', 'tramite_bv_venta', 'tramite_bv_robo', 'tramite_bv_siniestro', 'mantenimiento_solicitud', 'cat_afianzadora', 'doc_compra', 'proveedor_compra', 'metodo_pago', 'forma_pago', 'uso_cdfi', 'area_personal', 'as_radio', 'as_direccion', 'as_blindaje', 'as_capacidad', 'as_gps', 'as_inventario', 'servicios_talleres', 'tip_documento_talleres', 'estatus_siniestro', 'tramite_gps', 'estimaciones_fin', 'traslados', 'asgn_unidades', 'unidades_sustitutas'));   
     }
 
     public function editarrol(Request $request)

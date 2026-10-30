@@ -382,7 +382,7 @@ class SegmentosController extends Controller
         $transmision = Transmision::where('id_status_delete', 1)->get();
         $direccion = Direccion::where('id_status_delete', 1)->get();
         $segmentos = Segmento::where('id_status_delete', 1)->get();
-
+        // dd($tipovehiculo);
         return view('segmentos.crear-segmento', compact('accesorio', 'blindaje', 'capacidad', 'carroceria', 'cilindro', 'eninventario', 'espejoslaterales', 'gps', 'lantarefaccion', 'motor', 'nocilindro', 'pasajero', 'potencia', 'puerta', 'radio', 'tipovehiculo', 'transmision', 'direccion'));
     }
 

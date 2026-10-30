@@ -317,7 +317,8 @@ class ProposicionEconomicaController extends Controller
             'licitaciones.id_licitacion_prioridad',
             'licitaciones.contratacion',
             'licitaciones.acto_fallo',
-            'licitaciones.tipo_contrato'
+            'licitaciones.tipo_contrato',
+            'licitaciones.tipo_partida'
         )
             ->leftjoin("client as cli", "cli.id_cliente", "licitaciones.cliente")
             ->where("licitaciones.id", $proposicioneconomica[0]->licitacion_id)
@@ -378,12 +379,13 @@ class ProposicionEconomicaController extends Controller
             'licitaciones.id_licitacion_prioridad',
             'licitaciones.contratacion',
             'licitaciones.acto_fallo',
-            'licitaciones.tipo_contrato'
+            'licitaciones.tipo_contrato',
+            'licitaciones.tipo_partida'
         )
             ->leftjoin("client as cli", "cli.id_cliente", "licitaciones.cliente")
             ->where("licitaciones.id", $proposicioneconomica[0]->licitacion_id)
             ->get();
-
+            
         $afianzadora = Afianzadora::where("id_status_delete", 1)->get();
 
         return view('licitaciones.proposicioneconomica.editar-proposicion-economica-abierto', compact('segmento', 'licitacion', 'proposicioneconomica', 'redirect', 'afianzadora', 'permiso_array', 'proposicion', 'contrato'));
