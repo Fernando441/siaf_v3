@@ -7,7 +7,7 @@ var Modulo = function () {
 
     var validacion = function () {
         //validacion de formulario
-        const form = document.getElementById('frmCliente');
+        const form = document.getElementById('frmTickets');
         validador = FormValidation.formValidation(
             form,
             {
@@ -119,7 +119,7 @@ var Modulo = function () {
 
             "    <td>" +
             "       <div class='form-group mb-0'>" +
-            "          <select class='form-control personal' name='id_documento[" + contadorDocumentos + "]' id='id_documento" + contadorDocumentos + "' required>",
+            "          <select class='form-control personal' name='id_persona[" + contadorDocumentos + "]' id='id_persona" + contadorDocumentos + "' required>",
             "              <option value=''>Selecciona un opción</option>",
             lista,
             "          </select>",
@@ -136,7 +136,7 @@ var Modulo = function () {
         $("#tblDocumentos tbody").append(html); //agrega el html creado
         //agrega validación del elemento creado
 
-        validador.addField('id_documento[' + contadorDocumentos + ']', tipoArchivoValidador);
+        validador.addField('id_persona[' + contadorDocumentos + ']', tipoArchivoValidador);
         KTApp.initTooltips(); //inicia tooltip del elemento creado
         KTApp.initFileInput(); //inicia el elemento archivo del elemento creado
     };
@@ -147,7 +147,7 @@ var Modulo = function () {
             e.preventDefault();
 
             var idDocumento = $(this).data("id");
-            var nombreCampo = "id_documento[" + idDocumento + "]";
+            var nombreCampo = "id_persona[" + idDocumento + "]";
             var fila = $("#trDocumento" + idDocumento);
 
             console.log("ID a eliminar:", idDocumento);

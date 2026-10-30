@@ -7,3 +7,4 @@ Route::get('/catalogo-tickets', [App\Http\Controllers\Tablero\TicketController::
 Route::get('/crear-tickets', [App\Http\Controllers\Tablero\TicketController::class, 'creartickets'])->name('tickets.crear-tickets');
 Route::get('/inactivos-tickets', [App\Http\Controllers\Tablero\TicketController::class, 'inactivostickets'])->name('tickets.catalogo-tickets-inactivos');
 Route::post('/guardar-tickets', [App\Http\Controllers\Tablero\TicketController::class, 'guardarTicket'])->name('tickets.guardarTickets');
+Route::get('/catalogo-tickets-pendientes', [App\Http\Controllers\Tablero\TicketController::class, 'catalogoticketspendientes'])->name('tickets.catalogo-tickets-pendientes');

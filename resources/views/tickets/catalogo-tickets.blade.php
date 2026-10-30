@@ -38,7 +38,7 @@
                                         <a href="{{ route('tickets.crear-tickets') }}"
                                             class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                             <i class="la la-plus"></i>Nuevo ticket</a>
-                                        <a href="{{ route('tickets.crear-tickets') }}"
+                                        <a href="{{ route('tickets.catalogo-tickets-pendientes') }}"
                                             class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                             <i class="la la-plus"></i>Tickets Pendientes</a>
                                     @endif
