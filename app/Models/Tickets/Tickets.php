@@ -37,6 +37,6 @@ class Tickets extends Model
     
     public function userC()
     {
-        return $this->belongsTo('App\Models\Tickets\User', 'iduserCreated');
+        return $this->belongsTo('App\Models\User', 'iduserCreated');
     }
 }
