@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Tablero;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UsuarioController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -32,12 +34,28 @@ class TicketController extends Controller
     }
     public function creartickets()
     {
-        return view('tickets.crear-tickets');
+        $usuario = User::where('id_status_delete', 1)->get();
+        //$user = User::where('id', auth()->user()->id)->first();
+        //dd($usuario);
+                $documentos = User::where('id_status_delete',1)->get();
+
+        //tipo de documentos en formato json
+        $cadenaTipoDocumento = "";
+        foreach($documentos as $documento){
+            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->name.'",';
+        }
+        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+        return view('tickets.crear-tickets', compact('usuario', 'cadenaTipoDocumento'));
     }
 
     public function inactivostickets()
     {
         return view("tickets.catalogo-tickets-inactivos");
+    }
+
+    public function guardarticket()
+    {
+        
     }
 
 }

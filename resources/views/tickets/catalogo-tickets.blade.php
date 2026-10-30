@@ -91,8 +91,6 @@
                                             <th>Titulo</th>
                                             <th>Descripcion</th>
                                             <th>Fecha</th>
-                                            <th>Estatus</th>
-                                            <th>Asigno</th>
                                             <th class="text-center">Opciones</th>
                                         </tr>
                                     </thead>
@@ -103,8 +101,6 @@
                                                 <td>{{ $ticket_activo->titulo }}</td>
                                                 <td>{{ $ticket_activo->descripcion }}</td>
                                                 <td>{{ $ticket_activo->created_at }}</td>
-                                                <td>{{ $ticket_activo->estatus }}</td>
-                                                <td>{{ $ticket_activo->iduserCreated }}</td>
                                                 <td><a href="" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
                                                         title="Ver ticket" data-theme="dark" data-toggle="tooltip"
                                                         data-placement="top">
