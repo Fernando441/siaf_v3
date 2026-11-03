@@ -7,7 +7,7 @@
     <br>
     <small class="text-muted">
         <strong>Comentario:</strong> {{ $documento->comentario }} <br>
-        <strong>Archivo:</strong> {{ $documento->documento }}
+        <strong>Fecha:</strong> {{ $documento->fecha }}
     </small>
 </p>
 </div>

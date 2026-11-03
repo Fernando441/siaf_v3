@@ -88,9 +88,10 @@ class PropuestaTecnicaController extends Controller
         $cadenaTipoDocGestor = "";
         $cadenaSelectSubtext = "";
         foreach ($gestor_documentos as $documento) {
+            // dd($documento->fecha);
             $fecha = date("d/m/Y", strtotime($documento->fecha));
             $cadenaTipoDocGestor .= '"' . $documento->id . '":"' . $fecha . ' - ' . $documento->licitacionGestorTipoDocumento->informacion . '",';
-            $cadenaSelectSubtext .= '"' . $documento->id . '":"' . $documento->documento . '",';
+            $cadenaSelectSubtext .= '"' . $documento->id . '":"' . $documento->comentario . '",';
         }
         $cadenaTipoDocGestor = '{' . rtrim($cadenaTipoDocGestor, ',') . '}';
         $cadenaSelectSubtext = '{' . rtrim($cadenaSelectSubtext, ',') . '}';
@@ -99,6 +100,7 @@ class PropuestaTecnicaController extends Controller
         /* Creating a JSON object with the id and the information of the documents */
         //Tipos de Docuemtno Informacion Legal
         $documentosLegal = LicitacionInformacionLegal::where('id_status_delete', 1)->get();
+        // dd($documentosLegal);
         $cadenaTipoDocLegal = "";
         foreach ($documentosLegal as $documento) {
             $cadenaTipoDocLegal .= '"' . $documento->id . '":"' . $documento->informacion . '",';

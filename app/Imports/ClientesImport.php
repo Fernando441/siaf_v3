@@ -29,9 +29,9 @@ class ClientesImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row){
-            if($row['estado'] != null){ $estado = $this->obtenerestado($row['estado']); }else{  $estado = ""; }
-            if($row['municipio'] != null){ $municipio = $this->obtenermunicipio($row['municipio'], $estado); }else{  $municipio = ""; }
-            $cliente = $this->insertcliente($row,$estado,$municipio);
+            // if($row['estado'] != null){ $estado = $this->obtenerestado($row['estado']); }else{  $estado = ""; }
+            // if($row['municipio'] != null){ $municipio = $this->obtenermunicipio($row['municipio'], $estado); }else{  $municipio = ""; }
+            $cliente = $this->insertcliente($row);
         }
 
         session()->flash('success', 'Las unidades se crearon correctamente');
@@ -85,18 +85,28 @@ class ClientesImport implements ToCollection, WithHeadingRow
         return $data_id;
     }
 
-    public function insertcliente($row, $estado, $municipio)
+    public function insertcliente($row)
     {
+
+        if(strlen($row['rfc']) == 13) {
+            $tipo_cliente = 1;   
+            // Personas físicas
+        }else{
+            $tipo_cliente =2;
+            // Personas morales
+        }
+
         $data = [
             'rfc' => $row['rfc'],
             'razon_social' => $row['razon_social'],
             'alias' => $row['alias'],
-            'calle_numero' => $row['calle_y_numero'],
-            'colonia' => $row['colonia_o_delegacion'],
+            // 'calle_numero' => $row['calle_y_numero'],
+            // 'colonia' => $row['colonia_o_delegacion'],
             'codigo_postal' => $row['codigo_postal'],
-            'id_estado' => $estado,
-            'id_municipio' => $municipio,
-            'cedula_fiscal' => $row['curp'],
+            // 'id_estado' => $estado,
+            // 'id_municipio' => $municipio,
+            // 'cedula_fiscal' => $row['curp'],
+            'tipo_cliente'  => $tipo_cliente,
             'id_status_delete'  => 1,
             'iduserCreated' => auth()->user()->id,
             'iduserUpdated' => auth()->user()->id,

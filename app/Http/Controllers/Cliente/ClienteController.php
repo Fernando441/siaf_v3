@@ -286,10 +286,8 @@ class ClienteController extends Controller
     {
 
         $cliente = Cliente::where('id_cliente', $id_cliente)
-            ->join('municipio', 'client.id_municipio', '=', 'municipio.id_municipio')
-            ->join('estado', 'client.id_estado', '=', 'estado.id_estado')
-            ->select('client.*', 'municipio.*', 'estado.*')
             ->first();
+            // dd($cliente);
         $estados = Estado::orderBy('id_estado', 'asc')->get();
         $municipios = Municipio::orderBy('id_municipio', 'asc')->get();
 
