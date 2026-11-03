@@ -88,22 +88,52 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Titulo</th>
-                                            <th>Descripcion</th>
-                                            <th>Fecha</th>
+                                            <th>Ticket</th>
+                                            <th>Fecha de creación</th>
+                                            <th>Visto</th>
+                                            <th>Fecha visto</th>
+                                            <th>Terminó</th>
+                                            <th>Fecha término</th>
                                             <th class="text-center">Opciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
 
+                                    <tbody>
+                                        @foreach($tickets_pendientes as $ticket_pendiente)
+                                            <tr>
+                                                <td>{{ $ticket_pendiente->id }}</td>
+                                                <td>{{ $ticket_pendiente->ticket->titulo }}</td>
+                                                <td>{{ $ticket_pendiente->ticket->created_at }}</td>
+                                                <!-- <td>{{ $ticket_pendiente->created_at }}</td>
+                                                    <td>{{ $ticket_pendiente->estatus_visto }}</td>
+                                                    <td>{{ $ticket_pendiente->fecha_visto }}</td>
+                                                    <td>{{ $ticket_pendiente->estatus_finalizado }}</td>
+                                                    <td>{{ $ticket_pendiente->fecha_finalizado }}</td>
+                                                    <td><a href="" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
+                                                            title="Ver ticket" data-theme="dark" data-toggle="tooltip"
+                                                            data-placement="top">
+                                                            <i class="flaticon-eye"></i>
+                                                        </a>
+                                                        <a href="" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
+                                                            title="Editar ticket" data-theme="dark" data-toggle="tooltip"
+                                                            data-placement="top">
+                                                            <i class="flaticon-edit"></i>
+                                                        </a>
+                                                        <a class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" onClick=""
+                                                            data-toggle="modal" data-target="#model_delete_user" data-toggle="tooltip"
+                                                            data-theme="dark" title="Eliminar ticket">
+                                                            <i class="flaticon-delete"></i>
+                                                        </a>
+                                                    </td> -->
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                                 <!--end: Datatable-->
 
                                 <!-- <input type="hidden" id="datatable_i18n"
-                                                    value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-                                                <input type="hidden" id="clientedatatable" value="{{ route('cliente.clientedatatable') }}"> -->
+                                                                                value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+                                                                            <input type="hidden" id="clientedatatable" value="{{ route('cliente.clientedatatable') }}"> -->
                             </div>
                         </div>
                         <!--end::Card-->
