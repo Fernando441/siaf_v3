@@ -389,7 +389,9 @@
 						<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
 					</div>
 				</div>
-			</div>
+			</div>		
+	</div>
+
 
 			<div class="col-lg-4">
 				<div class="card">
@@ -490,7 +492,7 @@
 						</div>
 					</div>
 				</div>
-				{{-- //Claendario --}}
+				//Claendario
 
 
 				<div class="card mt-2">
@@ -541,7 +543,13 @@
 				</div>
 
 			</div>
-			{{-- END Direccion Comercial --}}
+
+	
+</div>
+
+
+
+			{{-- END Direccion Comercial
 
 
 			{{-- Modal Pendientes --}}

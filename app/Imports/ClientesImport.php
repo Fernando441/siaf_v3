@@ -87,12 +87,12 @@ class ClientesImport implements ToCollection, WithHeadingRow
 
     public function insertcliente($row)
     {
-        dd();
+
         if(strlen($row['rfc']) == 13) {
             $tipo_cliente = 1;   
             // Personas físicas
         }else{
-            $tipo_cliente = 1;
+            $tipo_cliente =2;
             // Personas morales
         }
 
@@ -100,12 +100,13 @@ class ClientesImport implements ToCollection, WithHeadingRow
             'rfc' => $row['rfc'],
             'razon_social' => $row['razon_social'],
             'alias' => $row['alias'],
-            'calle_numero' => $row['calle_y_numero'],
-            'colonia' => $row['colonia_o_delegacion'],
+            // 'calle_numero' => $row['calle_y_numero'],
+            // 'colonia' => $row['colonia_o_delegacion'],
             'codigo_postal' => $row['codigo_postal'],
             // 'id_estado' => $estado,
             // 'id_municipio' => $municipio,
-            'cedula_fiscal' => $row['curp'],
+            // 'cedula_fiscal' => $row['curp'],
+            'tipo_cliente'  => $tipo_cliente,
             'id_status_delete'  => 1,
             'iduserCreated' => auth()->user()->id,
             'iduserUpdated' => auth()->user()->id,
