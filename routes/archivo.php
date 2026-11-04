@@ -131,3 +131,6 @@
 
     //EvidenciaPendiente
     Route::get('/evidencia-pendiente/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'evidenciapendiente'])->name('archivo.evidenciapendiente');
+
+    //EvidenciaInventarioEquipo
+    Route::get('/documento-inventarioequipo/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'documentoEvidenciaEquipo'])->name('archivo.documentoInventarioEquipo');

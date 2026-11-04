@@ -1326,7 +1326,7 @@
                                                 {{-- @if (in_array("9", Session::get('permisos'))) --}}
                                                     <li class="menu-item" aria-haspopup="true"
                                                         id="menuDireccionSeminuevos_submenu_inventario_computo">
-                                                        <a href="{{ route('seminuevos.catalogo_vehi') }}" class="menu-link">
+                                                        <a href="{{ route('sistemas.catalogoinventario') }}" class="menu-link">
                                                             <i class="menu-bullet menu-bullet-dot">
                                                                 <span></span>
                                                             </i>

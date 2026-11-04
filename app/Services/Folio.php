@@ -9,6 +9,7 @@ use App\Models\Unidad\UnidadFolio;
 use App\Models\Proyecto\ProyectoFolio;
 use App\Models\Requisicion\RequisicionFolio;
 use App\Models\Proyecto\EstimacionesFolio;
+use App\Models\Sistemas\InventarioFolioComputo;
 
 class Folio
 {
@@ -80,7 +81,20 @@ class Folio
         $folioModel->save();
 
         return "E".str_pad($folio,5,"0", STR_PAD_LEFT);
-
     }
+
+
+    public function getFolioEquipoComputo(){
+
+        $folio = InventarioFolioComputo::with('folio')->max('folio');
+        $folio = $folio ? ++$folio : 1;
+        $folioModel = new InventarioFolioComputo();
+        $folioModel->folio = $folio;
+        $folioModel->anio = date('Y');
+        $folioModel->save();
+
+        return "JVCR".str_pad($folio,5,"0", STR_PAD_LEFT);
+    }
+
 
 }

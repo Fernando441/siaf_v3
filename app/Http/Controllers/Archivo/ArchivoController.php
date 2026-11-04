@@ -65,6 +65,7 @@ use App\Models\Taller\TallerPagoFinanzas;
 use App\Models\Logistica\SustitutoEvidencia;
 use App\Models\Translados\TrasladoUnidadDocumento;
 use App\Models\Tablero\PendientesEvidencia;
+use App\Models\Sistemas\InventarioEvidenciaComputo;
 
 class ArchivoController extends Controller
 {
@@ -729,5 +730,20 @@ class ArchivoController extends Controller
         }else{
             return abort('403');
         }        
+    }
+
+    public function documentoEvidenciaEquipo(Request $request)
+    {
+        
+        $user = auth()->user();
+        $id = $request->id;
+        $documento = InventarioEvidenciaComputo::findOrFail($id);
+        $existeArchivo = Storage::exists('sistemas/equipocomputo/'.$documento->id_inventario.'/'.$documento->documento);
+        if($user && $documento && $existeArchivo) {
+            return Storage::download('sistemas/equipocomputo/'.$documento->id_inventario.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
+        }else{
+            // dd('sistemas/equipocomputo/'.$documento->id.'/'.$documento->documento);
+            return abort('403');
+        }  
     }
 }
