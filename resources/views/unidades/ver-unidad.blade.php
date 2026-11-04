@@ -31,9 +31,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3">Documentos</a>
                             </li>
-                            <li class="nav-item">
+{{--                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4">Fotografía</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_5">Bitácora</a>
                             </li>

@@ -1312,6 +1312,48 @@
                                 @endif
                                 {{-- END: DIRECCIÓN DE SEMINUEVOS --}}
 
+                                {{-- @if (in_array("131", Session::get('permisos')) || in_array("139", Session::get('permisos')) || in_array("365", Session::get('permisos'))) --}}
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover"
+                                        id="menuDireccionSistemas">
+                                        <a href="javascript:;" class="menu-link menu-toggle">
+                                            <i class="flaticon-notepad menu-icon"></i>
+                                            <span class="menu-text">Dirección de Sistemas</span>
+                                            <i class="menu-arrow"></i>
+                                        </a>
+                                        <div class="menu-submenu">
+                                            <i class="menu-arrow"></i>
+                                            <ul class="menu-subnav">
+                                                {{-- @if (in_array("9", Session::get('permisos'))) --}}
+                                                    <li class="menu-item" aria-haspopup="true"
+                                                        id="menuDireccionSeminuevos_submenu_inventario_computo">
+                                                        <a href="{{ route('seminuevos.catalogo_vehi') }}" class="menu-link">
+                                                            <i class="menu-bullet menu-bullet-dot">
+                                                                <span></span>
+                                                            </i>
+                                                            <span class="menu-text">Inventario de equipo de computo</span>
+                                                        </a>
+                                                    </li>
+                                                {{-- @endif --}}
+
+                                                {{-- @if (in_array("9", Session::get('permisos'))) --}}
+                                                    <li class="menu-item" aria-haspopup="true"
+                                                        id="menuDireccionSeminuevos_submenu_inventario_resguardo">
+                                                        <a href="{{ route('seminuevos.catalogo_vehi') }}" class="menu-link">
+                                                            <i class="menu-bullet menu-bullet-dot">
+                                                                <span></span>
+                                                            </i>
+                                                            <span class="menu-text">Resguardos</span>
+                                                        </a>
+                                                    </li>
+                                                {{-- @endif --}}
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {{-- @endif --}}
+                                {{-- END: DIRECCIÓN DE SISTEMAS --}}
+
+
                                 {{-- CATÁLOGOS --}} @if (Session::get('role_id') !== 17)
                                     <li class="menu-section">
                                         <h4 class="menu-text">CATÁLOGOS</h4>
