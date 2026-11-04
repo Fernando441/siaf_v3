@@ -26,7 +26,7 @@
                                     <span class="card-icon">
                                         <i class="flaticon2-file text-primary"></i>
                                     </span>
-                                    <h3 class="card-label">Catalogo de Tickets Creados</h3>
+                                    <h3 class="card-label">Tickets Pendientes</h3>
                                 </div>
                                 <div class="card-toolbar">
 
@@ -35,19 +35,15 @@
 
                                     <!--begin::Button-->
                                     @if (in_array("34", Session::get('permisos')))
-                                        <a href="{{ route('tickets.crear-tickets') }}"
+                                        <a href="{{ route('tickets.catalogo-tickets') }}"
                                             class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                            <i class="la la-plus"></i>Nuevo ticket</a>
-                                        <a href="{{ route('tickets.crear-tickets') }}"
-                                            class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                            <i class="la la-plus"></i>Tickets Pendientes</a>
+                                            <i class="la la-arrow-left"></i>Regresar</a>
+                                        
                                     @endif
                                     <input type="hidden" id="op_busqueda" value="1">
                                     <!--end::Button-->
 
-                                    <a href="{{ route('tickets.catalogo-tickets-inactivos') }}"
-                                        class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                        <i class="far fa-trash-alt"></i>Tickets terminados</a>
+                                    
 
 
                                     <!--begin::Dropdown-->
@@ -88,22 +84,70 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Titulo</th>
-                                            <th>Descripcion</th>
-                                            <th>Fecha</th>
+                                            <th>Ticket</th>
+                                            <th>Fecha de creación</th>
+                                            <th>Visualizado</th>
+                                            <th>Fecha visto</th>
+                                            <th>Finalizado</th>
+                                            <th>Fecha Finalizado</th>
                                             <th class="text-center">Opciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
 
+                                    <tbody>
+                                        @foreach($tickets_pendientes as $ticket_pendiente)
+                                            <tr>
+                                                <td>{{ $ticket_pendiente->id }}</td>
+                                                <td>{{ $ticket_pendiente->ticket->titulo }}</td>
+                                                <td>{{ $ticket_pendiente->ticket->created_at }}</td>
+                                                <td>
+                                                    @if ($ticket_pendiente->estatus_visto == 0)
+                                                        <span class="label font-weight-bold label-outline-danger label-inline">No Visto</span>
+                                                    @else
+                                                        <span class="label font-weight-bold label-outline-success label-inline">Visto</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($ticket_pendiente->estatus_visto == 0)
+                                                        -
+                                                    @else
+                                                        {{ $ticket_pendiente->fecha_visto }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($ticket_pendiente->estatus_finalizado == 0)
+                                                        <span class="label font-weight-bold label-outline-danger label-inline">No Finalizado</span>
+                                                    @else
+                                                        <span class="label font-weight-bold label-outline-success label-inline">Finalizado</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($ticket_pendiente->estatus_finalizado == 0)
+                                                        -
+                                                    @else
+                                                        {{ $ticket_pendiente->fecha_finalizado }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <button 
+                                                        class="btn btn-sm btn-clean btn-hover-icon-success btn-icon verTicket"
+                                                        title="Ver ticket"
+                                                        data-theme="dark"
+                                                        data-toggle="tooltip"
+                                                        data-id="{{$ticket_pendiente->id}}"
+                                                        
+                                                        data-placement="top">
+                                                        <i class="flaticon-eye"></i>
+                                                    </button>
+                                                </td>
+                                                
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                                 <!--end: Datatable-->
 
-                                <!-- <input type="hidden" id="datatable_i18n"
-                                                    value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-                                                <input type="hidden" id="clientedatatable" value="{{ route('cliente.clientedatatable') }}"> -->
+                                
                             </div>
                         </div>
                         <!--end::Card-->
@@ -116,23 +160,10 @@
         </div>
         <!--end::List-->
     </div>
+ <form method="post" id="ticket_form" action="{{ route('tickets.updateTicket') }}" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" name="id" id="idticket" value="">
+  </form> 
 
-
-
-    {{-- M O D A L S --}}
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        id="model_delete_user">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Desactivar cliente</h5>
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <span class="svg-icon svg-icon-2x"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endsection
