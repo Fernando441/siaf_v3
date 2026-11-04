@@ -22,7 +22,7 @@ class TicketsUsuario extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tickets_id', 'users_id', 'created_at', 'estatus_visto', 'fecha_visto', 'estatus_finalizado', 'fecha_finalizado', 'ip_usuario'];
+    protected $fillable = ['tickets_id', 'users_id', 'created_at', 'estatus_visto', 'fecha_visto', 'estatus_finalizado', 'fecha_finalizado', 'ip_usuario', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

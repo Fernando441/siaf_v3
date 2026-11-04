@@ -29,10 +29,6 @@
                                     <h3 class="card-label">Catalogo de Tickets Creados</h3>
                                 </div>
                                 <div class="card-toolbar">
-
-
-
-
                                     <!--begin::Button-->
                                     @if (in_array("34", Session::get('permisos')))
                                         <a href="{{ route('tickets.crear-tickets') }}"
@@ -40,15 +36,13 @@
                                             <i class="la la-plus"></i>Nuevo ticket</a>
                                         <a href="{{ route('tickets.catalogo-tickets-pendientes') }}"
                                             class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                            <i class="la la-plus"></i>Tickets Pendientes</a>
+                                            @if ($contador == 0)
+                                            @else
+                                                <span class="label font-weight-bold label-outline-danger label-inline">
+                                                    {{ $contador }}</span>
+                                            @endif Tickets Pendientes</a>
                                     @endif
                                     <input type="hidden" id="op_busqueda" value="1">
-                                    <!--end::Button-->
-
-                                    <a href="{{ route('tickets.catalogo-tickets-inactivos') }}"
-                                        class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                        <i class="far fa-trash-alt"></i>Tickets terminados</a>
-
 
                                     <!--begin::Dropdown-->
                                     <div class="dropdown dropdown-inline mr-2">
@@ -57,29 +51,15 @@
                                         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                             <!--begin::Navigation-->
                                             <ul class="navi flex-column navi-hover py-2">
-
-
-
                                             </ul>
-                                            <!--end::Navigation-->
                                         </div>
-                                        <!--end::Dropdown Menu-->
                                     </div>
-                                    <!--end::Dropdown-->
-
-
-
-
                                 </div>
                             </div>
                             <div class="card-body">
 
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
-
-
-
-
                                     </div>
                                 </div>
 
@@ -120,42 +100,12 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-
                                 </table>
-                                <!--end: Datatable-->
-
-                                <!-- <input type="hidden" id="datatable_i18n"
-                                                    value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-                                                <input type="hidden" id="clientedatatable" value="{{ route('cliente.clientedatatable') }}"> -->
                             </div>
                         </div>
-                        <!--end::Card-->
-                        <!--end::Card-->
-                    </div>
-
-                </div>
-                <!--end::Row-->
-            </div>
-        </div>
-        <!--end::List-->
-    </div>
-
-
-
-    {{-- M O D A L S --}}
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        id="model_delete_user">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Desactivar cliente</h5>
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <span class="svg-icon svg-icon-2x"></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
