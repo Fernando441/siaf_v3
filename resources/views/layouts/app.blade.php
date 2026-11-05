@@ -1334,10 +1334,10 @@
                                                     </li>
                                                 @endif
 
-                                                {{-- @if (in_array("9", Session::get('permisos'))) --}}
+                                                {{-- @if (in_array("391", Session::get('permisos'))) --}}
                                                     <li class="menu-item" aria-haspopup="true"
                                                         id="menuDireccionSistemas_submenu_resguardo">
-                                                        <a href=" " class="menu-link">
+                                                        <a href="{{ route('resguardo.catalogoresguardo') }}" class="menu-link">
                                                             <i class="menu-bullet menu-bullet-dot">
                                                                 <span></span>
                                                             </i>

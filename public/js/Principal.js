@@ -1006,6 +1006,17 @@ var Principal = (function () {
         }
 
 
+        //rutas para el menu de inventarios
+        if (routeName.includes("resguardo")) {
+            switch (routeName) {
+                case "resguardo.catalogoresguardo":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+            }
+        }
+
+
 
 
         if (routeName.includes("taller.clientes.solicitaratencion")) {

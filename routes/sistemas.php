@@ -13,3 +13,7 @@
     	Route::get('/catalogo-inventario-inactivos', [App\Http\Controllers\Sistemas\InventarioComputoController::class, 'catalogoinventarioinactivos'])->name('sistemas.catalogoinventarioinactivos');
     	Route::post('/delete-registro', [App\Http\Controllers\Sistemas\InventarioComputoController::class, 'deleteRegistro'])->name('sistemas.deleteRegistro');
     	Route::post('/activar-registro', [App\Http\Controllers\Sistemas\InventarioComputoController::class, 'activarRegistro'])->name('sistemas.activarRegistro');
+
+    //Listado Resguardos
+    	Route::get('/catalogo-resguardos', [App\Http\Controllers\Sistemas\ResguardoController::class, 'catalogoresguardo'])->name('resguardo.catalogoresguardo');
+    	Route::get('/agregar-resguardo', [App\Http\Controllers\Sistemas\ResguardoController::class, 'agregarResguardo'])->name('resguardo.agregarResguardo');
