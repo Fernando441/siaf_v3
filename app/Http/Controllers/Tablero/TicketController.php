@@ -18,15 +18,8 @@ class TicketController extends Controller
     {
         $this->middleware('auth');
     }
-    /*
-    public function mostrar()
-    {
-        $tickets_activos = Tickets::orderBy('id', 'ASC')->get();
-        dd($tickets_activos);
 
-        return view('tickets.catalogo-tickets');
-    }*/
-
+    //MUESTRA TICKETS ORIGINALES
     public function catalogotickets()
     {
         $tickets_activos = Tickets::orderBy('id', 'DESC')->get();
@@ -35,6 +28,8 @@ class TicketController extends Controller
         //dd($tickets_activos);
         return view('tickets.catalogo-tickets', compact('tickets_activos', 'contador'));
     }
+
+    //CREAR TICKETS ORIGINALES
     public function creartickets()
     {
         $usuario = User::where('id_status_delete', 1)->get();
@@ -51,11 +46,7 @@ class TicketController extends Controller
         return view('tickets.crear-tickets', compact('usuario', 'cadenaTipoDocumento'));
     }
 
-    public function inactivostickets()
-    {
-        return view("tickets.catalogo-tickets-inactivos");
-    }
-
+    //GUARDA TICKET ORIGINAL Y TICKETS USUARIOS
     public function guardarticket(Request $request)
     {
 
@@ -66,7 +57,8 @@ class TicketController extends Controller
             //'updated_at' =>date('Y-m-d H:i:s'),
             'iduserCreated' => auth()->user()->id,
             'iduserUpdated' => auth()->user()->id,
-            'estatus' => 0
+            'estatus' => 0,
+            'estatus_usuarios' => 0
         ];
         $id_ticket = Tickets::insertGetId($data);
 
@@ -91,6 +83,7 @@ class TicketController extends Controller
         return redirect()->route('tickets.catalogo-tickets');
     }
 
+    //MUESTRA EL CATALOGO DE TICKETS PENDIENTES
     public function catalogoticketspendientes()
     {
         //$tickets_pendientes = TicketsUsuario::orderBy('id', 'ASC')->get()->groupBy('tickets_id');
@@ -99,27 +92,70 @@ class TicketController extends Controller
         return view('tickets.catalogo-tickets-pendientes', compact('tickets_pendientes'));
     }
 
-    public function vertickets($tickets_id)
+    //MUESTRA LA INFORMACION DEL TICKET PENDIENTE SELECCIONADO
+    public function verticketspendeintes($tickets_id)
     {
-        //dd($tickets_id);
         $ticket_pendiente = TicketsUsuario::findOrFail($tickets_id);
-        //dd($ticket_pendiente);
-        
-
-        return view('tickets.ver-tickets', compact('ticket_pendiente'));
+        return view('tickets.ver-tickets-pendientes', compact('ticket_pendiente'));
     }
 
+    //AL VER EL TICEKT SELECCIONADO ACTUALIZA DATOS DE ESTATUS EN TABLA TICKETS Y TICKETS USUARIOS
     public function updateTicket(Request $request)
     {
 
         $visto = [
             'estatus_visto' => 1,
             'fecha_visto' => date('Y-m-d H:i:s'),
-            'updated_at' =>date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s')
             //'fecha_visto' => now()
         ];
         TicketsUsuario::where('id', $request->id)->update($visto);
-        return redirect()->route('tickets.ver-tickets', $request->id);
+
+        $ticket = TicketsUsuario::where('id', $request->id)->first();
+        $vistoticket = [
+            'estatus_usuarios' => 1,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        Tickets::where('id', $ticket->tickets_id)->update($vistoticket);
+        
+
+        return redirect()->route('tickets.ver-tickets-pendientes', $request->id);
+    }
+
+    //FINALIZA EL TICKET PENDIENTE
+    public function terminadoticket(Request $request)
+    {
+        $terminado = [
+            'estatus_finalizado' => 1,
+            'fecha_finalizado' => date('Y-m-d H:i:s')
+        ];
+        TicketsUsuario::where('id', $request->id)->update($terminado);
+        return redirect()->route('tickets.catalogo-tickets-pendientes');
+    }
+
+    //MUESTRA LA INOFRMACION DEL TICKET ORIGINAL SELECCIOANDO
+    public function vertickets($id_tickets)
+    {
+        $ticket = Tickets::findOrFail($id_tickets);
+        $ticketinfouser = TicketsUsuario::where('tickets_id', $id_tickets)->get();
+        //dd($ticketinfouser);
+        return view('tickets.ver-tickets', compact('ticket', 'ticketinfouser'));
+    }
+
+    public function terminadoticketoriginal(Request $request)
+    {
+        $terminado = [
+            'estatus' => 1,
+            'fecha_termino' => date('Y-m-d H:i:s')
+        ];
+        Tickets::where('id', $request->id)->update($terminado);
+        return redirect()->route('tickets.catalogo-tickets');
+    }
+
+    public function editartickets($id_tickets_e)
+    {
+        $editar_ticket = Tickets::findOrFail($id_tickets_e);
+        return view('tickets.editar-tickets', compact('editar_ticket'));
     }
 
 }

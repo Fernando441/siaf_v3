@@ -129,6 +129,13 @@
                                                     @endif
                                                 </td>
                                                 <td>
+                                                    @if ($ticket_pendiente->estatus_visto == 1)
+                                                        <a href="{{ route('tickets.ver-tickets-pendientes', $ticket_pendiente->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
+                                                        title="Ver ticket" data-theme="dark" data-toggle="tooltip"
+                                                        data-placement="top">
+                                                        <i class="flaticon-eye"></i>
+                                                    </a>
+                                                    @else
                                                     <button 
                                                         class="btn btn-sm btn-clean btn-hover-icon-success btn-icon verTicket"
                                                         title="Ver ticket"
@@ -139,6 +146,8 @@
                                                         data-placement="top">
                                                         <i class="flaticon-eye"></i>
                                                     </button>
+                                                    @endif
+                                                    
                                                 </td>
                                                 
                                             </tr>
@@ -164,6 +173,7 @@
     @csrf
     <input type="hidden" name="id" id="idticket" value="">
   </form> 
+   
 
 
 @endsection
