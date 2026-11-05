@@ -108,7 +108,14 @@
                                                     </a>
                                                 </li>
                                                
-
+                                                <li class="nav-item mb-2">
+                                                    <a class="nav-link" id="profile-tab-5" data-toggle="tab" href="#tabDirSistemas" aria-controls="profile">
+                                                        <span class="nav-icon">
+                                                            <i class="flaticon2-files-and-folders menu-icon"></i>
+                                                        </span>
+                                                        <span class="nav-text font-weight-bolder font-size-lg">Dirección de Sistemas</span>
+                                                    </a>
+                                                </li>
 
 
 
@@ -3769,6 +3776,58 @@
 
                                                     </div>
                                                 </div>
+
+
+
+
+                                                <div class="tab-pane fade" id="tabDirSistemas" role="tabpanel" aria-labelledby="profile-tab-5">
+                                                    <div class="accordion accordion-solid accordion-toggle-plus" id="accordionDirSistemas">
+                                                        <div class="card">
+                                                            <div class="card-header" id="heading">
+                                                                <div class="card-title collapsed" data-toggle="collapse" data-target="#accordionInventarioEquipo">
+                                                                    <i class="flaticon2-document"></i>Inventario de equipos
+                                                                </div>
+                                                            </div>
+                                                            <div id="accordionInventarioEquipo" class="collapse" data-parent="#accordionDirFinanzas">
+                                                                <div class="card-body">
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-9">
+                                                                            <div class="checkbox-inline">
+                                                                                <label class="checkbox mb-2">
+                                                                                <input type="checkbox" id='all_sistemas'>
+                                                                                <span></span>Seleccionar todos</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                    </div>
+
+                                                                    @foreach($inventarios_equipos as $value)
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-md-8">
+                                                                            <label>{{ $value->guard_names }}</label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <span class="switch switch-icon">
+                                                                                <label>
+                                                                                    <input type="checkbox" {{(in_array($value->id , $permiso_roles_id)) ? 'checked' : ''}} name="permission[]" class="inventario_check all_sistemas" value="{{ $value->id }}">
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>       
+                                                                    @endforeach   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
 
 
 

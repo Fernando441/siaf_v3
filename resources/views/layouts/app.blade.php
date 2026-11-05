@@ -1312,7 +1312,7 @@
                                 @endif
                                 {{-- END: DIRECCIÓN DE SEMINUEVOS --}}
 
-                                {{-- @if (in_array("131", Session::get('permisos')) || in_array("139", Session::get('permisos')) || in_array("365", Session::get('permisos'))) --}}
+                                @if (in_array("387", Session::get('permisos')) )
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover"
                                         id="menuDireccionSistemas">
                                         <a href="javascript:;" class="menu-link menu-toggle">
@@ -1323,7 +1323,7 @@
                                         <div class="menu-submenu">
                                             <i class="menu-arrow"></i>
                                             <ul class="menu-subnav">
-                                                {{-- @if (in_array("9", Session::get('permisos'))) --}}
+                                                @if (in_array("387", Session::get('permisos')))
                                                     <li class="menu-item" aria-haspopup="true"
                                                         id="menuDireccionSeminuevos_submenu_inventario_computo">
                                                         <a href="{{ route('sistemas.catalogoinventario') }}" class="menu-link">
@@ -1333,7 +1333,7 @@
                                                             <span class="menu-text">Inventario de equipo de computo</span>
                                                         </a>
                                                     </li>
-                                                {{-- @endif --}}
+                                                @endif
 
                                                 {{-- @if (in_array("9", Session::get('permisos'))) --}}
                                                     <li class="menu-item" aria-haspopup="true"
@@ -1350,7 +1350,7 @@
                                             </ul>
                                         </div>
                                     </li>
-                                {{-- @endif --}}
+                                @endif
                                 {{-- END: DIRECCIÓN DE SISTEMAS --}}
 
 

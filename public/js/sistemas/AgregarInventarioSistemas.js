@@ -192,7 +192,3 @@ jQuery(document).ready(function() {
 });
 
 
-
-function toggleCheckbox(element) {
-    alert("Hola");
-}

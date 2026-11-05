@@ -9,6 +9,13 @@
 @endpush
 
 @section('content')
+
+<style>
+    .oculto{
+        display:none;
+    }
+</style>
+
     <div class="d-flex flex-row">
 
     <!--begin::List-->
@@ -33,11 +40,55 @@
                                 <!--begin::Button-->
                                     <a href="{{ route('sistemas.agregarRegistro') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                     <i class="la la-plus"></i>Nuevo</a>
+
+
+
+                                  <a href="#" id="carga_masiva_equ" class="btn btn-light-primary font-weight-bolder mr-3 ml-3" >
+                                  <i class="la la-plus"></i>carga masiva</a>
+                                  <input type="hidden" id="num_carga" value="0">
                                 <!--end::Button-->
 
                             </div>
                         </div>
                         <div class="card-body">
+                            
+                            <div class="card card-custom gutter-b " id="div_cargamasiva">
+                              <div class="card-header">
+                                <div class="card-title">
+                                  <h3 class="card-label">
+                                    <small>Carga masiva</small>
+                                  </h3>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                 <a href="/layout/Carga Masiva Alta de Clientes.csv">Layout para la carga masiva</a>
+                                    <div class="row">
+                                      <div class="col-lg-10">
+                                        <form class="form" action="{{ route('cliente.cargamasivauser') }}" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
+                                          @csrf
+
+
+                                          <div class="row">
+                                              <div class="col-lg-12  form-group">
+                                                  <div class='custom-file mt-2'>
+                                                     <input type='file' class='custom-file-input' id='file_carga' name='file_carga' required />
+                                                     <label class='custom-file-label' for='foto"+contadorFotografia+"'>Selecciona un archivo</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </form>
+                                      </div>
+
+                                      <div class="col-lg-2 mt-2 form-group">
+                                        <button type="button" id="send_carga" class="btn btn-primary">Subir</button>
+                                      </div>
+
+                                    </div>
+
+                              </div>
+                            </div>
+                          {{-- END  Carga masiva  --}}
+
                             <!--begin: Datatable-->
                             <table class="table table-hover table-checkable" id="kdatatable_inventario">
                                 <thead>

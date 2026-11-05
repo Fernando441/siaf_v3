@@ -1561,3 +1561,9 @@
 		$("#all_unidadessust").click(function(){
 			($(this).is(":checked") ? $('.unidadessust_check').prop("checked", true) :    $('.unidadessust_check').prop("checked", false))
 		});
+
+// M O D U L O   D E  D I R E C C I O N   D E  S I S T E M A S
+		
+		$("#all_sistemas").click(function(){
+			($(this).is(":checked") ? $('.inventario_check').prop("checked", true) :    $('.inventario_check').prop("checked", false))
+		});
