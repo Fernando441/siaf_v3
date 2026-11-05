@@ -48,11 +48,14 @@
                                   <input type="hidden" id="num_carga" value="0">
                                 <!--end::Button-->
 
+                                <a href="{{ route('sistemas.catalogoinventarioinactivos') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
+                                    <i class="far fa-trash-alt"></i>Registros inactivos</a>
+
                             </div>
                         </div>
                         <div class="card-body">
                             
-                            <div class="card card-custom gutter-b " id="div_cargamasiva">
+                            <div class="card card-custom gutter-b oculto" id="div_cargamasiva">
                               <div class="card-header">
                                 <div class="card-title">
                                   <h3 class="card-label">
@@ -61,10 +64,10 @@
                                 </div>
                               </div>
                               <div class="card-body">
-                                 <a href="/layout/Carga Masiva Alta de Clientes.csv">Layout para la carga masiva</a>
+                                 <a href="/layout/Carga Masiva Inventario Sistemas.csv">Layout para la carga masiva</a>
                                     <div class="row">
                                       <div class="col-lg-10">
-                                        <form class="form" action="{{ route('cliente.cargamasivauser') }}" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
+                                        <form class="form" action="" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
                                           @csrf
 
 
@@ -90,7 +93,7 @@
                           {{-- END  Carga masiva  --}}
 
                             <!--begin: Datatable-->
-                            <table class="table table-hover table-checkable" id="kdatatable_inventario">
+                            <table class="table table-hover table-checkable table-responsive" id="kdatatable_inventario">
                                 <thead>
                                 <tr>
                                     <th>No. Folio</th>
@@ -100,6 +103,7 @@
                                     <th>Modelo</th>
                                     <th>Fecha ingreso</th>
                                     <th>Estatus</th>
+                                    <th>Personal</th>
                                   <th class="text-center">Opciones</th>
                                 </tr>
                                 </thead>
@@ -115,11 +119,14 @@
                                       <td>{{ $unid->fecha_ingreso }}</td>
                                       <td>
                                           @if($unid->estatus_asignado == 0)
-                                            <span class="label font-weight-bold label-outline-danger label-inline" >No asignado</span>
+                                            <span class="label font-weight-bold label-outline-danger label-inline" style="width: 120px; font-size: 10px; font-weight: bold;">No asignado</span>
                                           @else
                                             <span class="label font-weight-bold label-outline-success label-inline" >Asignado</span>
                                           @endif
 
+                                      </td>
+                                      <td>
+                                          
                                       </td>
 
                                       <td class="text-center">
@@ -127,7 +134,7 @@
 
                                         <a href="{{ route('sistemas.editarRegistro',$unid->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Editar equipo" data-theme="dark" data-toggle="tooltip" data-placement="top"><i class="flaticon-edit"></i></a>
 
-                                        <button class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" data-toggle="modal" data-target="#model_delete_concurso" data-toggle="tooltip" data-theme="dark" title="Desactivar equipo">
+                                        <button class="btn btn-sm btn-clean btn-hover-icon-success btn-icon desctiva_reg" data-id="{{ $unid->id }}" data-nombre="{{ $unid->no_serie }}" data-toggle="modal" data-target="#model_delete_concurso" data-toggle="tooltip" data-theme="dark" title="Desactivar equipo">
                                                 <i class="flaticon-delete"></i>
                                         </button>
                                       </td>
@@ -144,6 +151,7 @@
                                     <th>Modelo</th>
                                     <th>Fecha ingreso</th>
                                     <th>Estatus</th>
+                                    <th>Personal</th>
                                   <th class="text-center">Opciones</th>
                                 </tr>
                                 </tfoot>
@@ -166,11 +174,6 @@
     <!--end::List-->
 </div>
 
- <form method="post" id="cli_act_form" action="{{ route('cliente.activarcliente') }}" enctype="multipart/form-data">
-    @csrf
-    <input type="hidden" name="id" id="id_cli_act" value="">
-  </form> 
-
 
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
         id="model_delete_concurso">
@@ -185,14 +188,14 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="{{ route('licitacion.eliminarlicitacion') }}" method="post" id="submit_desactivar">
+                    <form action="{{ route('sistemas.deleteRegistro') }}" method="post" id="submit_desactivar">
                         @csrf
                         <div class="row form-group">
                             <div class="col-lg-12 mt-2">
                                 <label>Motivo</label>
                                 <input type="text" class="form-control" name="motivo" id="id_motivo_concurso" />
-                                <input type="hidden" name="id" id="id_del_lic">
-                                <input type="hidden" name="name_concurso" id="name_concurso">
+                                <input type="hidden" name="id" id="id_equipo">
+                                <input type="hidden" name="no_serie" id="no_serie">
                             </div>
                         </div>
                     </form>

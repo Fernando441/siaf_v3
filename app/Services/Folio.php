@@ -93,7 +93,7 @@ class Folio
         $folioModel->anio = date('Y');
         $folioModel->save();
 
-        return "JVCR".str_pad($folio,5,"0", STR_PAD_LEFT);
+        return "ACT".str_pad($folio,5,"0", STR_PAD_LEFT);
     }
 
 

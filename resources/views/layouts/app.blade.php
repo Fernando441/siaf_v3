@@ -1313,8 +1313,7 @@
                                 {{-- END: DIRECCIÓN DE SEMINUEVOS --}}
 
                                 @if (in_array("387", Session::get('permisos')) )
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover"
-                                        id="menuDireccionSistemas">
+                                    <li  id="menuDireccionSistemas" class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                         <a href="javascript:;" class="menu-link menu-toggle">
                                             <i class="flaticon-notepad menu-icon"></i>
                                             <span class="menu-text">Dirección de Sistemas</span>
@@ -1325,7 +1324,7 @@
                                             <ul class="menu-subnav">
                                                 @if (in_array("387", Session::get('permisos')))
                                                     <li class="menu-item" aria-haspopup="true"
-                                                        id="menuDireccionSeminuevos_submenu_inventario_computo">
+                                                        id="menuInventarioSistemas">
                                                         <a href="{{ route('sistemas.catalogoinventario') }}" class="menu-link">
                                                             <i class="menu-bullet menu-bullet-dot">
                                                                 <span></span>
@@ -1337,8 +1336,8 @@
 
                                                 {{-- @if (in_array("9", Session::get('permisos'))) --}}
                                                     <li class="menu-item" aria-haspopup="true"
-                                                        id="menuDireccionSeminuevos_submenu_inventario_resguardo">
-                                                        <a href="{{ route('seminuevos.catalogo_vehi') }}" class="menu-link">
+                                                        id="menuDireccionSistemas_submenu_resguardo">
+                                                        <a href=" " class="menu-link">
                                                             <i class="menu-bullet menu-bullet-dot">
                                                                 <span></span>
                                                             </i>

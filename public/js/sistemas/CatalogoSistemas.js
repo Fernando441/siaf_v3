@@ -1,4 +1,6 @@
 $("#kdatatable_inventario").DataTable({
+  lengthMenu: [10, 25, 50, 100],
+  pageLength: 25,
   language: {
         'lengthMenu': 'Display _MENU_',
         "url": $('#datatable_i18n').val()
@@ -50,5 +52,63 @@ $("#carga_masiva_equ").click(function(){
          });
          document.getElementById("submit_carga").submit();
      }
+});
 
+  
+
+$(".desctiva_reg").click(function(){
+  var id = $(this).data('id');
+  var nombre = $(this).data('nombre');
+
+  document.getElementById("id_equipo").value = id;
+  document.getElementById("no_serie").value = nombre;
+
+});
+
+$("#send_desactivar").click(function(){
+    var id_motivo_concurso = document.getElementById("id_motivo_concurso").value;
+    if(id_motivo_concurso == ""){
+        Swal.fire("Para continuar debes agregar el motivo por el cual desactivas el registro");
+    }else{
+        Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Espere un momento, la información esta siendo procesada",
+            showConfirmButton: false
+        });
+        document.getElementById("submit_desactivar").submit();
+    }
+});
+
+
+$(".activar-registro").click(function() {
+  var id = $(this).data('id');
+  var nombre = $(this).data('nombre');
+  Swal.fire({
+    title: "Estas seguro de activar el registro "+nombre,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Si, Activarlo!",
+    cancelButtonText: "No, Cancelar!",
+    reverseButtons: true,
+      confirmButtonColor: "#73ab17",
+      cancelButtonColor: "#cc0c73",
+  }).then(function(result) {
+    if (result.value) {
+      document.getElementById("id_cli_act").value = id;
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Espere un momento, la información esta siendo procesada",
+          showConfirmButton: false
+      });
+      document.getElementById("cli_act_form").submit();
+    } else if (result.dismiss === "cancel") {
+      Swal.fire(
+         "Cancelada",
+        "La acción fue cancelada",
+        "error"
+      )
+    }
+  });
 });
