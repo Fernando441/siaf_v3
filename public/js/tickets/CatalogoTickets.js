@@ -23,3 +23,13 @@ $(".verTicket").click(function () {
   document.getElementById("idticket").value = id;
   document.getElementById("ticket_form").submit();
 });
+$(".terminarTicket").click(function () {
+  var id = $(this).data('id');
+  document.getElementById("idticketerminado").value = id;
+  document.getElementById("ticket_terminado").submit();
+});
+$(".terminarTicketOriginal").click(function () {
+  var id = $(this).data('id');
+  document.getElementById("idticketerminadoriginal").value = id;
+  document.getElementById("ticket_terminado_original").submit();
+});

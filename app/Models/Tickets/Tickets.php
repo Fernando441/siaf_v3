@@ -21,14 +21,14 @@ class Tickets extends Model
     /**
      * @var array
      */
-    protected $fillable = ['titulo', 'descripcion', 'ip_usuario', 'created_at', 'iduserCreated', 'iduserUpdated', 'estatus', 'fecha_termino'];
+    protected $fillable = ['titulo', 'descripcion', 'ip_usuario', 'created_at', 'iduserCreated', 'iduserUpdated', 'estatus','estatus_usuarios', 'fecha_termino'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\Tickets\User', 'iduserUpdated');
+        return $this->belongsTo('App\Models\User', 'iduserUpdated');
     }
 
     /**

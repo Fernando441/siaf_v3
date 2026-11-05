@@ -71,6 +71,7 @@
                                             <th>Titulo</th>
                                             <th>Descripcion</th>
                                             <th>Fecha</th>
+                                            <th>Estatus</th>
                                             <th class="text-center">Opciones</th>
                                         </tr>
                                     </thead>
@@ -81,21 +82,39 @@
                                                 <td>{{ $ticket_activo->titulo }}</td>
                                                 <td>{{ $ticket_activo->descripcion }}</td>
                                                 <td>{{ $ticket_activo->created_at }}</td>
-                                                <td><a href="" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
+                                                <td>
+                                                    @if ($ticket_activo->estatus == 0)
+                                                        <span class="label font-weight-bold label-outline-warning label-inline">
+                                                            Pendiente
+                                                        </span>
+                                                    @else
+                                                        <span class="label font-weight-bold label-outline-success label-inline">
+                                                            Finalizado
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                                <td><a href="{{ route('tickets.ver-tickets', $ticket_activo->id) }}"
+                                                        class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
                                                         title="Ver ticket" data-theme="dark" data-toggle="tooltip"
                                                         data-placement="top">
                                                         <i class="flaticon-eye"></i>
                                                     </a>
-                                                    <a href="" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
-                                                        title="Editar ticket" data-theme="dark" data-toggle="tooltip"
-                                                        data-placement="top">
-                                                        <i class="flaticon-edit"></i>
-                                                    </a>
-                                                    <a class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" onClick=""
-                                                        data-toggle="modal" data-target="#model_delete_user"
-                                                        data-toggle="tooltip" data-theme="dark" title="Eliminar ticket">
-                                                        <i class="flaticon-delete"></i>
-                                                    </a>
+                                                    @if ($ticket_activo->estatus_usuarios == 0)
+                                                        <a href="{{ route('tickets.editar-tickets', $ticket_activo->id)}}"
+                                                            class="btn btn-sm btn-clean btn-hover-icon-success btn-icon"
+                                                            title="Editar ticket" data-theme="dark" data-toggle="tooltip"
+                                                            data-placement="top">
+                                                            <i class="flaticon-edit"></i>
+                                                        </a>
+                                                        <a class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" onClick=""
+                                                            data-toggle="modal" data-target="#model_delete_user"
+                                                            data-toggle="tooltip" data-theme="dark" title="Eliminar ticket">
+                                                            <i class="flaticon-delete"></i>
+                                                        </a>
+                                                    @else
+
+                                                    @endif
+
                                                 </td>
                                             </tr>
                                         @endforeach
