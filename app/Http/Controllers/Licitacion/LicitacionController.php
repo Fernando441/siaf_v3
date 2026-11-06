@@ -1623,7 +1623,7 @@ class LicitacionController extends Controller
         $footer = view('licitaciones.ver-licitaciones-pdf-footer')->render();
         $body = view('licitaciones.ver-licitaciones-pdf-body', compact('info','cliente', 'tipo_contratacion', 'publicacion','segmento'))->render();
 
-        $path = public_path() . '/theme/assets/media/logos/logojetvan-pdf.jpg';
+        $path = public_path() . '/theme/assets/media/logos/logojetvan-pdf.png';
         
         $mpdf = new Mpdf(['format' => [216, 340]]);
         $mpdf->SetDisplayMode('fullpage');

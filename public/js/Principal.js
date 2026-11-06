@@ -23,6 +23,9 @@ var Principal = (function () {
             $("#menuHome").addClass("menu-item-active menu-item-open");
         }
 
+
+
+
         //activar menu de Gerencia de Operaciones
         function activeMenuGerenciaOperaciones() {
             $("#menuGerenciaOperaciones").addClass("menu-item-active");
@@ -149,6 +152,10 @@ var Principal = (function () {
                     break;
             }
         }
+
+
+
+
 
         //activar menu de Gerencia Comercial
         function activeMenuGerenciaComercial() {
@@ -970,6 +977,53 @@ var Principal = (function () {
         }
 
 
+        //activar menu de Gerencia Sistemas
+        function activeMenuGerenciaSistemas() {
+            $("#menuDireccionSistemas").addClass("menu-item-active");
+            $("#menuDireccionSistemas").addClass("menu-item-open");
+        }
+
+        //rutas para el menu de inventarios
+        if (routeName.includes("sistemas")) {
+            switch (routeName) {
+                case "sistemas.catalogoinventario":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+                case "sistemas.agregarRegistro":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+                case "sistemas.editarRegistro":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+                case "sistemas.verRegistro":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+            }
+        }
+
+
+        //rutas para el menu de inventarios
+        if (routeName.includes("resguardo")) {
+            switch (routeName) {
+                case "resguardo.catalogoresguardo":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+                case "resguardo.agregarResguardo";
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+                case "resguardo.editResguardo":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+            }
+        }
+
 
 
 
@@ -1020,6 +1074,8 @@ var Principal = (function () {
             $("#menuListadoPatios").addClass("menu-item-active");
             $("#menuListadoPatios").addClass("menu-item-open");
         }
+
+
 
 
 

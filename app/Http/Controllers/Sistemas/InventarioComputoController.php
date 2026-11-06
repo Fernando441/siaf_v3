@@ -215,4 +215,38 @@ class InventarioComputoController extends Controller
     	return view('sistemas.inventario.ver-reg-computo', compact('cadenaTipoDocumento', 'tipo_equipo', 'req_compras', 'inventario', 'id_equipo', 'evidencia'));    	
     }
 
+    public function catalogoinventarioinactivos()
+    {
+        $inventario = InventarioComputo::where('id_status_delete', 2)->get();
+
+        return view('sistemas.inventario.catalogo-inv-computo-inactivos', compact('inventario'));        
+    }
+
+    public function deleteRegistro(Request $request)
+    {
+        $data = [
+            'id_status_delete' => 2,
+            'motivo_delete' => $request->motivo,
+            'updated_at' =>date('Y-m-d H:i:s')
+        ];
+
+        InventarioComputo::where('id', $request->id)->update($data);
+
+        session()->flash('success', 'El registro se desactivo correctamente');
+        return redirect()->route('sistemas.catalogoinventario');        
+    }
+
+    public function activarRegistro(Request $request)
+    {
+        $data = [
+            'id_status_delete' => 1,
+            'updated_at' =>date('Y-m-d H:i:s')
+        ];
+
+        InventarioComputo::where('id', $request->id)->update($data);
+
+        session()->flash('success', 'El registro se desactivo correctamente');
+        return redirect()->route('sistemas.catalogoinventarioinactivos');         
+    }
+
 }

@@ -10,6 +10,7 @@ use App\Models\Proyecto\ProyectoFolio;
 use App\Models\Requisicion\RequisicionFolio;
 use App\Models\Proyecto\EstimacionesFolio;
 use App\Models\Sistemas\InventarioFolioComputo;
+use App\Models\Sistemas\ResguardoFolio;
 
 class Folio
 {
@@ -93,7 +94,19 @@ class Folio
         $folioModel->anio = date('Y');
         $folioModel->save();
 
-        return "JVCR".str_pad($folio,5,"0", STR_PAD_LEFT);
+        return "ACT".str_pad($folio,5,"0", STR_PAD_LEFT);
+    }
+
+    public function getFolioResguardo(){
+
+        $folio = ResguardoFolio::with('folio')->max('folio');
+        $folio = $folio ? ++$folio : 1;
+        $folioModel = new ResguardoFolio();
+        $folioModel->folio = $folio;
+        $folioModel->anio = date('Y');
+        $folioModel->save();
+
+        return "RGS-".str_pad($folio,5,"0", STR_PAD_LEFT);
     }
 
 
