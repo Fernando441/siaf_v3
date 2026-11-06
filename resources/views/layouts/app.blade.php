@@ -1381,14 +1381,9 @@
                                 @endif
                                 {{-- END: DIRECCIÓN DE SEMINUEVOS --}}
 
-<<<<<<< HEAD
-                                @if (in_array("387", Session::get('permisos')))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover"
-                                        id="menuDireccionSistemas">
-=======
+
                                 @if (in_array("387", Session::get('permisos')) )
                                     <li  id="menuDireccionSistemas" class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
->>>>>>> 287ea55daa637e4d2faaace6a3b5fbe945f26c06
                                         <a href="javascript:;" class="menu-link menu-toggle">
                                             <i class="flaticon-notepad menu-icon"></i>
                                             <span class="menu-text">Dirección de Sistemas</span>
@@ -1409,18 +1404,7 @@
                                                     </li>
                                                 @endif
 
-<<<<<<< HEAD
-                                                {{-- @if (in_array("9", Session::get('permisos'))) --}}
-                                                <li class="menu-item" aria-haspopup="true"
-                                                    id="menuDireccionSeminuevos_submenu_inventario_resguardo">
-                                                    <a href="{{ route('seminuevos.catalogo_vehi') }}" class="menu-link">
-                                                        <i class="menu-bullet menu-bullet-dot">
-                                                            <span></span>
-                                                        </i>
-                                                        <span class="menu-text">Resguardos</span>
-                                                    </a>
-                                                </li>
-=======
+
                                                 {{-- @if (in_array("391", Session::get('permisos'))) --}}
                                                     <li class="menu-item" aria-haspopup="true"
                                                         id="menuDireccionSistemas_submenu_resguardo">
@@ -1431,7 +1415,7 @@
                                                             <span class="menu-text">Resguardos</span>
                                                         </a>
                                                     </li>
->>>>>>> 287ea55daa637e4d2faaace6a3b5fbe945f26c06
+
                                                 {{-- @endif --}}
 
                                             </ul>
