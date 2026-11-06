@@ -34,13 +34,6 @@
                                         <a href="{{ route('tickets.crear-tickets') }}"
                                             class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                             <i class="la la-plus"></i>Nuevo ticket</a>
-                                        <a href="{{ route('tickets.catalogo-tickets-pendientes') }}"
-                                            class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                            @if ($contador == 0)
-                                            @else
-                                                <span class="label font-weight-bold label-outline-danger label-inline">
-                                                    {{ $contador }}</span>
-                                            @endif Tickets Pendientes</a>
                                     @endif
                                     <input type="hidden" id="op_busqueda" value="1">
 
@@ -106,11 +99,17 @@
                                                             data-placement="top">
                                                             <i class="flaticon-edit"></i>
                                                         </a>
-                                                        <a class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" onClick=""
-                                                            data-toggle="modal" data-target="#model_delete_user"
-                                                            data-toggle="tooltip" data-theme="dark" title="Eliminar ticket">
+                                                        <button
+                                                            class="btn btn-sm btn-clean btn-hover-icon-success btn-icon eliminarTicket"
+                                                            title="Eliminar ticket" data-theme="dark" data-toggle="tooltip"
+                                                            data-id="{{ $ticket_activo->id }}" data-placement="top">
                                                             <i class="flaticon-delete"></i>
-                                                        </a>
+                                                        </button>
+                                                        <!-- <a class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" onClick=""
+                                                                                    data-toggle="modal" data-target="#model_delete_user"
+                                                                                    data-toggle="tooltip" data-theme="dark" title="Eliminar ticket">
+                                                                                    <i class="flaticon-delete"></i>
+                                                                                </a> -->
                                                     @else
 
                                                     @endif
@@ -127,4 +126,8 @@
             </div>
         </div>
     </div>
+    <form method="post" id="ticket_terminado" action="{{ route('tickets.eliminarTicket') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="id" id="idticketerminado" value="">
+    </form>
 @endsection

@@ -33,3 +33,34 @@ $(".terminarTicketOriginal").click(function () {
   document.getElementById("idticketerminadoriginal").value = id;
   document.getElementById("ticket_terminado_original").submit();
 });
+
+$(".eliminarTicket").click(function() {
+  var id = $(this).data('id');
+  Swal.fire({
+    title: "Estas seguro de eliminar el ticket ",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Si, Eliminar!",
+    cancelButtonText: "No, Cancelar!",
+    reverseButtons: true,
+      confirmButtonColor: "#73ab17",
+      cancelButtonColor: "#cc0c73",
+  }).then(function(result) {
+    if (result.value) {
+      document.getElementById("idticketerminado").value = id;
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Espere un momento, la información esta siendo procesada",
+          showConfirmButton: false
+      });
+      document.getElementById("ticket_terminado").submit();
+    } else if (result.dismiss === "cancel") {
+      Swal.fire(
+         "Cancelada",
+        "La acción fue cancelada",
+        "error"
+      )
+    }
+  });
+});

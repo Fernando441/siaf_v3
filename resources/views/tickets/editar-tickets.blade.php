@@ -1,62 +1,62 @@
 @extends('layouts.app')
 @push('scripts')
-    <script src="{{ asset('js/tickets/AgregarTickets.js') }}"></script>
+    <script src="{{ asset('js/tickets/EditarTickets.js') }}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endpush
 @section('title')
-    Editar Ticket
+    Editar tickets
 @endsection
 @section('content')
-
     <!--begin::Card-->
     <div class="row">
         <div class="col-lg-12">
             <!--begin::Card-->
             <div class="card card-custom gutter-b">
                 <div class="card-header">
-                    <h3 class="card-title">Editar Ticket</h3>
+                    <h3 class="card-title">Editar ticket</h3>
                 </div>
-
                 <!--begin::Form-->
-                <form class="form" action="{{ route('tickets.guardarTickets') }}" method="post" id="frmTickets"
+                <input type="hidden" id="documentoEliminarPath" value="{{ route('tickets.eliminardocumentocliente') }}">
+
+                <form class="form" action="{{ route('tickets.editarTicket') }}" method="post" id="frmCliente"
                     enctype="multipart/form-data">
                     @csrf
-                    <!-- <input type='hidden' id='url_municipios' value='{{ route('cliente.obtenermunicipios') }}'> -->
-                    <input type='hidden' id='tipoArchivo' value='·'>
+                    <input type="hidden" id="tipoArchivo" value="{{ json_encode(json_decode($cadenaTipoDocumento)) }}">
+                    <input type="hidden" name="id" id="id" value="{{ $editar_ticket->id }}">
                     <div class="card-body">
                         <!--begin::tabs-->
                         <ul class="nav nav-tabs nav-tabs-line">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">Información del
-                                    ticket</a>
+                                    Cliente</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Asignar</a>
+                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Archivos</a>
                             </li>
                         </ul>
                         <div class="tab-content mt-5" id="myTabContent">
                             <div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel"
-                                aria-labelledby="kt_tab_pane_1">
+                                aria-labelledby="kt_tab_pane_2">
                                 <div class="form-group row">
                                     <div class="col-lg-6">
                                         <label>Titulo</label>
                                         <div class="input-group">
-                                            <input type="text" name="titulo" id="titulo" class="form-control specialCharts"
-                                                value="{{ $editar_ticket->titulo }}" readonly />
+                                            <input type="text" name="titulo" id="titulo" minlength="12" maxlength="13"
+                                                class="form-control specialCharts" value="{{ $editar_ticket->titulo }}"
+                                                required
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <label>Descripcion</label>
                                         <div class="input-group">
-                                            <input type="text" name="descripcion" id="descripcion" class="form-control specialCharts"
-                                                value="{{ $editar_ticket->descripcion }}" readonly />
+                                            <input type="text" name="descripcion" id="descripcion"
+                                                class="form-control specialCharts" value="{{ $editar_ticket->descripcion }}"
+                                                required
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" />
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </div>
                             <div class="tab-pane fade mt-10" id="kt_tab_pane_2" role="tabpanel"
                                 aria-labelledby="kt_tab_pane_2">
@@ -71,6 +71,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody id='tbodyDocumentos'>
+                                                @foreach($ticket_usuarios_update as $ticket_usuario_update)
+                                                    <tr id="trDocumento{{ $ticket_usuario_update->id }}">
+                                                        <td>{{ $ticket_usuario_update->user->name }}</td>
+                                                        <td>
+                                                            <a href='#'
+                                                                class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminarDocumento'
+                                                                data-id='{{ $ticket_usuario_update->id }}'
+                                                                data-documento='{{ $ticket_usuario_update->user->name }}'
+                                                                data-toggle='tooltip' data-theme='dark' title='Eliminar'>
+                                                                <i class='flaticon-delete'></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -87,7 +101,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!--end::tabs-->
 
@@ -109,5 +122,6 @@
         </div>
     </div>
     <!--end::Card-->
+
 
 @endsection

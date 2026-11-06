@@ -11,6 +11,9 @@ Route::get('/ver-tickets/{id_tickets}', [App\Http\Controllers\Tablero\TicketCont
 Route::post('/terminado-tickets-original', [App\Http\Controllers\Tablero\TicketController::class, 'terminadoticketoriginal'])->name('tickets.terminadoticketoriginal');
 
 Route::get('/editar-tickets/{id_tickets_e}', [App\Http\Controllers\Tablero\TicketController::class, 'editartickets'])->name('tickets.editar-tickets');
+Route::post('/eliminar-documento-cliente', [App\Http\Controllers\Tablero\TicketController::class, 'eliminardocumentocliente'])->name('tickets.eliminardocumentocliente');
+Route::post('/guardar-edicion-cliente', [App\Http\Controllers\Tablero\TicketController::class, 'editarTicket'])->name('tickets.editarTicket');
+Route::post('/eliminar-ticket', [App\Http\Controllers\Tablero\TicketController::class, 'eliminarTicket'])->name('tickets.eliminarTicket');
 
 //CATALOGO TICKETS PENDIENTES
 Route::get('/catalogo-tickets-pendientes', [App\Http\Controllers\Tablero\TicketController::class, 'catalogoticketspendientes'])->name('tickets.catalogo-tickets-pendientes');

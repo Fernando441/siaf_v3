@@ -35,9 +35,7 @@
 
                                     <!--begin::Button-->
                                     @if (in_array("34", Session::get('permisos')))
-                                        <a href="{{ route('tickets.catalogo-tickets') }}"
-                                            class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                            <i class="la la-arrow-left"></i>Regresar</a>
+                                        
                                         
                                     @endif
                                     <input type="hidden" id="op_busqueda" value="1">

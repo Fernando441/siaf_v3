@@ -164,6 +164,7 @@ var Modulo = function () {
             fila.remove();
         });
     };
+    
 
     const validarInput = {
         validators: {

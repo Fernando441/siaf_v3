@@ -117,7 +117,7 @@ class TicketController extends Controller
             'updated_at' => date('Y-m-d H:i:s')
         ];
         Tickets::where('id', $ticket->tickets_id)->update($vistoticket);
-        
+
 
         return redirect()->route('tickets.ver-tickets-pendientes', $request->id);
     }
@@ -154,8 +154,73 @@ class TicketController extends Controller
 
     public function editartickets($id_tickets_e)
     {
+        $usuario = User::where('id_status_delete', 1)->get();
+
         $editar_ticket = Tickets::findOrFail($id_tickets_e);
-        return view('tickets.editar-tickets', compact('editar_ticket'));
+
+        $ticket_usuarios_update = TicketsUsuario::where('tickets_id', $id_tickets_e)->get();
+
+        $cadenaTipoDocumento = [];
+        foreach ($usuario as $doc) {
+            $cadenaTipoDocumento[$doc->id] = $doc->name;
+        }
+        $cadenaTipoDocumento = json_encode($cadenaTipoDocumento);
+
+        return view('tickets.editar-tickets', compact('editar_ticket', 'ticket_usuarios_update', 'cadenaTipoDocumento'));
+    }
+    public function eliminardocumentocliente(Request $request)
+    {
+        $doc = TicketsUsuario::findOrFail($request->id);
+        $estatus = true;
+        if ($doc) {
+            Storage::delete('cliente/' . $doc->id_cliente . '/' . $doc->documento);
+            TicketsUsuario::where('id', $request->id)->delete();
+        } else {
+            $estatus = false;
+        }
+
+        return response()->json([
+            'estatus' => $estatus,
+        ]);
     }
 
+    public function editarTicket(Request $request)
+    {
+        //dd($request);
+        $data = [
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        Tickets::where('id', $request->id)->update($data);
+
+        if ($request->id_documento) {
+            foreach ($request->id_documento as $indice => $persona) {
+
+                $data = [
+                    'estatus_visto' => 0,
+                    'estatus_finalizado' => 0,
+                    'users_id' => $persona,
+                    'tickets_id' => $request->id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'fecha_visto' => date('Y-m-d H:i:s'),
+                    'fecha_finalizado' => date('Y-m-d H:i:s'),
+                ];
+                TicketsUsuario::insert($data);
+            }
+        } else {
+            //$existe="No existe";
+        }
+
+        session()->flash('success', 'El cliente se actualizó correctamente');
+        return redirect()->route('tickets.catalogo-tickets');
+    }
+
+    public function eliminarTicket(Request $request)
+    {
+        //dd($request);
+        TicketsUsuario::where('tickets_id', $request->id)->delete();
+        Tickets::where('id', $request->id)->delete();
+        return redirect()->route('tickets.catalogo-tickets');
+    }
 }

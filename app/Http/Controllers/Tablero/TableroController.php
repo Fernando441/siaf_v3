@@ -49,9 +49,6 @@ class TableroController extends Controller
         $pendiente_pri_alta = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 0)->orderBy('id', 'ASC')->get(); //Prioridad_Alta
         $pendiente_pri_media = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 1)->orderBy('id', 'ASC')->get(); //Prioridad_Media
         $pendiente_pri_baja = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 2)->orderBy('id', 'ASC')->get(); //Prioridad_Media
-
-        //$tickets_activos = Tickets::orderBy('id', 'ASC')->get();
-        //dd($tickets_activos);
         
         return view('tablero.show', compact('not','concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
     }
