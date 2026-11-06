@@ -66,6 +66,7 @@ use App\Models\Logistica\SustitutoEvidencia;
 use App\Models\Translados\TrasladoUnidadDocumento;
 use App\Models\Tablero\PendientesEvidencia;
 use App\Models\Sistemas\InventarioEvidenciaComputo;
+use App\Models\Sistemas\ResguardoEvidencia;
 
 class ArchivoController extends Controller
 {
@@ -745,5 +746,19 @@ class ArchivoController extends Controller
             // dd('sistemas/equipocomputo/'.$documento->id.'/'.$documento->documento);
             return abort('403');
         }  
+    }
+
+    public function documentoResguardo(Request $request)
+    {
+        $user = auth()->user();
+        $id = $request->id;
+        $documento = ResguardoEvidencia::findOrFail($id);
+        $existeArchivo = Storage::exists('resguardo/'.$documento->resguardo_id.'/'.$documento->documento);
+        if($user && $documento && $existeArchivo) {
+            return Storage::download('resguardo/'.$documento->resguardo_id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
+        }else{
+            // dd('sistemas/equipocomputo/'.$documento->id.'/'.$documento->documento);
+            return abort('403');
+        }        
     }
 }

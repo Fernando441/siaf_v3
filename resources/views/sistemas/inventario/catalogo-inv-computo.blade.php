@@ -126,7 +126,11 @@
 
                                       </td>
                                       <td>
-                                          
+                                          @if($unid->estatus_asignado == 0)
+                                            ---
+                                          @else
+                                            {{ $unid->userAsignado->name }}
+                                          @endif
                                       </td>
 
                                       <td class="text-center">

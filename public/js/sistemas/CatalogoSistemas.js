@@ -112,3 +112,8 @@ $(".activar-registro").click(function() {
     }
   });
 });
+
+
+  // var modalPDF = function() {
+
+  // };

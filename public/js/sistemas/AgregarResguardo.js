@@ -2,13 +2,13 @@
 var Modulo = function() {
 
     var lista = ''; //lista de elementos
-    var lista_equipo = ''; //lista de elementos
+    var listaEquipo = ''; //lista de elementos
     var contadorDocumentos=0; //indice contador de elementos
     var validador; //validador del formulario
 
     var validacion = function() {
         //validacion de formulario
-        const form = document.getElementById('frmResguardo');
+        const form = document.getElementById('frmCliente');
         validador = FormValidation.formValidation(
             form,
             {
@@ -60,16 +60,10 @@ var Modulo = function() {
         //     allowClear: true
         // });
 
-        $(".equipo_resguardo").select2({
+        $("#id_user").select2({
             placeholder: "Seleccione una opción",
             allowClear: true
         });
-
-        $("#user_resguardo").select2({
-            placeholder: "Seleccione una opción",
-            allowClear: true
-        });
-        
 
         lista = construyeElementosLista();
         //botón agregar otro archivo
@@ -79,12 +73,13 @@ var Modulo = function() {
         });
         delArchivo();
 
-        lista_equipo = construyeElementosListaEquipos();
-        $( ".hrefAgregarEquipos" ).on( "click", function(event) {
+        listaEquipo = construyeElementosListaEquipo();
+        //botón agregar otro archivo
+        $( ".hrefAgregarEquipo" ).on( "click", function(event) {
             event.preventDefault();
-            addArchivoEquipo();
+            addEquipo();
         });
-        delArchivoEquipo();
+        delEquipo();
 
     };
 
@@ -101,9 +96,10 @@ var Modulo = function() {
         return opcion;
     };
 
+
     //construye  elementos de la lista
-    var construyeElementosListaEquipos = function () {
-        var tipoArchivo = $("#tipoEquipo").val();
+    var construyeElementosListaEquipo = function () {
+        var tipoArchivo = $("#tipoEquipos").val();
         var colTipoArchivo = JSON.parse(tipoArchivo);
         var opcion ="";
 
@@ -113,6 +109,7 @@ var Modulo = function() {
 
         return opcion;
     };
+
     //validador de elementos agregados para archivo
     const archivoValidador = {
         validators: {
@@ -129,14 +126,6 @@ var Modulo = function() {
 
     //validador de elementos agregados para archivo
     const tipoArchivoValidador = {
-        validators: {
-            notEmpty: {
-                message: 'Por favor introduce un valor',
-            },
-        },
-    };
-
-    const tipoArchivoValidadorEquipo = {
         validators: {
             notEmpty: {
                 message: 'Por favor introduce un valor',
@@ -195,47 +184,47 @@ var Modulo = function() {
         });
     };
 
-
     //agrega el elemento archivo y lista desplegable
-    var addArchivoEquipo = function () {
+    var addEquipo = function () {
         contadorDocumentos++;
         var html = '';
         html += ([    "",
-            "<tr id='trDocumentoEquipo"+contadorDocumentos+"'>",
+            "<tr id='trDocumento"+contadorDocumentos+"'>",
             "    <td>" +
             "       <div class='form-group mb-0'>" +
-            "          <select class='form-control equipo_resguardo' name='id_equipo["+contadorDocumentos+"]' id='id_equipo"+contadorDocumentos+"' required>",
+            "          <select class='form-control' name='id_equipo["+contadorDocumentos+"]' id='id_equipo"+contadorDocumentos+"' required>",
             "              <option value=''>Selecciona un opción</option>",
-            lista_equipo,
+            listaEquipo,
             "          </select>",
             "       </div>" +
             "    </td>",
             "    <td>",
-            "       <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminarResguardo' data-id='"+contadorDocumentos+"' data-toggle='tooltip' data-theme='dark' title='Eliminar'>",
+            "       <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminareq' data-id='"+contadorDocumentos+"' data-toggle='tooltip' data-theme='dark' title='Eliminar'>",
             "           <i class='flaticon-delete'></i>",
             "       </a>",
             "    </td>",
             "</tr>",
 
             ""].join(""));
-        $("#tblDocumentosF tbody").append(html); //agrega el html creado
+        $("#tblDocEquipos tbody").append(html); //agrega el html creado
         //agrega validación del elemento creado
-        validador.addField('id_equipo[' + contadorDocumentos + ']', tipoArchivoValidadorEquipo);
+        validador.addField('id_equipo[' + contadorDocumentos + ']', tipoArchivoValidador);
         KTApp.initTooltips(); //inicia tooltip del elemento creado
         KTApp.initFileInput(); //inicia el elemento archivo del elemento creado
     };
 
     //elimina un elemento
-    var delArchivoEquipos = function () {
-        jQuery(document).on("click", ".hrefEliminarResguardo" , function(e) {
+    var delEquipo = function () {
+        jQuery(document).on("click", ".hrefEliminareq" , function(e) {
             e.preventDefault();
             var idDocumento = $(this).attr("data-id"); //indice del elemento
             KTApp.hideTooltips(); //oculta tooltip
             //elimina la validación del elemento
             validador.removeField('id_equipo[' + idDocumento + ']');
-            $('#trDocumentoEquipo'+idDocumento).remove();//elimina el elemento
+            $('#trDocumento'+idDocumento).remove();//elimina el elemento
         });
     };
+
 
 
     const validarInput = {
@@ -247,7 +236,7 @@ var Modulo = function() {
     };
 
 
-  
+
     var eventosEspeciales = function () {
         $('#elemento1').val();
     };

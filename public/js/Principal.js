@@ -1013,6 +1013,14 @@ var Principal = (function () {
                     activeMenuGerenciaSistemas();
                     $("#menuInventarioSistemas").addClass("menu-item-active");
                     break;
+                case "resguardo.agregarResguardo";
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
+                case "resguardo.editResguardo":
+                    activeMenuGerenciaSistemas();
+                    $("#menuInventarioSistemas").addClass("menu-item-active");
+                    break;
             }
         }
 

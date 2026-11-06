@@ -17,3 +17,10 @@
     //Listado Resguardos
     	Route::get('/catalogo-resguardos', [App\Http\Controllers\Sistemas\ResguardoController::class, 'catalogoresguardo'])->name('resguardo.catalogoresguardo');
     	Route::get('/agregar-resguardo', [App\Http\Controllers\Sistemas\ResguardoController::class, 'agregarResguardo'])->name('resguardo.agregarResguardo');
+    	Route::post('/add-resguardo', [App\Http\Controllers\Sistemas\ResguardoController::class, 'addresguardo'])->name('resguardo.addresguardo');
+    	Route::get('/editar-resguardo/{id}', [App\Http\Controllers\Sistemas\ResguardoController::class, 'editResguardo'])->name('resguardo.editResguardo');
+    	Route::post('/edit-resguardo', [App\Http\Controllers\Sistemas\ResguardoController::class, 'edtresguardo'])->name('resguardo.edtresguardo');
+    	Route::post('/delete-equipo', [App\Http\Controllers\Sistemas\ResguardoController::class, 'deleteequipo'])->name('resguardo.deleteequipo');
+    	Route::post('/delete-archivo', [App\Http\Controllers\Sistemas\ResguardoController::class, 'deletearchivo'])->name('resguardo.deletearchivo');
+    	Route::get('/ver-resguardo/{id}', [App\Http\Controllers\Sistemas\ResguardoController::class, 'verResguardo'])->name('resguardo.verResguardo');
+    	Route::get('/ver-resguardo-pdf/{id}', [App\Http\Controllers\Sistemas\ResguardoController::class, 'verResguardoPDF'])->name('resguardo.verPDF');
