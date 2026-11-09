@@ -22,7 +22,7 @@ class TicketController extends Controller
     //MUESTRA TICKETS ORIGINALES
     public function catalogotickets()
     {
-        $tickets_activos = Tickets::orderBy('id', 'DESC')->get();
+        $tickets_activos = Tickets::where('iduserCreated',auth()->user()->id)->get();
         $tickets_pendientes = TicketsUsuario::where('users_id', auth()->user()->id)->where('estatus_finalizado', 0)->get();
         $contador = count($tickets_pendientes);
         //dd($tickets_activos);
