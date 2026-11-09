@@ -41,6 +41,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSeminuevosRoutes();
         $this->mapTicketsRoutes();
         $this->mapSistemasRoutes();
+        $this->mapSiniestroRoutes();
     }
 
     protected function mapApiRoutes()
@@ -200,5 +201,13 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('Sistemas')
             ->namespace($this->namespace . '\Sistemas')
             ->group(base_path('routes/sistemas.php'));        
+    }
+
+    protected function mapSiniestroRoutes()
+    {
+        Route::middleware('web')
+            ->prefix('Siniestro')
+            ->namespace($this->namespace . '\Siniestro')
+            ->group(base_path('routes/siniestro.php'));             
     }
 }
