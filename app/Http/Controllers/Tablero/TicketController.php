@@ -223,4 +223,18 @@ class TicketController extends Controller
         Tickets::where('id', $request->id)->delete();
         return redirect()->route('tickets.catalogo-tickets');
     }
+
+    public function historialtickets()
+    {
+        $tickets_historial = Tickets::orderBy('id','DESC')->get();
+        return view('tickets.historial-tickets', compact('tickets_historial'));
+    }
+    public function verhistorialtickets($id_tickets)
+    {
+        $ticket = Tickets::findOrFail($id_tickets);
+        $ticketinfouser = TicketsUsuario::where('tickets_id', $id_tickets)->get();
+        //dd($ticketinfouser);
+        return view('tickets.ver-historial-tickets', compact('ticket', 'ticketinfouser'));
+    }
+
 }

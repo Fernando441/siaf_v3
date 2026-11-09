@@ -307,6 +307,14 @@
                                                         </i>
                                                         <span class="menu-text">Generar Ticket</span>
                                                     </a>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{ route('tickets.historial-tickets') }}"
+                                                        class="menu-link">
+                                                        <i class="menu-bullet menu-bullet-dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="menu-text">Historial Tickets</span>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
