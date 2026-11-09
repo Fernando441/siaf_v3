@@ -43,6 +43,11 @@ var Principal = (function () {
                 case "siniestro.catalogodina":
                     $("#menuListadoDina").addClass("menu-item-active");
                     break;
+                    //SICUREZZA
+                case "siniestro.catalogosicurezza":
+                    $("#menuListadoSicurezza").addClass("menu-item-active");
+                    break;
+
 
             }
 

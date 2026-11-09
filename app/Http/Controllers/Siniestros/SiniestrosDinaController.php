@@ -40,4 +40,6 @@ class SiniestrosDinaController extends Controller
 
         return view('siniestro.dina.catalogo-dina', compact('siniestro_dina'));
     }
+
+    
 }

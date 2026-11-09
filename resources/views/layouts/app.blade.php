@@ -1216,7 +1216,7 @@
                                                                 {{-- @if (in_array("123", Session::get('permisos'))) --}}
                                                                     <li class="menu-item" aria-haspopup="true"
                                                                         id="menuListadoSicurezza">
-                                                                        <a href=""
+                                                                        <a href="{{ route('siniestro.catalogosicurezza') }}"
                                                                             class="menu-link">
                                                                             <i class="menu-bullet menu-bullet-dot">
                                                                                 <span></span>
