@@ -20,8 +20,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use App\Models\Siniestros\SiniestroAgencia;
-use App\Models\Siniestros\SiniestroDina;
 use App\Models\Siniestros\SiniestroSicurezza;
+use App\Models\Siniestros\SiniestrosSicuezzaImport;
 
 
 class SiniestrosSicurezzaController extends Controller
@@ -36,10 +36,17 @@ class SiniestrosSicurezzaController extends Controller
 
     public function catalogosicurezza()
     {
-        $siniestro_dina = SiniestroDina::where('siniestros_agencia_id', 1)->get();
+        $siniestro_dina = SiniestroSicurezza::where('siniestros_agencia_id', 1)->get();
 
         return view('siniestro.sicurezza.catalogo-sicurezza', compact('siniestro_dina'));
     }
 
-    
+    public function cargamasivasicuezza(Request $request)
+    {
+
+        Excel::import( new SiniestrosSicuezzaImport(), $request->file('file_carga'));
+
+        session()->flash('success', 'Se importó correctamente el archivo.');
+        return redirect()->route('siniestro.catalogosicurezza');
+    }    
 }

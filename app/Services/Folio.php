@@ -11,6 +11,8 @@ use App\Models\Requisicion\RequisicionFolio;
 use App\Models\Proyecto\EstimacionesFolio;
 use App\Models\Sistemas\InventarioFolioComputo;
 use App\Models\Sistemas\ResguardoFolio;
+use App\Models\Siniestros\SiniestroFolioDina;
+use App\Models\Siniestros\SiniestroFolioSicurezza;
 
 class Folio
 {
@@ -107,6 +109,18 @@ class Folio
         $folioModel->save();
 
         return "RGS-".str_pad($folio,5,"0", STR_PAD_LEFT);
+    }
+
+    public function getFolioSiniestroDina(){
+
+        $folio = SiniestroFolioDina::with('folio')->max('folio');
+        $folio = $folio ? ++$folio : 1;
+        $folioModel = new SiniestroFolioDina();
+        $folioModel->folio = $folio;
+        $folioModel->anio = date('Y');
+        $folioModel->save();
+
+        return "D-".str_pad($folio,5,"0", STR_PAD_LEFT);
     }
 
 

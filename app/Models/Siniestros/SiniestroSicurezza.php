@@ -38,7 +38,7 @@ class SiniestroSicurezza extends Model
     /**
      * @var array
      */
-    protected $fillable = ['siniestros_agencia_id', 'siniestro_completo', 'proyecto', 'fecha_ocurrencia', 'causa_enfermedad', 'recuperacion_aplicada', 'deducibles', 'nombre_agente', 'asegurado', 'modelo', 'serie', 'descripcion_auto', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated'];
+    protected $fillable = ['siniestros_agencia_id', 'siniestro_completo', 'proyecto', 'fecha_ocurrencia', 'causa_enfermedad', 'recuperacion_aplicada', 'deducibles', 'nombre_agente', 'asegurado', 'modelo', 'serie', 'descripcion_auto', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated', 'no_folio'];
 
     public function siniestrosAgencia()
     {

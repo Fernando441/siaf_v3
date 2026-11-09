@@ -22,6 +22,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\Siniestros\SiniestroAgencia;
 use App\Models\Siniestros\SiniestroDina;
 use App\Models\Siniestros\SiniestroSicurezza;
+use App\Imports\SiniestrosDinaImport;
 
 
 class SiniestrosDinaController extends Controller
@@ -41,5 +42,13 @@ class SiniestrosDinaController extends Controller
         return view('siniestro.dina.catalogo-dina', compact('siniestro_dina'));
     }
 
+    public function cargamasivadina(Request $request)
+    {
+        
+        Excel::import( new SiniestrosDinaImport(), $request->file('file_carga'));
+
+        session()->flash('success', 'Se importó correctamente el archivo.');
+        return redirect()->route('siniestro.catalogodina');
+    }
     
 }

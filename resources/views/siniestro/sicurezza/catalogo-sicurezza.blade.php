@@ -140,10 +140,10 @@
                                 </div>
                               </div>
                               <div class="card-body">
-                                 <a href="/layout/Carga Masiva Inventario Sistemas.csv">Layout para la carga masiva</a>
+                                 <a href="/layout/Carga Masiva Siniestros Sicurezza.csv">Layout para la carga masiva</a>
                                     <div class="row">
                                       <div class="col-lg-10">
-                                        <form class="form" action="" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
+                                        <form class="form" action="{{ route('siniestro.cargamasivasicuezza') }}" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
                                           @csrf
 
 

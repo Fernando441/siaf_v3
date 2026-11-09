@@ -141,10 +141,10 @@
                                 </div>
                               </div>
                               <div class="card-body">
-                                 <a href="/layout/Carga Masiva Inventario Sistemas.csv">Layout para la carga masiva</a>
+                                 <a href="/layout/Carga Masiva Siniestros DINA.csv">Layout para la carga masiva</a>
                                     <div class="row">
                                       <div class="col-lg-10">
-                                        <form class="form" action="" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
+                                        <form class="form" action="{{ route('siniestro.cargamasivadina') }}" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
                                           @csrf
 
 
@@ -173,14 +173,15 @@
                             <table class="table table-hover table-checkable table-responsive" id="kdatatable_inventario">
                                 <thead>
                                 <tr>
-                                    <th>No. Folio</th>
+                                    <th>No. Siniestro</th>
                                     <th>No. Serie</th>
-                                    <th>Tipo de equipo</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Fecha ingreso</th>
-                                    <th>Estatus</th>
-                                    <th>Personal</th>
+                                    <th>Proyecto</th>
+                                    <th>Proveedor</th>
+                                    <th>Monto</th>
+                                    <th>REF</th>
+                                    <th>Creado por</th>
+                                    <th>Formato</th>
+                                    <th>Estado</th>
                                   <th class="text-center">Opciones</th>
                                 </tr>
                                 </thead>
@@ -189,14 +190,15 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>No. Folio</th>
+                                    <th>No. Siniestro</th>
                                     <th>No. Serie</th>
-                                    <th>Tipo de equipo</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Fecha ingreso</th>
-                                    <th>Estatus</th>
-                                    <th>Personal</th>
+                                    <th>Proyecto</th>
+                                    <th>Proveedor</th>
+                                    <th>Monto</th>
+                                    <th>REF</th>
+                                    <th>Creado por</th>
+                                    <th>Formato</th>
+                                    <th>Estado</th>
                                   <th class="text-center">Opciones</th>
                                 </tr>
                                 </tfoot>

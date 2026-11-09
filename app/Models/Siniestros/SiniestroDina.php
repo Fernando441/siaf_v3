@@ -42,7 +42,7 @@ class SiniestroDina extends Model
     /**
      * @var array
      */
-    protected $fillable = ['siniestros_agencia_id', 'no_siniestro', 'contratante', 'proyecto_poliza', 'nombre_proyecto', 'inicio', 'fin', 'moneda', 'poliza', 'serie', 'fecha_ocurrencia', 'tipo_siniestro_inicial', 'deducible', 'recuperacion_aplicada', 'nombre_agente', 'modelo', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated'];
+    protected $fillable = ['siniestros_agencia_id', 'no_siniestro', 'contratante', 'proyecto_poliza', 'nombre_proyecto', 'inicio', 'fin', 'moneda', 'poliza', 'serie', 'fecha_ocurrencia', 'tipo_siniestro_inicial', 'deducible', 'recuperacion_aplicada', 'nombre_agente', 'modelo', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated', 'no_folio'];
 
 
     public function siniestrosAgencia()
