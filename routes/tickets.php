@@ -9,7 +9,6 @@ Route::get('/crear-tickets', [App\Http\Controllers\Tablero\TicketController::cla
 Route::post('/guardar-tickets', [App\Http\Controllers\Tablero\TicketController::class, 'guardarTicket'])->name('tickets.guardarTickets');
 Route::get('/ver-tickets/{id_tickets}', [App\Http\Controllers\Tablero\TicketController::class, 'vertickets'])->name('tickets.ver-tickets');
 Route::post('/terminado-tickets-original', [App\Http\Controllers\Tablero\TicketController::class, 'terminadoticketoriginal'])->name('tickets.terminadoticketoriginal');
-
 Route::get('/editar-tickets/{id_tickets_e}', [App\Http\Controllers\Tablero\TicketController::class, 'editartickets'])->name('tickets.editar-tickets');
 Route::post('/eliminar-documento-cliente', [App\Http\Controllers\Tablero\TicketController::class, 'eliminardocumentocliente'])->name('tickets.eliminardocumentocliente');
 Route::post('/guardar-edicion-cliente', [App\Http\Controllers\Tablero\TicketController::class, 'editarTicket'])->name('tickets.editarTicket');
@@ -20,3 +19,7 @@ Route::get('/catalogo-tickets-pendientes', [App\Http\Controllers\Tablero\TicketC
 Route::get('/ver-tickets-pendientes/{tickets_id}', [App\Http\Controllers\Tablero\TicketController::class, 'verticketspendeintes'])->name('tickets.ver-tickets-pendientes');
 Route::post('/update-tickets', [App\Http\Controllers\Tablero\TicketController::class, 'updateTicket'])->name('tickets.updateTicket');
 Route::post('/terminado-tickets', [App\Http\Controllers\Tablero\TicketController::class, 'terminadoticket'])->name('tickets.terminadoticket');
+
+//CATALOGO HISTORIAL DE TICKETS
+Route::get('/catalogo-historial-tickets', [App\Http\Controllers\Tablero\TicketController::class, 'historialtickets'])->name('tickets.historial-tickets');
+Route::get('/ver-historial-tickets/{id_tickets}', [App\Http\Controllers\Tablero\TicketController::class, 'verhistorialtickets'])->name('tickets.ver-historial-tickets');
