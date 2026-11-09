@@ -1185,6 +1185,51 @@
                                                         </div>
                                                     </li>
                                                 @endif
+
+                                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                                        data-menu-toggle="hover" id="menuSeguimientoSiniestros">
+                                                        <a href="javascript:;" class="menu-link menu-toggle">
+                                                            <i class="flaticon-tabs menu-icon"></i>
+                                                            <span class="menu-text">Seguimiento de siniestros</span>
+                                                            <i class="menu-arrow"></i>
+                                                        </a>
+                                                        <div class="menu-submenu">
+                                                            <i class="menu-arrow"></i>
+                                                            <ul class="menu-subnav">
+                                                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                                                    <span class="menu-link">
+                                                                        <span class="menu-text">Seguimiento de siniestros</span>
+                                                                    </span>
+                                                                </li>
+                                                                {{-- @if (in_array("123", Session::get('permisos'))) --}}
+                                                                    <li class="menu-item" aria-haspopup="true"
+                                                                        id="menuListadoDina">
+                                                                        <a href="{{ route('siniestro.catalogodina') }}"
+                                                                            class="menu-link">
+                                                                            <i class="menu-bullet menu-bullet-dot">
+                                                                                <span></span>
+                                                                            </i>
+                                                                            <span class="menu-text">DINA</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {{-- @endif --}}
+                                                                {{-- @if (in_array("123", Session::get('permisos'))) --}}
+                                                                    <li class="menu-item" aria-haspopup="true"
+                                                                        id="menuListadoSicurezza">
+                                                                        <a href=""
+                                                                            class="menu-link">
+                                                                            <i class="menu-bullet menu-bullet-dot">
+                                                                                <span></span>
+                                                                            </i>
+                                                                            <span class="menu-text">SICUREZZA</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {{-- @endif --}}
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+
+
                                             </ul>
                                         </div>
                                     </li>

@@ -32,6 +32,22 @@ var Principal = (function () {
             $("#menuGerenciaOperaciones").addClass("menu-item-open");
         }
 
+
+        if(routeName.includes("siniestro")) {
+            activeMenuGerenciaOperaciones();
+            $("#menuSeguimientoSiniestros").addClass("menu-item-active");
+            $("#menuSeguimientoSiniestros").addClass("menu-item-open");
+
+
+            switch (routeName) {
+                case "siniestro.catalogodina":
+                    $("#menuListadoDina").addClass("menu-item-active");
+                    break;
+
+            }
+
+        }
+
         //rutas para el menu de talleres
         if (routeName.includes("taller")) {
             activeMenuGerenciaOperaciones();
@@ -977,44 +993,6 @@ var Principal = (function () {
         }
 
 
-        function activeMenuTickets() {
-            $("#menuTickets").addClass("menu-item-active");
-            $("#menuTickets").addClass("menu-item-open");
-        }
-
-        //rutas para el menu de inventarios
-        if (routeName.includes("tickets")) {
-            switch (routeName) {
-                case "tickets.catalogo-tickets":
-                    activeMenuTickets();
-                    $("#menuTicketpendiente").addClass("menu-item-active");
-                    break;
-                case "tickets.crear-tickets":
-                    activeMenuTickets();
-                    $("#menuTicketpendiente").addClass("menu-item-active");
-                    break;
-                case "tickets.ver-tickets":
-                    activeMenuTickets();
-                    $("#menuTicketpendiente").addClass("menu-item-active");
-                    break;
-                case "tickets.editar-tickets":
-                    activeMenuTickets();
-                    $("#menuTicketpendiente").addClass("menu-item-active");
-                    break;
-                case "tickets.catalogo-tickets-pendientes":
-                    activeMenuTickets();
-                    $("#menuGenerarTicket").addClass("menu-item-active");
-                    break;
-                case "tickets.ver-tickets-pendientes":
-                    activeMenuTickets();
-                    $("#menuGenerarTicket").addClass("menu-item-active");
-                    break;
-                    
-            }
-        }
-
-
-
         //activar menu de Gerencia Sistemas
         function activeMenuGerenciaSistemas() {
             $("#menuDireccionSistemas").addClass("menu-item-active");
@@ -1037,25 +1015,6 @@ var Principal = (function () {
                     $("#menuInventarioSistemas").addClass("menu-item-active");
                     break;
                 case "sistemas.verRegistro":
-                    activeMenuGerenciaSistemas();
-                    $("#menuInventarioSistemas").addClass("menu-item-active");
-                    break;
-            }
-        }
-
-
-        //rutas para el menu de inventarios
-        if (routeName.includes("resguardo")) {
-            switch (routeName) {
-                case "resguardo.catalogoresguardo":
-                    activeMenuGerenciaSistemas();
-                    $("#menuInventarioSistemas").addClass("menu-item-active");
-                    break;
-                case "resguardo.agregarResguardo";
-                    activeMenuGerenciaSistemas();
-                    $("#menuInventarioSistemas").addClass("menu-item-active");
-                    break;
-                case "resguardo.editResguardo":
                     activeMenuGerenciaSistemas();
                     $("#menuInventarioSistemas").addClass("menu-item-active");
                     break;
@@ -1681,18 +1640,18 @@ var Principal = (function () {
 
 jQuery(document).ready(function () {
     Principal.init();
-	$(".specialCharts").keypress(function(event){
-		const charPress = String.fromCharCode(event.which);
+    $(".specialCharts").keypress(function(event){
+        const charPress = String.fromCharCode(event.which);
 
-		var find    = ["Á", "É", "Í", "Ó", "Ú",'Ä','Î','Ù','Ã','Ø','Â','Ö','Ë','Õ','Ÿ','Ž','Ý','Û','Ï','Å','Ç'];
-		var replace = ["A", "E", "I", "O", "U", "A",'I','U','A','0','A','O','E','O','Y','Z','Y','U','I','A','C'];
+        var find    = ["Á", "É", "Í", "Ó", "Ú",'Ä','Î','Ù','Ã','Ø','Â','Ö','Ë','Õ','Ÿ','Ž','Ý','Û','Ï','Å','Ç'];
+        var replace = ["A", "E", "I", "O", "U", "A",'I','U','A','0','A','O','E','O','Y','Z','Y','U','I','A','C'];
 
-		for (let i = 0; i < find.length; i++) {
-			if (charPress.toUpperCase() === find[i]) {
-				event.preventDefault();
-				$(this).val($(this).val() + replace[i]);
-			}
-		}
+        for (let i = 0; i < find.length; i++) {
+            if (charPress.toUpperCase() === find[i]) {
+                event.preventDefault();
+                $(this).val($(this).val() + replace[i]);
+            }
+        }
 
-	});
+    });
 });
