@@ -977,6 +977,44 @@ var Principal = (function () {
         }
 
 
+        function activeMenuTickets() {
+            $("#menuTickets").addClass("menu-item-active");
+            $("#menuTickets").addClass("menu-item-open");
+        }
+
+        //rutas para el menu de inventarios
+        if (routeName.includes("tickets")) {
+            switch (routeName) {
+                case "tickets.catalogo-tickets":
+                    activeMenuTickets();
+                    $("#menuTicketpendiente").addClass("menu-item-active");
+                    break;
+                case "tickets.crear-tickets":
+                    activeMenuTickets();
+                    $("#menuTicketpendiente").addClass("menu-item-active");
+                    break;
+                case "tickets.ver-tickets":
+                    activeMenuTickets();
+                    $("#menuTicketpendiente").addClass("menu-item-active");
+                    break;
+                case "tickets.editar-tickets":
+                    activeMenuTickets();
+                    $("#menuTicketpendiente").addClass("menu-item-active");
+                    break;
+                case "tickets.catalogo-tickets-pendientes":
+                    activeMenuTickets();
+                    $("#menuGenerarTicket").addClass("menu-item-active");
+                    break;
+                case "tickets.ver-tickets-pendientes":
+                    activeMenuTickets();
+                    $("#menuGenerarTicket").addClass("menu-item-active");
+                    break;
+                    
+            }
+        }
+
+
+
         //activar menu de Gerencia Sistemas
         function activeMenuGerenciaSistemas() {
             $("#menuDireccionSistemas").addClass("menu-item-active");
