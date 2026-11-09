@@ -74,19 +74,19 @@
         }
 
         .stat-blue {
-            background: linear-gradient(135deg, #669933 0%, #F2F522 100%);
+            background: linear-gradient(135deg, #6bc4ff 0%, #187DE4 100%);
         }
 
         .stat-cyan {
-            background: linear-gradient(135deg, #09a9c9 0%, #05bfd0 100%);
+            background: linear-gradient(135deg, #14fc0c 0%, #00ffbf 100%);
         }
 
         .stat-gold {
-            background: linear-gradient(135deg, #c9a95a 0%, #e2c879 100%);
+            background: linear-gradient(135deg, #FFA800 0%, #ffe167 100%);
         }
 
         .stat-red {
-            background: linear-gradient(135deg, #dc6259 0%, #ee766a 100%);
+            background: linear-gradient(135deg, #F64E60 0%, #fa5a6a 100%);
         }
 
         @media (max-width: 767px) {
