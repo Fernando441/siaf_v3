@@ -284,7 +284,7 @@
 
                                             <ul class="menu-subnav">
 
-                                                <li class="menu-item" aria-haspopup="true">
+                                                <li class="menu-item" id="menuTicketpendiente" aria-haspopup="true">
                                                     <a href="{{ route('tickets.catalogo-tickets-pendientes') }}"
                                                         class="menu-link">
                                                         <i class="menu-bullet menu-bullet-dot">
@@ -299,7 +299,7 @@
                                                         @endif
                                                     </a>
                                                 </li>
-                                                <li class="menu-item" aria-haspopup="true">
+                                                <li class="menu-item"  id="menuGenerarTicket"  aria-haspopup="true">
                                                     <a href="{{ route('tickets.catalogo-tickets') }}"
                                                         class="menu-link">
                                                         <i class="menu-bullet menu-bullet-dot">
