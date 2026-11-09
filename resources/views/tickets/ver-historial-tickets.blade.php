@@ -14,7 +14,6 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header">
                     <h3 class="card-title">Ticket</h3>
-
                 </div>
                 <!--begin::Form-->
 
@@ -37,8 +36,6 @@
                                 </span>
                             @endif
                         </div>
-
-
                     </ul>
                     <div class="tab-content mt-5" id="myTabContent">
                         <div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel"
