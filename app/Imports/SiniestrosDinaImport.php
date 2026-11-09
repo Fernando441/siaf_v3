@@ -37,10 +37,13 @@ class SiniestrosDinaImport implements ToCollection, WithHeadingRow
             $folioModel->folio = $folio;
             $folioModel->anio = date('Y');
             $folioModel->save();
-            $folio = "E".str_pad($folio,5,"0", STR_PAD_LEFT);
+            $folio = "D-".str_pad($folio,5,"0", STR_PAD_LEFT);
 
             $deducible = $row['deducibles'];
-            $deducible = ($deducible === null || $deducible === '')? 0: (float) str_replace(',', '.', $deducible);
+            $deducible = ($deducible === null || $deducible === '')? 0: (float) str_replace(['.', ','], ['', '.'], $deducible);
+
+            $recuperacion_aplicada = $row['recuperacion_aplicada'];
+            $recuperacion_aplicada = ($recuperacion_aplicada === null || $recuperacion_aplicada === '')? 0: (float) str_replace(['.', ','], ['', '.'], $recuperacion_aplicada);
 
 
             $data = [
@@ -58,7 +61,7 @@ class SiniestrosDinaImport implements ToCollection, WithHeadingRow
                 'fecha_ocurrencia' => $row['fecha_ocurrencia'] ? Carbon::createFromFormat('d/m/Y', $row['fecha_ocurrencia'])->format('Y-m-d'):null,
                 'tipo_siniestro_inicial' => $row['tipo_de_siniestro_inicial'],
                 'deducible' => $deducible,
-                'recuperacion_aplicada' => $row['recuperacion_aplicada'],
+                'recuperacion_aplicada' => $recuperacion_aplicada,
                 'nombre_agente' => $row['nombre_agente'],
                 'modelo' => $row['modelo'],
                 'iduserCreated' =>auth()->user()->id,
@@ -66,7 +69,6 @@ class SiniestrosDinaImport implements ToCollection, WithHeadingRow
                 'created_at' =>date('Y-m-d H:i:s'),
                 'updated_at' =>date('Y-m-d H:i:s')
             ];
-            dd($row['recuperacion_aplicada']);
             SiniestroDina::insert($data);
 
         }

@@ -43,6 +43,17 @@ var Principal = (function () {
                 case "siniestro.catalogodina":
                     $("#menuListadoDina").addClass("menu-item-active");
                     break;
+                case "siniestro.crearsiniestro":
+                    $("#menuListadoDina").addClass("menu-item-active");
+                    break;
+                case "siniestro.editasiniestro":
+                    $("#menuListadoDina").addClass("menu-item-active");
+                    break;
+                case "siniestro.versiniestro":
+                    $("#menuListadoDina").addClass("menu-item-active");
+                    break;
+                    
+                    
                     //SICUREZZA
                 case "siniestro.catalogosicurezza":
                     $("#menuListadoSicurezza").addClass("menu-item-active");
