@@ -41,7 +41,7 @@
                                     <div class="col-lg-6">
                                         <label>Titulo</label>
                                         <div class="input-group">
-                                            <input type="text" name="titulo" id="titulo" minlength="12" maxlength="13"
+                                            <input type="text" name="titulo" id="titulo"
                                                 class="form-control specialCharts" value="{{ $editar_ticket->titulo }}"
                                                 required
                                                 onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" />
