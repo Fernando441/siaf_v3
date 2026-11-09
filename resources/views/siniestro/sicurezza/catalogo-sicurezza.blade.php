@@ -53,6 +53,84 @@
                         </div>
                         <div class="card-body">
                             
+                                <!-- ESTADISTICAS -->
+                                <div class="row dashboard-stats">
+                                    <!-- TOTAL DE TICKETS -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-blue">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+                                                    {{-- dato --}}
+                                                </div>
+                                                <div class="stat-label">
+                                                    Total de siniestros
+                                                </div>
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-ticket-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- TICKETS FINALIZADOS -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-cyan">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+                                                   {{-- dato --}}
+                                                </div>
+                                                <div class="stat-label">
+                                                    Siniestros Finalizados
+                                                </div>
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-check-circle"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- TICKETS PENDIENTES -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-gold">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+                                                    {{-- dato --}}
+                                                </div>
+                                                <div class="stat-label">
+                                                    Siniestros Pendientes
+                                                </div>
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- PORCENTAJE FINALIZADO -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-red">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+                                                    {{-- Dato --}}
+                                                </div>
+                                                <div class="stat-label">
+                                                    Pendiente
+                                                </div>
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-chart-pie"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- FIN ESTADISTICAS -->
+
+                            
                             <div class="card card-custom gutter-b oculto" id="div_cargamasiva">
                               <div class="card-header">
                                 <div class="card-title">

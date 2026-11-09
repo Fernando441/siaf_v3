@@ -55,7 +55,6 @@
                             
                                 <!-- ESTADISTICAS -->
                                 <div class="row dashboard-stats">
-
                                     <!-- TOTAL DE TICKETS -->
                                     <div class="col-xl-3 col-lg-6 col-md-6">
                                         <div class="stat-card stat-blue">
