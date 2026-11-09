@@ -994,6 +994,56 @@ var Principal = (function () {
 
 
         //activar menu de Gerencia Sistemas
+        function activeMenuTickets() {
+            $("#menuTickets").addClass("menu-item-active");
+            $("#menuTickets").addClass("menu-item-open");
+        }
+
+        //rutas para el menu de inventarios
+        if (routeName.includes("tickets")) {
+            switch (routeName) {
+                case "tickets.catalogo-tickets":
+                    activeMenuTickets();
+                    $("#menuGenerarTicket").addClass("menu-item-active");
+                    break;
+
+                case "tickets.crear-tickets":
+                    activeMenuTickets();
+                    $("#menuGenerarTicket").addClass("menu-item-active");
+                    break;
+                case "tickets.ver-tickets":
+                    activeMenuTickets();
+                    $("#menuGenerarTicket").addClass("menu-item-active");
+                    break;
+                case "tickets.editar-tickets":
+                    activeMenuTickets();
+                    $("#menuGenerarTicket").addClass("menu-item-active");
+                    break;
+                    //Pendientes
+                case "tickets.catalogo-tickets-pendientes":
+                    activeMenuTickets();
+                    $("#menuTicketpendiente").addClass("menu-item-active");
+                    break;
+                case "tickets.ver-tickets-pendientes":
+                    activeMenuTickets();
+                    $("#menuTicketpendiente").addClass("menu-item-active");
+                    break;
+                    //Historial
+                case "tickets.historial-tickets":
+                    activeMenuTickets();
+                    $("#menuTicketHistorial").addClass("menu-item-active");
+                    break;
+                case "tickets.ver-historial-tickets":
+                    activeMenuTickets();
+                    $("#menuTicketHistorial").addClass("menu-item-active");
+                    break;
+
+            }
+        }
+
+
+
+        //activar menu de Gerencia Sistemas
         function activeMenuGerenciaSistemas() {
             $("#menuDireccionSistemas").addClass("menu-item-active");
             $("#menuDireccionSistemas").addClass("menu-item-open");
