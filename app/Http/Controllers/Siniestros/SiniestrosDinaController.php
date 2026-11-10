@@ -38,17 +38,39 @@ class SiniestrosDinaController extends Controller
     public function catalogodina()
     {
         $siniestro_dina = SiniestroDina::where('siniestros_agencia_id', 1)->get();
+        $siniestro_con_deducible = SiniestroDina::where('siniestros_agencia_id', 1)->where('deducible', '!=' , "0.00")->get();
+        $siniestro_con_recuperacion = SiniestroDina::where('siniestros_agencia_id', 1)->where('recuperacion_aplicada', '!=' , "0.00")->get();
 
-        return view('siniestro.dina.catalogo-dina', compact('siniestro_dina'));
+        return view('siniestro.dina.catalogo-dina', compact('siniestro_dina', 'siniestro_con_deducible', 'siniestro_con_recuperacion'));
     }
 
     public function cargamasivadina(Request $request)
     {
-        
         Excel::import( new SiniestrosDinaImport(), $request->file('file_carga'));
 
         session()->flash('success', 'Se importó correctamente el archivo.');
         return redirect()->route('siniestro.catalogodina');
+    }
+
+    public function crearsiniestro()
+    {
+
+        return view('siniestro.dina.crear-registro-dina');
+    }
+
+    public function editasiniestro($id_siniestro)
+    {
+        $siniestro_dina = SiniestroDina::where('id', $id_siniestro)->first(); 
+
+        return view('siniestro.dina.editar-registro-dina', compact('siniestro_dina', 'id_siniestro')); 
+    }
+
+    public function versiniestro($id_siniestro)
+    {
+  
+        $siniestro_dina = SiniestroDina::where('id', $id_siniestro)->first();  
+
+        return view('siniestro.dina.ver-registro-dina', compact('siniestro_dina', 'id_siniestro')); 
     }
     
 }

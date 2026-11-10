@@ -1,3 +1,7 @@
+.oculto{
+    display: none;
+}
+
 .btn.btn-login {
   color: #ffffff;
   background-color: #cc0c73;

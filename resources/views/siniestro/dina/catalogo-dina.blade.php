@@ -5,7 +5,7 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/sistemas/CatalogoSistemas.js') }}"></script>
+  <script src="{{ asset('js/graficas.js') }}"></script>
 @endpush
 
 @section('content')
@@ -37,15 +37,14 @@
                             </div>
                             <div class="card-toolbar">
 
+                                    <img alt="Logo" id="grafica" class="h-55px brand-logo" src="{{ asset('img/grafica.png') }}" />
                                 <!--begin::Button-->
-                                    <a href="{{ route('sistemas.agregarRegistro') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
+                                    <a href="{{ route('siniestro.crearsiniestro') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                     <i class="la la-plus"></i>Nuevo</a>
 
 
-
-                                  <a href="#" id="carga_masiva_equ" class="btn btn-light-primary font-weight-bolder mr-3 ml-3" >
-                                  <i class="la la-plus"></i>carga masiva</a>
-                                  <input type="hidden" id="num_carga" value="0">
+                                    <a href="#" id="carga_masiva_equ" class="btn btn-light-primary font-weight-bolder mr-3 ml-3" ><i class="la la-plus"></i>carga masiva</a>
+                                    <input type="hidden" id="num_carga" value="0">
                                 <!--end::Button-->
 
 
@@ -60,7 +59,7 @@
                                         <div class="stat-card stat-blue">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{-- dato --}}
+                                                    {{ count($siniestro_dina) }}
                                                 </div>
                                                 <div class="stat-label">
                                                     Total de siniestros
@@ -78,10 +77,10 @@
                                         <div class="stat-card stat-cyan">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                   {{-- dato --}}
+                                                   {{ count($siniestro_con_deducible) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Siniestros Finalizados
+                                                    Con Deducible
                                                 </div>
                                             </div>
 
@@ -96,10 +95,10 @@
                                         <div class="stat-card stat-gold">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{-- dato --}}
+                                                    {{ count($siniestro_con_recuperacion) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Siniestros Pendientes
+                                                    Con Recuperacion Aplicada
                                                 </div>
                                             </div>
 
@@ -117,7 +116,7 @@
                                                     {{-- Dato --}}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Pendiente
+                                                    Siniestros Finalizados
                                                 </div>
                                             </div>
 
@@ -130,7 +129,24 @@
                                 </div>
                                 <!-- FIN ESTADISTICAS -->
 
+                                {{-- GRAFICAS --}}
+                                <div class="row oculto" id="div_grafica">
+                                    <input type="hidden" id="op_div_grafica" value="0">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">
+                                                    KPI's
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                Centralize your team information with our management tools. Access detailed instructions, expert advice, and technical documentation to maintain an up-to-date team directory.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                {{-- END GRAFICAS --}}
 
                             <div class="card card-custom gutter-b oculto" id="div_cargamasiva">
                               <div class="card-header">
@@ -173,11 +189,13 @@
                             <table class="table table-hover table-checkable table-responsive" id="kdatatable_inventario">
                                 <thead>
                                 <tr>
+                                    <th>No. Folio</th>
                                     <th>No. Siniestro</th>
                                     <th>No. Serie</th>
                                     <th>Proyecto</th>
                                     <th>Proveedor</th>
-                                    <th>Monto</th>
+                                    <th>Deducible</th>
+                                    <th>Recuperacion aplicada</th>
                                     <th>REF</th>
                                     <th>Creado por</th>
                                     <th>Formato</th>
@@ -186,15 +204,38 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($siniestro_dina as $siniestro)
+                                        <tr>
+                                            <td>{{ $siniestro->no_folio }}</td>
+                                            <td><a href="{{ route('siniestro.versiniestro', $siniestro->id) }}">{{ $siniestro->no_siniestro }}</a></td>
+                                            <td>{{ $siniestro->serie }}</td>
+                                            <td>{{ $siniestro->nombre_proyecto }}</td>
+                                            <td>Proveedor</td>
+                                            <td>{{ $siniestro->deducible }}</td>
+                                            <td>{{ $siniestro->recuperacion_aplicada }}</td>
+                                            <td>S/N</td>
+                                            <td>{{ $siniestro->userCreated->name}}</td>
+                                            <td>{{ $siniestro->contratante }}</td>
+                                            <td>S/N</td>
+                                            <td>
+                                                <a href="{{ route('siniestro.versiniestro', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Ver registro" data-theme="dark" data-toggle="tooltip" data-placement="top"> <i class="flaticon-eye"></i></a>
+
+                                                <a href="{{ route('siniestro.editasiniestro',$siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Editar registro" data-theme="dark" data-toggle="tooltip" data-placement="top"><i class="flaticon-edit"></i></a>
+                                            </td>
+                                            
+                                        </tr>
+                                    @endforeach
                                     {{-- Datos --}}
                                 </tbody>
                                 <tfoot>
                                 <tr>
+                                    <th>No. Folio</th>
                                     <th>No. Siniestro</th>
                                     <th>No. Serie</th>
                                     <th>Proyecto</th>
                                     <th>Proveedor</th>
-                                    <th>Monto</th>
+                                    <th>Deducible</th>
+                                    <th>Recuperacion aplicada</th>
                                     <th>REF</th>
                                     <th>Creado por</th>
                                     <th>Formato</th>
