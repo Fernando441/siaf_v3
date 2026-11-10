@@ -6,6 +6,8 @@
 
 @push('scripts')
   <script src="{{ asset('js/sistemas/CatalogoSistemas.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ asset('js/sistemas/GraficasSistemas.js') }}"></script>
 @endpush
 
 @section('content')
@@ -37,7 +39,7 @@
                   <h3 class="card-label">Inventario de equipo de computo</h3>
                 </div>
                 <div class="card-toolbar">
-
+                  <img alt="Logo" id="grafica" class="h-55px brand-logo" src="{{ asset('img/grafica.png') }}" />
                   <!--begin::Button-->
                   <a href="{{ route('sistemas.agregarRegistro') }}"
                     class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
@@ -137,17 +139,35 @@
 
                 </div>
                 <!-- FIN ESTADISTICAS -->
-                <!-- <div class="chart-icon-container">
-                  <a href="#" class="chart-icon-link" title="Ver estadísticas">
-                    <div class="chart-animation">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
+
+                {{-- PANEL DE GRAFICAS --}}
+                <div class="row oculto" id="div_grafica">
+
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Dashboard KPI's</h3>
+                      </div>
+
+                      <div class="card-body">
+                        <div class="row">
+                          <!-- GRAFICA DE DONA -->
+                          <div class="col-lg-4 col-md-6 mb-4">
+                            <canvas id="graficaDona" style="width: 100px;"></canvas>
+                            <input type="hidden" id="totales_inventario" value="{{ count($inventario) }}">
+                          </div>
+                          <div class="col-lg-4 col-md-6 mb-4">
+                            <canvas id="graficaDonas" style="width: 100px;"></canvas>
+                            <input type="hidden" id="totales_inventario" value="{{ count($inventario) }}">
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </a>
-                </div> -->
+                  </div>
+
+                </div>
+                {{-- FIN PANEL --}}
+
                 <div class="card card-custom gutter-b oculto" id="div_cargamasiva">
                   <div class="card-header">
                     <div class="card-title">
