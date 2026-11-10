@@ -149,7 +149,7 @@
                                                     {{ count($cliente) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Total de clientes
+                                                    Prioridad baja
                                                 </div>
 
                                             </div>
@@ -168,7 +168,7 @@
                                                     {{ count($licitacion_prioridad) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Prioridad alta
+                                                    Prioridad media
                                                 </div>
                                             </div>
 
@@ -183,10 +183,10 @@
                                         <div class="stat-card stat-red">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-
+                                                    {{ count($licitacion_prioridad) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    BUSCAR
+                                                    Prioridad alta
                                                 </div>
                                             </div>
 
