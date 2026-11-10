@@ -70,8 +70,10 @@
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>Exportar</button>
+
                                         <!--begin::Dropdown Menu-->
                                         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+
                                             <!--begin::Navigation-->
                                             <ul class="navi flex-column navi-hover py-2">
 
@@ -83,14 +85,14 @@
                                                         <span class="navi-text">Excel</span>
                                                     </a>
                                                 </li>
-                                                {{--                                             <li class="navi-item">
-                                                <a href="#" class="navi-link" id="export-pdf">
-																<span class="navi-icon">
-																	<i class="la la-file-pdf-o"></i>
-																</span>
-                                                    <span class="navi-text">PDF</span>
-                                                </a>
-                                            </li> --}}
+                                                {{-- <li class="navi-item">
+                                                    <a href="#" class="navi-link" id="export-pdf">
+                                                        <span class="navi-icon">
+                                                            <i class="la la-file-pdf-o"></i>
+                                                        </span>
+                                                        <span class="navi-text">PDF</span>
+                                                    </a>
+                                                </li> --}}
                                                 <li class="navi-item">
                                                     <a href="#" class="navi-link" id="export-csv">
                                                         <span class="navi-icon">
@@ -118,7 +120,84 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                <!-- ESTADISTICAS -->
+                                <div class="row dashboard-stats">
 
+                                    <!-- TOTAL DE EQUIPOS -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-blue">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+                                                    {{ count($tipo_contratacion) }}
+                                                </div>
+                                                <div class="stat-label">
+                                                    Total de concursos
+                                                </div>
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-laptop"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- EQUIPOS ASIGNADOS -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-cyan">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+                                                    {{ count($cliente) }}
+                                                </div>
+                                                <div class="stat-label">
+                                                    Total de clientes
+                                                </div>
+
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-check-circle"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- EQUIPOS SIN ASIGNAR -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-gold">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+                                                    {{ count($licitacion_prioridad) }}
+                                                </div>
+                                                <div class="stat-label">
+                                                    Prioridad alta
+                                                </div>
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- PORCENTAJE -->
+                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                        <div class="stat-card stat-red">
+                                            <div class="stat-content">
+                                                <div class="stat-value">
+
+                                                </div>
+                                                <div class="stat-label">
+                                                    BUSCAR
+                                                </div>
+                                            </div>
+
+                                            <div class="stat-icon">
+                                                <i class="fas fa-chart-pie"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- FIN ESTADISTICAS -->
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
 
@@ -185,7 +264,8 @@
                                                         </option>
                                                         @foreach ($licitacion_prioridad as $prioridad)
                                                             <option value="{{ $prioridad->id }}">
-                                                                {{ $prioridad->prioridad }}</option>
+                                                                {{ $prioridad->prioridad }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -245,8 +325,7 @@
                                     value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
                                 <input type="hidden" id="licitaciondatatable"
                                     value="{{ route('licitacion.licitaciondatatable') }}">
-                                <input type="hidden" id="licitacionEliminarPath"
-                                    value="{{ route('licitacion.eliminar') }}">
+                                <input type="hidden" id="licitacionEliminarPath" value="{{ route('licitacion.eliminar') }}">
 
                             </div>
                         </div>
@@ -309,13 +388,13 @@
                     </button>
                 </div>
                 <div id="modal-body" class="modal-body">
-                    
+
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
                             class="la la-times"></i>Cerrar</button>
-                     
+
                 </div>
             </div>
         </div>
