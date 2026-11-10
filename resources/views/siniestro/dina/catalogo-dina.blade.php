@@ -145,7 +145,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 {{-- END GRAFICAS --}}
 
                             <div class="card card-custom gutter-b oculto" id="div_cargamasiva">

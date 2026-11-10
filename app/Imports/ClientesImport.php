@@ -29,9 +29,9 @@ class ClientesImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row){
-            // if($row['estado'] != null){ $estado = $this->obtenerestado($row['estado']); }else{  $estado = ""; }
-            // if($row['municipio'] != null){ $municipio = $this->obtenermunicipio($row['municipio'], $estado); }else{  $municipio = ""; }
-            $cliente = $this->insertcliente($row);
+            if($row['estado'] != null){ $estado = $this->obtenerestado($row['estado']); }else{  $estado = ""; }
+            if($row['municipio'] != null){ $municipio = $this->obtenermunicipio($row['municipio'], $estado); }else{  $municipio = ""; }
+            $cliente = $this->insertcliente($row, $estado, $municipio);
         }
 
         session()->flash('success', 'Las unidades se crearon correctamente');
@@ -40,11 +40,13 @@ class ClientesImport implements ToCollection, WithHeadingRow
 
     public function obtenerestado($estado)
     {
-        $data_estado = Estado::where('nombre_estado', $estado)->first();
+
+        $data_estado = Estado::where('estado_nombre', $estado)->first();
+        // dd($data_estado);
         if($data_estado == null)
         {
             $data = [
-                'nombre_estado' => $estado,
+                'estado_nombre' => $estado,
                 'id_status_delete' => 1,
                 'iduserCreated' =>auth()->user()->id,
                 'iduserUpdated' =>auth()->user()->id,
@@ -55,17 +57,20 @@ class ClientesImport implements ToCollection, WithHeadingRow
             $data_id = Estado::insertGetId($data);
 
         }else{
-            $data_id = $data_estado->id;
+            $data_id = $data_estado->id_estado;
         }
-
+        // dd($data_id );
         return $data_id;
     }
 
     public function obtenermunicipio($municipio, $estado)
     {
-        $data_municipio = Municipio::where('nombre_estado', $municipio)->first();
+
+        $data_municipio = Municipio::where('municipio_nombre', $municipio)->first();
+
         if($data_municipio == null)
         {
+
             $data = [
                 'municipio_nombre' => $municipio,
                 'id_estado' => $estado,
@@ -85,7 +90,7 @@ class ClientesImport implements ToCollection, WithHeadingRow
         return $data_id;
     }
 
-    public function insertcliente($row)
+    public function insertcliente($row, $estado, $municipio)
     {
 
         if(strlen($row['rfc']) == 13) {
@@ -100,11 +105,11 @@ class ClientesImport implements ToCollection, WithHeadingRow
             'rfc' => $row['rfc'],
             'razon_social' => $row['razon_social'],
             'alias' => $row['alias'],
-            // 'calle_numero' => $row['calle_y_numero'],
-            // 'colonia' => $row['colonia_o_delegacion'],
+            'calle_numero' => $row['calle_y_numero'],
+            'colonia' => $row['colonia_o_delegacion'],
             'codigo_postal' => $row['codigo_postal'],
-            // 'id_estado' => $estado,
-            // 'id_municipio' => $municipio,
+            'id_estado' => $estado,
+            'id_municipio' => $municipio,
             // 'cedula_fiscal' => $row['curp'],
             'tipo_cliente'  => $tipo_cliente,
             'id_status_delete'  => 1,
