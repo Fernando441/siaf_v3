@@ -149,7 +149,7 @@
                                                     {{ count($cliente) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Equipos asignados
+                                                    Total de clientes
                                                 </div>
 
                                             </div>
@@ -168,7 +168,7 @@
                                                     {{ count($licitacion_prioridad) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Equipos sin asignar
+                                                    Prioridad alta
                                                 </div>
                                             </div>
 
