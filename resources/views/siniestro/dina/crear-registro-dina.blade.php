@@ -17,10 +17,10 @@
                 </div>
                 
                 <!--begin::Form-->
-                <form class="form" action="{{ route('cliente.guardarCliente') }}" method="post" id="frmCliente" enctype="multipart/form-data">
+                <form class="form" action="{{ route('siniestro.guardardina') }}" method="post" id="frmCliente" enctype="multipart/form-data">
                     @csrf   
 
-                    {{-- <input type='hidden' id='tipoArchivo' value='{{ $cadenaTipoDocumento }}'> --}}
+                    <input type='hidden' id='tipoArchivo' value=''>
                     <div class="card-body">
                         <!--begin::tabs-->
                         <ul class="nav nav-tabs nav-tabs-line">
