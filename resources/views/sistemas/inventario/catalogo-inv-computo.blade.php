@@ -151,14 +151,24 @@
 
                       <div class="card-body">
                         <div class="row">
-                          <!-- GRAFICA DE DONA -->
+                          
+                          <!-- graficaEquiposAsignados -->
                           <div class="col-lg-4 col-md-6 mb-4">
-                            <canvas id="graficaDona" style="width: 100px;"></canvas>
-                            <input type="hidden" id="totales_inventario" value="{{ count($inventario) }}">
+                            <canvas id="graficaEquiposAsignados"></canvas>
+                            <input type="hidden" id="equipos_asignados"
+                              value="{{ $inventario->where('estatus_asignado', 1)->count()}}">
+                            <input type="hidden" id="equipos_no_asignados"
+                              value="{{ $inventario->where('estatus_asignado', 0)->count()}}">
                           </div>
-                          <div class="col-lg-4 col-md-6 mb-4">
-                            <canvas id="graficaDonas" style="width: 100px;"></canvas>
-                            <input type="hidden" id="totales_inventario" value="{{ count($inventario) }}">
+                          <!-- graficaTiposEquipos -->
+                          <div class="col-lg-6 col-md-6 mb-4">
+                            <canvas id="graficaTiposEquipos"></canvas>
+                            @php
+                              $datosTiposEquipos = $inventario->groupBy(fn($unid) => $unid->Tipoequipo->tipo_equipo)->map(fn($equipos) => $equipos->count());
+                            @endphp
+                            <script>
+                              window.datosTiposEquipos = @json($datosTiposEquipos);
+                            </script>
                           </div>
                         </div>
                       </div>

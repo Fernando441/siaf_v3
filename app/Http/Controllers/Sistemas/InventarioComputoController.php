@@ -40,7 +40,6 @@ class InventarioComputoController extends Controller
     {
 
     	$inventario = InventarioComputo::where('id_status_delete', 1)->get();
-
         return view('sistemas.inventario.catalogo-inv-computo', compact('inventario'));
     }
 

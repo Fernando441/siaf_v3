@@ -3,24 +3,27 @@ $(document).ready(function () {
 	$("#grafica").click(function () {
 		$("#div_grafica").stop(true, true).slideToggle(300, function () {
 			if ($(this).is(":visible") && !graficasCreadas) {
-				graficaInventarioTotal();
-                graficaInventarioTotaleee();
+				
+				graficaEquiposAsignados();
+				graficaTiposEquipos();
 				graficasCreadas = true;
 			}
 		});
 	});
-	function graficaInventarioTotal() {
-		var obtengo_totales = document.getElementById("totales_inventario").value;
+	
+	function graficaEquiposAsignados() {
+		var asignados = document.getElementById("equipos_asignados").value;
+		var noasignados = document.getElementById("equipos_no_asignados").value;
 
-		new Chart(document.getElementById('graficaDona'), {
-			type: 'radar',
+		new Chart(document.getElementById('graficaEquiposAsignados'), {
+			type: 'doughnut',
 			data: {
-				labels: ['Totales', 'Azul', 'mira', 'no', 'aja', 'si', 'no'],
+				labels: ['Equipos Asignados', 'Equipos no Asignados'],
 				datasets: [{
-					data: [obtengo_totales, 150, 100, 30, 200 ,99, 55],
+					data: [asignados, noasignados],
 					backgroundColor: [
-						'rgb(255, 99, 132)',
-						'rgb(54, 162, 235)',
+						'rgb(84, 247, 9)',
+						'rgb(230, 29, 2)',
 						// 'rgb(255, 205, 86)',
 						// 'rgb(102, 205, 170)'
 					],
@@ -41,20 +44,24 @@ $(document).ready(function () {
 			}
 		});
 	}
-    function graficaInventarioTotaleee() {
-		var obtengo_totales = document.getElementById("totales_inventario").value;
+	function graficaTiposEquipos() {
 
-		new Chart(document.getElementById('graficaDonas'), {
+		var datos = window.datosTiposEquipos;
+
+		new Chart(document.getElementById('graficaTiposEquipos'), {
 			type: 'bar',
 			data: {
-				labels: ['Totales', 'Azul'],
+				labels: Object.keys(datos),
 				datasets: [{
-					data: [obtengo_totales, 150],
+					data: Object.values(datos),
 					backgroundColor: [
-						'rgb(255, 99, 132)',
+						'rgb(84, 247, 9)',
+						'rgb(230, 29, 2)',
+						'rgb(255, 205, 86)',
+						'rgb(102, 205, 170)',
 						'rgb(54, 162, 235)',
-						// 'rgb(255, 205, 86)',
-						// 'rgb(102, 205, 170)'
+						'rgb(153, 102, 255)',
+						'rgb(255, 159, 64)'
 					],
 					hoverOffset: 4
 				}]
