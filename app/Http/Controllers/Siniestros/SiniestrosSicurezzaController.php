@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Siniestros;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +24,7 @@ use App\Models\Siniestros\SiniestroAgencia;
 use App\Models\Siniestros\SiniestroSicurezza;
 use App\Models\Siniestros\SiniestroFolioSicurezza;
 use App\Models\Siniestros\SiniestroSicurezzaHistorial;
+use App\Models\Siniestros\SiniestroSicurezzaHistorialRAplicada;
 use App\Models\Siniestros\SiniestroTipoDocumento;
 use App\Models\Siniestros\SiniestroSicurezzaEvidencia;
 use App\Imports\SiniestrosSicuezzaImport;
@@ -89,22 +91,54 @@ class SiniestrosSicurezzaController extends Controller
         }
         $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
 
-        return view('siniestro.sicurezza.editar-registro-sicurezza', compact('siniestro_sicurezza', 'id_siniestro', 'cadenaTipoDocumento'));  
+        $historial_deducibles = SiniestroSicurezzaHistorial::where('registro_sicurezza_id', $id_siniestro)->get();
+        $historial_raplicada = SiniestroSicurezzaHistorialRAplicada::where('registro_sicurezza_id', $id_siniestro)->get();
+        
+
+        return view('siniestro.sicurezza.editar-registro-sicurezza', compact('siniestro_sicurezza', 'id_siniestro', 'cadenaTipoDocumento', 'historial_deducibles', 'historial_raplicada'));  
     } 
 
     public function editsiniestrosic(Request $request)
     {
-        
+
         $siniestro_sicurezza = SiniestroSicurezza::where('id', $request->id)->first();
-        
         if($siniestro_sicurezza->deducibles == $request->deducibles){
-            $deducible = "igual";
-            $op_deducible = 0;
+            if($siniestro_sicurezza->op_deducible == 1)
+            {
+                $op_deducible = 1; 
+            }else{
+                $op_deducible = 0; 
+            }
+            
         }else{
-            $deducible = "diferente";
-            $op_deducible = 0;
+            $data_deducible = [
+                'registro_sicurezza_id' => $request->id,
+                'deducible' => $siniestro_sicurezza->deducibles,
+                'created_at' =>date('Y-m-d H:i:s'),
+                'iduserCreated' =>auth()->user()->id,
+            ];
+            SiniestroSicurezzaHistorial::insert($data_deducible);
+            $op_deducible = 1;
         }
-        dd($deducible);
+        
+        if($siniestro_sicurezza->recuperacion_aplicada == $request->recuperacion_aplicada){
+
+            if($siniestro_sicurezza->op_recuperacion_aplicada == 1)
+            {
+                $op_recuperacion = 1; 
+            }else{
+                $op_recuperacion = 0; 
+            }
+        }else{
+            $data_deducible = [
+                'registro_sicurezza_id' => $request->id,
+                'recuperacion_aplicada' => $siniestro_sicurezza->recuperacion_aplicada,
+                'created_at' =>date('Y-m-d H:i:s'),
+                'iduserCreated' =>auth()->user()->id,
+            ];
+            SiniestroSicurezzaHistorialRAplicada::insert($data_deducible);
+            $op_recuperacion = 1;
+        }  
 
         $data = [
             'siniestro_completo' => $request->siniestro_completo,
@@ -112,34 +146,32 @@ class SiniestrosSicurezzaController extends Controller
             'recuperacion_aplicada' => $request->recuperacion_aplicada,
             'proyecto' => $request->proyecto,
             'serie' => $request->serie,
-            'fecha_ocurrencia' => $request['fecha_ocurrencia'] ? Carbon::createFromFormat('d/m/Y', $request['fecha_ocurrencia'])->format('Y-m-d'):null,
+            'fecha_ocurrencia' => $request['fecha_ocurrencia'],
             'causa_enfermedad' => $request->causa_enfermedad,
             'nombre_agente' => $request->nombre_agente,
             'asegurado' => $request->asegurado,
             'modelo' => $request->modelo,
             'descripcion_auto' => $request->descripcion_auto,
+            'op_deducible' => $op_deducible,
+            'op_recuperacion_aplicada' => $op_recuperacion,
             'updated_at' =>date('Y-m-d H:i:s'),
             'iduserUpdated' =>auth()->user()->id,
         ];
 
         SiniestroSicurezza::where('id', $request->id)->update($data);
 
-
         $colIdDocumento = $request->id_documento;
-        $cliente = Cliente::where('rfc', $request->rfc)->first();
-
         if($request->hasfile('archivo')){
             $archivos = $request->file('archivo');
             foreach($archivos as $indice => $archivo)
             {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('cliente/'.$cliente->id_cliente, $archivo, $archivoNombre);
+                Storage::putFileAs('Siniestro sicurezza/'.$request->id, $archivo, $archivoNombre);
                 $data = [
-                    'id_cliente' => $cliente->id_cliente,
-                    'cliente_tipo_documento_id' =>$colIdDocumento[$indice],
+                    'siniestro_sicurezza_id' => $request->id,
+                    'tipo_documento_id' =>$colIdDocumento[$indice],
                     'documento' => $archivoNombre,
-                    'mime_type' => $mimeType,
                     'created_at' =>date('Y-m-d H:i:s'),
                     'updated_at' =>date('Y-m-d H:i:s'),
                     'iduserCreated' =>auth()->user()->id,
@@ -151,6 +183,5 @@ class SiniestrosSicurezzaController extends Controller
 
         session()->flash('success', 'El siniestro se modifico correctamente');
         return redirect()->route('siniestro.catalogosicurezza');
-
     }
 }

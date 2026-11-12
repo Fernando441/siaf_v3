@@ -29,7 +29,7 @@ $("#kdatatable_inventario").DataTable({
     scrollCollapse: false,
 
     fixedColumns: {
-        leftColumns: 4
+        leftColumns: 3
     },
 
     language: {

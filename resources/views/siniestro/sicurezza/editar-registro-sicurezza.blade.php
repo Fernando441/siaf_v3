@@ -2,11 +2,27 @@
 @push('scripts')
 	<script src="{{ asset('js/siniestros/EditarSiniestro.js') }}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+
 @endpush
 @section('title')
     Editar siniestro
 @endsection
 @section('content')
+<style>
+    .btn-parpadear {
+    animation: parpadeo 0.9s ease-in-out infinite;
+}
+
+@keyframes parpadeo {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+</style>
+
 <!--begin::Card-->
 <div class="row">
     <div class="col-lg-12">
@@ -44,17 +60,109 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <label>Deducible $</label>
+                                    <label>Deducible $ @if($siniestro_sicurezza->op_deducible == 1) <a href="#" id="deducible_icon"> <i class="flaticon-exclamation menu-icon" style="color:orange;"></i></a> @endif</label>
                                     <div class="input-group">
                                         <input type="number" name="deducibles" value="{{ $siniestro_sicurezza->deducibles }}" id="deducibles" class="form-control specialCharts" required/>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <label>Recuperacion Aplicada $</label>
+                                    <label>Recuperacion Aplicada $ @if($siniestro_sicurezza->op_recuperacion_aplicada == 1) <a href="#" id="recaplic_icon"> <i class="flaticon-exclamation menu-icon" style="color:orange;"></i></a> @endif</label>
                                     <div class="input-group">
                                         <input type="number" name="recuperacion_aplicada" value="{{ $siniestro_sicurezza->recuperacion_aplicada }}" id="recuperacion_aplicada" class="form-control specialCharts" required/>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-group row oculto" id="deducible_historial_div">
+                                <input type="hidden" id="iput_deducible" value="0">
+                                <div class="card card-custom">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <span class="card-icon">
+                                                <i class="flaticon2-file text-primary"></i>
+                                            </span>
+                                            <h3 class="card-label">Historial de deducible</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <table class="table table-hover table-checkable" id="kdatatable_historial_deducible">
+                                            <thead>
+                                            <tr>
+                                                <th>Deducible</th>
+                                                <th>Persona que modifico</th>
+                                                <th>Fecha y hora de modificacion</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach($historial_deducibles as $unid)
+                                                    <tr>
+                                                        <td>${{ $unid->deducible }}</td>
+                                                        <td>{{ $unid->userCreated->name }}</td>
+                                                        <td>{{ $unid->created_at}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+
+                                            <tfoot>
+                                            <tr>
+                                                <th>Deducible</th>
+                                                <th>Persona que modifico</th>
+                                                <th>Fecha y hora de modificacion</th>
+                                            </tr>
+                                            </tfoot>
+
+                                        </table>
+                                        <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+                                    </div>
+                                </div>                                
+                            </div>
+
+
+                            <div class="form-group row oculto" id="raplicada_historial_div">
+                                <input type="hidden" id="iput_raplicada" value="0">
+                                <div class="card card-custom">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <span class="card-icon">
+                                                <i class="flaticon2-file text-primary"></i>
+                                            </span>
+                                            <h3 class="card-label">Historial de recuperacion aplicada</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-hover table-checkable" id="kdatatable_historial_raplicada">
+                                            <thead>
+                                            <tr>
+                                                <th>Recuperacion aplicada</th>
+                                                <th>Persona que modifico</th>
+                                                <th>Fecha y hora de modificacion</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach($historial_raplicada as $unid)
+                                                    <tr>
+                                                        <td>${{ $unid->recuperacion_aplicada }}</td>
+                                                        <td>{{ $unid->userCreated->name }}</td>
+                                                        <td>{{ $unid->created_at}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+
+                                            <tfoot>
+                                            <tr>
+                                                <th>Deducible</th>
+                                                <th>Persona que modifico</th>
+                                                <th>Fecha y hora de modificacion</th>
+                                            </tr>
+                                            </tfoot>
+
+                                        </table>
+                                        <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+
+                                    </div>
+                                </div>                                
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-6">
@@ -165,6 +273,4 @@
     </div>
 </div>
 <!--end::Card-->
-
-
 @endsection

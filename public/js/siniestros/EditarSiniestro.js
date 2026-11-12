@@ -255,3 +255,83 @@ jQuery(document).ready(function() {
     Modulo.init();
 });
 
+
+$("#deducible_icon").click(function(){
+    var iput_deducible = document.getElementById("iput_deducible").value;
+
+    if(iput_deducible == 0){
+        $(this).addClass('btn-parpadear');
+        $("#recaplic_icon").removeClass('btn-parpadear');
+        $("#deducible_historial_div").show();
+        $("#raplicada_historial_div").hide();
+        document.getElementById("iput_deducible").value = 1;
+        document.getElementById("iput_raplicada").value = 0;
+    }else{
+        $(this).removeClass('btn-parpadear');
+        $("#deducible_historial_div").hide();
+        document.getElementById("iput_deducible").value = 0;
+    }
+});
+
+
+$("#recaplic_icon").click(function(){
+    var iput_raplicada = document.getElementById("iput_raplicada").value;
+    if(iput_raplicada == 0){
+        $(this).addClass('btn-parpadear');
+        $("#deducible_icon").removeClass('btn-parpadear');
+        $("#raplicada_historial_div").show();
+        $("#deducible_historial_div").hide();
+        document.getElementById("iput_raplicada").value = 1;
+        document.getElementById("iput_deducible").value = 0;
+    }else{
+        $("#raplicada_historial_div").hide();
+        $(this).removeClass('btn-parpadear');
+        document.getElementById("iput_raplicada").value = 0;
+    }
+});
+
+
+$("#kdatatable_historial_deducible").DataTable({
+  lengthMenu: [10, 25, 50, 100],
+  pageLength: 25,
+  language: {
+        'lengthMenu': 'Display _MENU_',
+        "url": $('#datatable_i18n').val()
+  },
+
+  "dom":
+  "<'row'" +
+  "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+  "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+  ">" +
+
+  "<'table-responsive'tr>" +
+
+  "<'row'" +
+  "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+  "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+  ">"
+});
+
+
+$("#kdatatable_historial_raplicada").DataTable({
+  lengthMenu: [10, 25, 50, 100],
+  pageLength: 25,
+  language: {
+        'lengthMenu': 'Display _MENU_',
+        "url": $('#datatable_i18n').val()
+  },
+
+  "dom":
+  "<'row'" +
+  "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+  "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+  ">" +
+
+  "<'table-responsive'tr>" +
+
+  "<'row'" +
+  "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+  "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+  ">"
+});

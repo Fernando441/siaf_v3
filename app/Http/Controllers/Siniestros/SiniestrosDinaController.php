@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use App\Services\Folio;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -24,6 +25,7 @@ use App\Models\Siniestros\SiniestroDina;
 use App\Models\Siniestros\SiniestroSicurezza;
 use App\Models\Siniestros\SiniestroTipoDocumento;
 use App\Models\Siniestros\SiniestroDinaHistorial;
+use App\Models\Siniestros\SiniestroSDinaHistorialRAplicada;
 use App\Models\Siniestros\SiniestroDinaEvidencia;
 use App\Imports\SiniestrosDinaImport;
 
