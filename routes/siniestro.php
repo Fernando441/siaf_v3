@@ -7,6 +7,7 @@
     	Route::get('/catalogo-dina', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'catalogodina'])->name('siniestro.catalogodina');
     	Route::post('/cargamasiva-dina', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'cargamasivadina'])->name('siniestro.cargamasivadina');
     	Route::get('/crear-registro-siniestro', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'crearsiniestro'])->name('siniestro.crearsiniestro');
+    	Route::post('/guardar-dina', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'guardardina'])->name('siniestro.guardardina');
     	Route::get('/editar-siniestro/{id}', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'editasiniestro'])->name('siniestro.editasiniestro');
     	Route::get('/ver-siniestro/{id}', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'versiniestro'])->name('siniestro.versiniestro');
 

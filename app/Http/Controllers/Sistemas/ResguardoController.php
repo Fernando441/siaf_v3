@@ -245,6 +245,16 @@ class ResguardoController extends Controller
 
     public function verResguardo($id_resguardo)
     {
+$mpdf = new Mpdf();
+$mpdf->WriteHTML();
+
+$pdf = $mpdf->Output('', 'S');
+
+dd([
+    'bytes' => strlen($pdf),
+    'firma_pdf' => substr($pdf, 0, 5),
+    'es_pdf' => str_starts_with($pdf, '%PDF-')
+]);
 
         $resguardo = Resguardo::where('id', $id_resguardo)->first();
         $usuarios = User::where('id_status_delete', 1)->get();
@@ -271,6 +281,7 @@ class ResguardoController extends Controller
         ->leftjoin("inventario_tipo_equipo as ite", "ite.id", "iec.tipo_equipo_id")
         ->where("resguardo_equipo.resguardo_id", $id_resguardo)
         ->get();
+
 
 
         $header = view('sistemas.resguardo.ver-resguardo-pdf-header')->render();

@@ -5,7 +5,44 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/graficas.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="{{ asset('js/graficas.js') }}"></script>
+    <script>
+        var siniestros_deducible = document.getElementById('siniestros_deducible').getContext('2d');
+        var siniestro_con_deducible = document.getElementById("siniestro_con_deducible").value;
+        var siniestro_recuperacion = document.getElementById("siniestro_recuperacion").value;
+        var siniestro_ambas = document.getElementById("siniestro_ambas").value;
+        var myChartsemanados = new Chart(siniestros_deducible, {
+            type: 'doughnut',
+            data: {
+                labels: ['Con Deducible', 'Con Recuperacion Aplicada', 'Con ambas'],
+                datasets: [{
+                    label: 'Visitas',
+                    data: [siniestro_con_deducible, siniestro_recuperacion, siniestro_ambas],
+                    backgroundColor: [
+                        'rgba(237, 36, 0, 0.4)',
+                        'rgba(246, 250, 0, 0.4)',
+                        'rgba(85, 255, 46, 0.4)'
+                    ],
+                    borderColor: [
+                        'rgba(237, 36, 0, 1)',
+                        'rgba(246, 250, 0, 1)',
+                        'rgba(85, 255, 46, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 @endpush
 
 @section('content')
@@ -140,7 +177,14 @@
                                                 </h3>
                                             </div>
                                             <div class="card-body">
-                                                Centralize your team information with our management tools. Access detailed instructions, expert advice, and technical documentation to maintain an up-to-date team directory.
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <canvas id="siniestros_deducible" style="width: 100px;"></canvas>
+                                                        <input type="hidden" id="siniestro_con_deducible" value="{{ count($siniestro_con_deducible) }}">
+                                                        <input type="hidden" id="siniestro_recuperacion" value="{{ count($siniestro_con_recuperacion) }}">
+                                                        <input type="hidden" id="siniestro_ambas" value="{{ count($siniestro_con_ambas) }}">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

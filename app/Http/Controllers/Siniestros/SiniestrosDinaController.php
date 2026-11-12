@@ -40,8 +40,9 @@ class SiniestrosDinaController extends Controller
         $siniestro_dina = SiniestroDina::where('siniestros_agencia_id', 1)->get();
         $siniestro_con_deducible = SiniestroDina::where('siniestros_agencia_id', 1)->where('deducible', '!=' , "0.00")->get();
         $siniestro_con_recuperacion = SiniestroDina::where('siniestros_agencia_id', 1)->where('recuperacion_aplicada', '!=' , "0.00")->get();
+        $siniestro_con_ambas = SiniestroDina::where('deducible', '!=' , "0.00")->where('recuperacion_aplicada', '!=' , "0.00")->get();
 
-        return view('siniestro.dina.catalogo-dina', compact('siniestro_dina', 'siniestro_con_deducible', 'siniestro_con_recuperacion'));
+        return view('siniestro.dina.catalogo-dina', compact('siniestro_dina', 'siniestro_con_deducible', 'siniestro_con_recuperacion', 'siniestro_con_ambas'));
     }
 
     public function cargamasivadina(Request $request)
@@ -56,6 +57,11 @@ class SiniestrosDinaController extends Controller
     {
 
         return view('siniestro.dina.crear-registro-dina');
+    }
+
+    public function guardardina(Request $request)
+    {
+        dd($request);
     }
 
     public function editasiniestro($id_siniestro)

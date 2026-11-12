@@ -8,4 +8,4 @@ $("#grafica").click(function(){
 		document.getElementById("op_div_grafica").value = 0;
 	}
 });
-// END Funcion Para mostrar Div de graficas
+// Funcion Para mostrar Div de graficas
