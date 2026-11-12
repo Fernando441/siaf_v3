@@ -16,4 +16,7 @@
     //Listado de Siniestros SICUREZZA
     	Route::get('/catalogo-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'catalogosicurezza'])->name('siniestro.catalogosicurezza');
     	Route::post('/cargamasiva-sicuezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'cargamasivasicuezza'])->name('siniestro.cargamasivasicuezza');
+    	Route::get('/ver-siniestro-sicurezza/{id}', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'versiniestrosic'])->name('siniestro.versiniestrosic');
+    	Route::get('/editar-siniestro-sicurezza/{id}', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'editarsiniestrosic'])->name('siniestro.editarsiniestrosic');
+    	Route::post('/edit-siniestro-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'editsiniestrosic'])->name('siniestro.editsiniestrosic');
     	

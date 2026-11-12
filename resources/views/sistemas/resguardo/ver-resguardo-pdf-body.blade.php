@@ -62,7 +62,7 @@
 
         thead th {
             background: #C4C4C4;
-            color: #fff;
+            color: #000000;
             border-bottom: 0;
             border-top: 0;
         }
@@ -199,11 +199,13 @@
         <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 110px;">
             <tr>
                 <td style="width: 50%; padding: 15px;">
+                    <h4>{{ $user_resguardo->name }}</h4>
                     <p>_____________________________________________________</p>
                     <h3>NOMBRE Y FIRMA DEL USUARIO</h3>
                 </td>
 
                 <td style="width: 50%; padding: 15px;">
+                    <h4>{{ $resguardo->userCreated->name }}</h4>
                     <p>_____________________________________________________</p>
                     <h3>NOMBRE Y FIRMA DEL AREA DE SISTEMAS</h3>
                     

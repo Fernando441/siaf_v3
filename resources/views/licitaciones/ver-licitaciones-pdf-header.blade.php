@@ -8,7 +8,7 @@
     </tr>
     <tr>
         <td align="right" >
-            NAUCALPAN DE JUÁREZ, ESTADO DE MÉXICO A @php \Carbon\Carbon::setLocale('es');  echo Str::upper(\Carbon\Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY')); @endphp
+            @php \Carbon\Carbon::setLocale('es');  echo Str::upper(\Carbon\Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY')); @endphp
             <br>
             <span style="font-weight: bold;" >No. Concurso: {{ $info->no_licitacion }}</span><br>
             <span style="font-weight: bold;" >Folio: {{ $info->folio }}</span><br>

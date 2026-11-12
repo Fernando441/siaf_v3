@@ -4,6 +4,11 @@
     Ver siniestro
 @endsection
 @section('content')
+<style>
+    .price-success{
+        font-size: 16px;
+    }
+</style>
 <!--begin::Card-->
 <div class="row">
     <div class="col-lg-12">
@@ -18,7 +23,7 @@
                     <!--begin::tabs-->
                     <ul class="nav nav-tabs nav-tabs-line">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">Información del siniestro</a>
+                            <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">Datos generales</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Archivos</a>
@@ -27,114 +32,199 @@
                     <div class="tab-content mt-5" id="myTabContent">
                         <div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                             <div class="form-group row">
-                                <div class="col-lg-4">
-                                    <label>No. Folio</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->no_folio }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>No. Siniestro</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->no_siniestro }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>No. Serie</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->serie }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-4">
-                                    <label>Contratante</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->contratante }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Proyecto poliza</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->proyecto_poliza }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Nombre proyecto</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->nombre_proyecto }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-4">
-                                    <label>Inicio</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->inicio }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Fin</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->fin }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Moneda</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->moneda }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-lg-4">
-                                    <label>Poliza</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->poliza }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Fecha ocurrencia</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->fecha_ocurrencia }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Tipo de siniestro inicial</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->tipo_siniestro_inicial }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-lg-4">
-                                    <label>Deducibles</label>
-                                    <div class="input-group">
-                                        <p>${{ $siniestro_dina->deducible }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Recuperacion aplicada</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->recuperacion_aplizada }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Nombre agente</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->nombre_agente }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-lg-4">
-                                    <label>Modelo</label>
-                                    <div class="input-group">
-                                        <p>{{ $siniestro_dina->modelo }}</p>
-                                    </div>
-                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card card-custom">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <span class="card-icon">
+                                                    <i class="flaticon2-file text-primary"></i>
+                                                </span>
+                                                <h3 class="card-label">Informacion del siniestro</h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <div class="col-lg-4">
+                                                    <label>No. Folio</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->no_folio }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>No. Siniestro</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->no_siniestro }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>No. Serie</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->serie }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-4">
+                                                    <label>Contratante</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->contratante }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Proyecto poliza</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->proyecto_poliza }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Nombre proyecto</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->nombre_proyecto }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-4">
+                                                    <label>Inicio</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->inicio }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Fin</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->fin }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Moneda</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->moneda }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-lg-4">
+                                                    <label>Poliza</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->poliza }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Fecha ocurrencia</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->fecha_ocurrencia }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Tipo de siniestro inicial</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->tipo_siniestro_inicial }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-lg-4">
+                                                    <label>Deducibles</label>
+                                                    <div class="input-group">
+                                                        <p>${{ $siniestro_dina->deducible }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Recuperacion aplicada</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->recuperacion_aplizada }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label>Nombre agente</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->nombre_agente }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-lg-4">
+                                                    <label>Modelo</label>
+                                                    <div class="input-group">
+                                                        <p>{{ $siniestro_dina->modelo }}</p>
+                                                    </div>
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center">
+
+                                </div>
                             </div>
+
+                            @if($unidad != null)
+                                <div class="form-group row">
+                                    <div class="col-lg-6 text-center">
+                                        @if($ver != 0)
+                                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    @foreach($fotografias as $documento)
+                                                        <div class="carousel-item {{($ver == $documento->id) ? 'active' : ''}}">
+                                                            <img class="d-block w-100" src="{{ route('archivo.fotografiaUnidad', ['id'=>$documento->id]) }}" alt="Second slide">
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                        @else
+                                            <img src="/img/no_disponible.png" width="300px">
+                                        @endif
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="card card-custom">
+                                            <div class="card-header">
+                                                <div class="card-title">
+                                                    <span class="card-icon">
+                                                        <i class="flaticon-truck text-primary"></i>
+                                                    </span>
+                                                    <h3 class="card-label">Informacion de la unidad</h3>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <label>No. Folio</label>
+                                                        <div class="input-group">
+                                                            <p>{{ $siniestro_sicurezza->no_folio }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label>Siniestro completo</label>
+                                                        <div class="input-group">
+                                                            <p>{{ $siniestro_sicurezza->siniestro_completo }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label>No. Serie</label>
+                                                        <div class="input-group">
+                                                            <p>{{ $siniestro_sicurezza->serie }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            
 
                         </div>
                         <div class="tab-pane fade mt-10" id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">

@@ -22,7 +22,14 @@ use Spatie\Permission\Models\Permission;
 use App\Models\Siniestros\SiniestroAgencia;
 use App\Models\Siniestros\SiniestroDina;
 use App\Models\Siniestros\SiniestroSicurezza;
+use App\Models\Siniestros\SiniestroTipoDocumento;
+use App\Models\Siniestros\SiniestroDinaHistorial;
+use App\Models\Siniestros\SiniestroDinaEvidencia;
 use App\Imports\SiniestrosDinaImport;
+
+use App\Models\Unidad\Unidad;
+use App\Models\Unidad\FotoUnidad;
+use App\Models\Unidad\UnidadFotografia;
 
 
 class SiniestrosDinaController extends Controller
@@ -55,8 +62,17 @@ class SiniestrosDinaController extends Controller
 
     public function crearsiniestro()
     {
+        
+        $documentos = SiniestroTipoDocumento::where('id_status_delete',1)->get();
 
-        return view('siniestro.dina.crear-registro-dina');
+        //tipo de documentos en formato json
+        $cadenaTipoDocumento = "";
+        foreach($documentos as $documento){
+            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->nombre_documento.'",';
+        }
+        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+
+        return view('siniestro.dina.crear-registro-dina', compact('cadenaTipoDocumento'));
     }
 
     public function guardardina(Request $request)
@@ -75,8 +91,22 @@ class SiniestrosDinaController extends Controller
     {
   
         $siniestro_dina = SiniestroDina::where('id', $id_siniestro)->first();  
+        $unidad = Unidad::where('no_serie', $siniestro_dina->serie)->first(); 
+        if($unidad){
+            $fotografias = UnidadFotografia::where('unidad_id', $unidad->id)->get();
+            $active = UnidadFotografia::where('unidad_id', $unidad->id)->first();
 
-        return view('siniestro.dina.ver-registro-dina', compact('siniestro_dina', 'id_siniestro')); 
+            if ($active == null) {
+                $ver = 0;
+            } else {
+                $ver = $active->id;
+            }
+        }else{
+            $fotografias = 1;
+            $ver = 0;
+        }
+
+        return view('siniestro.dina.ver-registro-dina', compact('siniestro_dina', 'id_siniestro', 'unidad', 'fotografias', 'ver')); 
     }
     
 }
