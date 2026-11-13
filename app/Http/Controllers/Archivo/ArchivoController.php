@@ -767,11 +767,11 @@ class ArchivoController extends Controller
         $user = auth()->user();
         $id = $request->id;
         $documento = SiniestroSicurezzaEvidencia::findOrFail($id);
-        $existeArchivo = Storage::exists('Siniestro sicurezza/'.$documento->id.'/'.$documento->documento);
+        $existeArchivo = Storage::exists('Siniestrosicurezza/'.$documento->siniestro_sicurezza_id.'/'.$documento->documento);
         if($user && $documento && $existeArchivo) {
-            return Storage::download('Siniestro sicurezza/'.$documento->id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
+            return Storage::download('Siniestrosicurezza/'.$documento->siniestro_sicurezza_id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
         }else{
-            return abort('403');
+             return abort('403');
         } 
     }
 
@@ -780,9 +780,9 @@ class ArchivoController extends Controller
         $user = auth()->user();
         $id = $request->id;
         $documento = SiniestroDinaEvidencia::findOrFail($id);
-        $existeArchivo = Storage::exists('Siniestro dina/'.$documento->id.'/'.$documento->documento);
+        $existeArchivo = Storage::exists('Siniestrodina/'.$documento->siniestros_dina_id.'/'.$documento->documento);
         if($user && $documento && $existeArchivo) {
-            return Storage::download('Siniestro dina/'.$documento->id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
+            return Storage::download('Siniestrodina/'.$documento->siniestros_dina_id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
         }else{
             return abort('403');
         }         

@@ -174,7 +174,7 @@ class SiniestrosDinaController extends Controller
             {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('Siniestro dina/'.$request->id, $archivo, $archivoNombre);
+                Storage::putFileAs('Siniestrodina/'.$request->id, $archivo, $archivoNombre);
                 $data = [
                     'siniestros_dina_id' => $request->id,
                     'tipo_documento_id' =>$colIdDocumento[$indice],
@@ -190,6 +190,22 @@ class SiniestrosDinaController extends Controller
 
         session()->flash('success', 'El siniestro se modifico correctamente');
         return redirect()->route('siniestro.catalogodina');
+    }
+
+    public function deletedinaevidencia(Request $request)
+    {
+        $doc = SiniestroDinaEvidencia::findOrFail($request->id);
+        $estatus = true;
+        if ($doc){
+            Storage::delete('Siniestrodina/'.$doc->id.'/'.$doc->documento);
+            SiniestroDinaEvidencia::where('id', $request->id)->delete();
+        }else{
+            $estatus = false;
+        }
+
+        return response()->json([
+            'estatus' => $estatus,
+        ]);
     }
 
     public function crearsiniestro()
@@ -209,7 +225,60 @@ class SiniestrosDinaController extends Controller
 
     public function guardardina(Request $request)
     {
-        dd($request);
+    
+        $data = [
+            'no_folio' => $this->folio->getFolioSiniestroDina(),
+            'siniestros_agencia_id' => 1,
+            'no_siniestro' => $request->no_siniestro,
+            'contratante' => $request->contratante,
+            'proyecto_poliza' => $request->proyecto_poliza,
+            'nombre_proyecto' => $request->nombre_proyecto,
+            'inicio' => $request->inicio,
+            'fin' => $request->fin,
+            'moneda' => $request->moneda,
+            'poliza' => $request->poliza,
+            'serie' => $request->serie,
+            'fecha_ocurrencia' => $request->fecha_ocurrencia,
+            'tipo_siniestro_inicial' => $request->tipo_siniestro_inicial,
+            'deducible' => $request->deducible,
+            'recuperacion_aplicada' => $request->recuperacion_aplicada,
+            'nombre_agente' => $request->nombre_agente,
+            'modelo' => $request->modelo,
+            'op_modificado' => 0,
+            'op_deducible' => 0,
+            'op_recuperacion_aplicada' => 0,
+            'iduserCreated' =>auth()->user()->id,
+            'iduserUpdated' =>auth()->user()->id,
+            'created_at' =>date('Y-m-d H:i:s'),
+            'updated_at' =>date('Y-m-d H:i:s')
+        ];
+
+        $id_siniestro = SiniestroDina::insertGetId($data);  
+
+        $colIdDocumento = $request->id_documento;
+        if($request->hasfile('archivo')){
+            $archivos = $request->file('archivo');
+            foreach($archivos as $indice => $archivo)
+            {
+                $archivoNombre = $archivo->hashName();
+                $mimeType = $archivo->getMimeType();
+                Storage::putFileAs('Siniestrodina/'.$id_siniestro, $archivo, $archivoNombre);
+                $data = [
+                    'siniestros_dina_id' => $id_siniestro,
+                    'tipo_documento_id' =>$colIdDocumento[$indice],
+                    'documento' => $archivoNombre,
+                    'created_at' =>date('Y-m-d H:i:s'),
+                    'updated_at' =>date('Y-m-d H:i:s'),
+                    'iduserCreated' =>auth()->user()->id,
+                    'iduserUpdated' =>auth()->user()->id
+                ];
+                SiniestroDinaEvidencia::insert($data);
+            }
+        }
+
+        session()->flash('success', 'El siniestro se modifico correctamente');
+        return redirect()->route('siniestro.catalogodina');
+
     }
 
 }

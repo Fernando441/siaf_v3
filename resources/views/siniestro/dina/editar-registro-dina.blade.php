@@ -16,7 +16,7 @@
                     <h3 class="card-title">Editar registro</h3>
                 </div>
                 
-                <input type="hidden" id="documentoEliminarPath" value="{{ route('siniestro.deletesicurezzaevidencia') }}">
+                <input type="hidden" id="documentoEliminarPath" value="{{ route('siniestro.deletedinaevidencia') }}">
                 <!--begin::Form-->
                 <form class="form" action="{{ route('siniestro.editsiniestrodina') }}" method="post" id="frmCliente" enctype="multipart/form-data">
                     @csrf   
