@@ -58,8 +58,13 @@ var Principal = (function () {
                 case "siniestro.catalogosicurezza":
                     $("#menuListadoSicurezza").addClass("menu-item-active");
                     break;
-
-
+                case "siniestro.versiniestrosic":
+                    $("#menuListadoSicurezza").addClass("menu-item-active");
+                    break;
+                case "siniestro.editarsiniestrosic":
+                    $("#menuListadoSicurezza").addClass("menu-item-active");
+                    break;
+                    
             }
 
         }

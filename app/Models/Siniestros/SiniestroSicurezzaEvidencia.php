@@ -37,7 +37,7 @@ class SiniestroSicurezzaEvidencia extends Model
      */
     public function SiniestroTipoDocumento()
     {
-        return $this->belongsTo('App\Models\Siniestros\SiniestrosTipoDocumento', 'tipo_documento_id');
+        return $this->belongsTo('App\Models\Siniestros\SiniestroTipoDocumento', 'tipo_documento_id');
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('scripts')
-    <script src="{{ asset('js/cliente/AgregarCliente.js') }}"></script>
+    <script src="{{ asset('js/siniestros/EditarSiniestro.js') }}"></script>
 @endpush
 @section('title')
     Agregar registro
@@ -34,12 +34,27 @@
                         <div class="tab-content mt-5" id="myTabContent">
                             <div class="tab-pane fade show active mt-10" id="kt_tab_pane_1" role="tabpanel" aria-labelledby="kt_tab_pane_1">
                                 <div class="form-group row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <label>No. Siniestro</label>
                                         <div class="input-group">
                                             <input type="text" name="no_siniestro" id="no_siniestro" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
+                                    <div class="col-lg-3">
+                                        <label>Deducible $</label>
+                                        <div class="input-group">
+                                            <input type="number" name="deducible" id="deducible" class="form-control specialCharts" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Recuperacion aplicada $</label>
+                                        <div class="input-group">
+                                            <input type="number" name="recuperacion_aplicada" id="recuperacion_aplicada" class="form-control specialCharts"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label>No. Serie</label>
                                         <div class="input-group">
@@ -52,15 +67,15 @@
                                             <input type="text" name="contratante" id="contratante" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label>Proyecto poliza</label>
                                         <div class="input-group">
                                             <input type="text" name="proyecto_poliza" id="proyecto_poliza" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label>Nombre del proyecto</label>
                                         <div class="input-group">
@@ -73,15 +88,15 @@
                                             <input type="date" name="inicio" id="inicio" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label>Fin</label>
                                         <div class="input-group">
                                             <input type="date" name="fin" id="fin" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label>Moneda</label>
                                         <div class="input-group">
@@ -94,35 +109,22 @@
                                             <input type="text" name="poliza" id="poliza" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label>Fecha ocurrencia</label>
                                         <div class="input-group">
                                             <input type="date" name="fecha_ocurrencia" id="fecha_ocurrencia" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
+                                    {{-- div deducible --}}
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-lg-4">
                                         <label>Tipo siniestro inicial</label>
                                         <div class="input-group">
                                             <input type="text" name="tipo_siniestro_inicial" id="tipo_siniestro_inicial" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <label>Deducible</label>
-                                        <div class="input-group">
-                                            <input type="text" name="deducible" id="deducible" class="form-control specialCharts" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-4">
-                                        <label>Recuperacion aplicada</label>
-                                        <div class="input-group">
-                                            <input type="text" name="recuperacion_aplicada" id="recuperacion_aplicada" class="form-control specialCharts"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
-                                        </div>
-                                    </div>
+                                    {{-- recuperacion aplicada --}}
                                     <div class="col-lg-4">
                                         <label>Nombre agente</label>
                                         <div class="input-group">

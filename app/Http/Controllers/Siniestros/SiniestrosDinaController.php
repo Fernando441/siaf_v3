@@ -62,33 +62,6 @@ class SiniestrosDinaController extends Controller
         return redirect()->route('siniestro.catalogodina');
     }
 
-    public function crearsiniestro()
-    {
-        
-        $documentos = SiniestroTipoDocumento::where('id_status_delete',1)->get();
-
-        //tipo de documentos en formato json
-        $cadenaTipoDocumento = "";
-        foreach($documentos as $documento){
-            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->nombre_documento.'",';
-        }
-        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
-
-        return view('siniestro.dina.crear-registro-dina', compact('cadenaTipoDocumento'));
-    }
-
-    public function guardardina(Request $request)
-    {
-        dd($request);
-    }
-
-    public function editasiniestro($id_siniestro)
-    {
-        $siniestro_dina = SiniestroDina::where('id', $id_siniestro)->first(); 
-
-        return view('siniestro.dina.editar-registro-dina', compact('siniestro_dina', 'id_siniestro')); 
-    }
-
     public function versiniestro($id_siniestro)
     {
   
@@ -110,5 +83,133 @@ class SiniestrosDinaController extends Controller
 
         return view('siniestro.dina.ver-registro-dina', compact('siniestro_dina', 'id_siniestro', 'unidad', 'fotografias', 'ver')); 
     }
-    
+
+    public function editasiniestro($id_siniestro)
+    {
+        $siniestro_dina = SiniestroDina::where('id', $id_siniestro)->first(); 
+        $documentos = SiniestroTipoDocumento::where('id_status_delete',1)->get();
+        $cadenaTipoDocumento = "";
+        foreach($documentos as $documento){
+            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->nombre_documento.'",';
+        }
+        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+
+        $historial_deducibles = SiniestroDinaHistorial::where('registro_dina_id', $id_siniestro)->get();
+        $historial_raplicada = SiniestroSDinaHistorialRAplicada::where('registro_dina_id', $id_siniestro)->get();
+        $evidencia_siniestro = SiniestroDinaEvidencia::where('siniestros_dina_id', $id_siniestro)->get();
+
+        return view('siniestro.dina.editar-registro-dina', compact('siniestro_dina', 'id_siniestro', 'cadenaTipoDocumento', 'historial_deducibles', 'historial_raplicada', 'evidencia_siniestro')); 
+    }
+
+
+    public function editsiniestrodina(Request $request)
+    {
+        $siniestro_dina = SiniestroDina::where('id', $request->id)->first();
+        if($siniestro_dina->deducible == $request->deducible){
+            if($siniestro_dina->op_deducible == 1)
+            {
+                $op_deducible = 1; 
+            }else{
+                $op_deducible = 0; 
+            }
+            
+        }else{
+            $data_deducible = [
+                'registro_dina_id' => $request->id,
+                'deducible' => $siniestro_dina->deducible,
+                'created_at' =>date('Y-m-d H:i:s'),
+                'iduserCreated' =>auth()->user()->id,
+            ];
+            SiniestroDinaHistorial::insert($data_deducible);
+            $op_deducible = 1;
+        }
+        
+        if($siniestro_dina->recuperacion_aplicada == $request->recuperacion_aplicada){
+
+            if($siniestro_dina->op_recuperacion_aplicada == 1)
+            {
+                $op_recuperacion = 1; 
+            }else{
+                $op_recuperacion = 0; 
+            }
+        }else{
+            $data_deducible = [
+                'registro_dina_id' => $request->id,
+                'recuperacion_aplicada' => $siniestro_dina->recuperacion_aplicada,
+                'created_at' =>date('Y-m-d H:i:s'),
+                'iduserCreated' =>auth()->user()->id,
+            ];
+            SiniestroSDinaHistorialRAplicada::insert($data_deducible);
+            $op_recuperacion = 1;
+        }
+
+        $data = [
+            'deducible' => $request->deducibles,
+            'recuperacion_aplicada' => $request->recuperacion_aplicada,
+            'no_siniestro' => $request->no_siniestro,
+            'serie' => $request->serie,
+            'contratante' => $request->contratante,
+            'proyecto_poliza' => $request->proyecto_poliza,
+            'nombre_proyecto' => $request->nombre_proyecto,
+            'inicio' => $request->inicio,
+            'fin' => $request->fin,
+            'moneda' => $request->moneda,
+            'poliza' => $request->poliza,
+            'fecha_ocurrencia' => $request->fecha_ocurrencia,
+            'tipo_siniestro_inicial' => $request->tipo_siniestro_inicial,
+            'nombre_agente' => $request->nombre_agente,
+            'modelo' => $request->modelo,
+            'op_deducible' => $op_deducible,
+            'op_recuperacion_aplicada' => $op_recuperacion,
+            'updated_at' =>date('Y-m-d H:i:s'),
+            'iduserUpdated' =>auth()->user()->id,
+        ];
+
+        SiniestroDina::where('id', $request->id)->update($data);
+
+        $colIdDocumento = $request->id_documento;
+        if($request->hasfile('archivo')){
+            $archivos = $request->file('archivo');
+            foreach($archivos as $indice => $archivo)
+            {
+                $archivoNombre = $archivo->hashName();
+                $mimeType = $archivo->getMimeType();
+                Storage::putFileAs('Siniestro sicurezza/'.$request->id, $archivo, $archivoNombre);
+                $data = [
+                    'siniestros_dina_id' => $request->id,
+                    'tipo_documento_id' =>$colIdDocumento[$indice],
+                    'documento' => $archivoNombre,
+                    'created_at' =>date('Y-m-d H:i:s'),
+                    'updated_at' =>date('Y-m-d H:i:s'),
+                    'iduserCreated' =>auth()->user()->id,
+                    'iduserUpdated' =>auth()->user()->id
+                ];
+                SiniestroDinaEvidencia::insert($data);
+            }
+        }
+
+        session()->flash('success', 'El siniestro se modifico correctamente');
+        return redirect()->route('siniestro.catalogodina');
+    }
+
+    public function crearsiniestro()
+    {
+        
+        $documentos = SiniestroTipoDocumento::where('id_status_delete',1)->get();
+
+        //tipo de documentos en formato json
+        $cadenaTipoDocumento = "";
+        foreach($documentos as $documento){
+            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->nombre_documento.'",';
+        }
+        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+
+        return view('siniestro.dina.crear-registro-dina', compact('cadenaTipoDocumento'));
+    }
+
+    public function guardardina(Request $request)
+    {
+        dd($request);
+    }
+
 }

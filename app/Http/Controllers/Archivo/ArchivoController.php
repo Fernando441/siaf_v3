@@ -67,6 +67,7 @@ use App\Models\Translados\TrasladoUnidadDocumento;
 use App\Models\Tablero\PendientesEvidencia;
 use App\Models\Sistemas\InventarioEvidenciaComputo;
 use App\Models\Sistemas\ResguardoEvidencia;
+use App\Models\Siniestros\SiniestroSicurezzaEvidencia;
 
 class ArchivoController extends Controller
 {
@@ -743,7 +744,6 @@ class ArchivoController extends Controller
         if($user && $documento && $existeArchivo) {
             return Storage::download('sistemas/equipocomputo/'.$documento->id_inventario.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
         }else{
-            // dd('sistemas/equipocomputo/'.$documento->id.'/'.$documento->documento);
             return abort('403');
         }  
     }
@@ -757,8 +757,20 @@ class ArchivoController extends Controller
         if($user && $documento && $existeArchivo) {
             return Storage::download('resguardo/'.$documento->resguardo_id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
         }else{
-            // dd('sistemas/equipocomputo/'.$documento->id.'/'.$documento->documento);
             return abort('403');
         }        
+    }
+
+    public function evidenciasicurezza(Request $request)
+    { 
+        $user = auth()->user();
+        $id = $request->id;
+        $documento = SiniestroSicurezzaEvidencia::findOrFail($id);
+        $existeArchivo = Storage::exists('Siniestro sicurezza/'.$documento->id.'/'.$documento->documento);
+        if($user && $documento && $existeArchivo) {
+            return Storage::download('Siniestro sicurezza/'.$documento->id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
+        }else{
+            return abort('403');
+        } 
     }
 }
