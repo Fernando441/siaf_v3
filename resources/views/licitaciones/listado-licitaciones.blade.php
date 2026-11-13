@@ -2,11 +2,19 @@
 @push('scripts')
     <script src="{{ asset('js/licitaciones/CatalogoLicitaciones.js') }}"></script>
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}" />
+    <script src="{{ asset('js/licitaciones/GraficasLicitaciones.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush
 @section('title')
     Listado de concursos
 @endsection
 @section('content')
+
+    <style>
+        .oculto {
+            display: none;
+        }
+    </style>
     <div class="d-flex flex-row">
 
         <!--begin::List-->
@@ -28,6 +36,11 @@
                                 </div>
                                 <div class="card-toolbar">
 
+                                    <a class="grafica-tooltip">
+                                        <img alt="Logo" id="grafica" class="h-40px brand-logo"
+                                            src="{{ asset('img/grafica.png') }}" />
+                                        <span class="tooltip-text"></span>
+                                    </a>
 
                                     <a class="btn btn-link-primary font-weight-bold mr-2 busqueda" data-toggle="collapse"
                                         href="#collapseExample" role="button" aria-expanded="false"
@@ -123,12 +136,12 @@
                                 <!-- ESTADISTICAS -->
                                 <div class="row dashboard-stats">
 
-                                    <!-- TOTAL DE EQUIPOS -->
+                                    <!-- Total de concursos -->
                                     <div class="col-xl-3 col-lg-6 col-md-6">
                                         <div class="stat-card stat-blue">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{ count($tipo_contratacion) }}
+                                                    {{ $total_concursos }}
                                                 </div>
                                                 <div class="stat-label">
                                                     Total de concursos
@@ -136,20 +149,20 @@
                                             </div>
 
                                             <div class="stat-icon">
-                                                <i class="fas fa-laptop"></i>
+                                                <i class="fas fa-file-contract"></i>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- EQUIPOS ASIGNADOS -->
+                                    <!-- Prioridad alta -->
                                     <div class="col-xl-3 col-lg-6 col-md-6">
                                         <div class="stat-card stat-cyan">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{ count($cliente) }}
+                                                    {{ $total_concursos_alta }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Prioridad baja
+                                                    Prioridad alta
                                                 </div>
 
                                             </div>
@@ -160,12 +173,12 @@
                                         </div>
                                     </div>
 
-                                    <!-- EQUIPOS SIN ASIGNAR -->
+                                    <!-- Prioridad media -->
                                     <div class="col-xl-3 col-lg-6 col-md-6">
                                         <div class="stat-card stat-gold">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{ count($licitacion_prioridad) }}
+                                                    {{ $total_concursos_media }}
                                                 </div>
                                                 <div class="stat-label">
                                                     Prioridad media
@@ -178,26 +191,60 @@
                                         </div>
                                     </div>
 
-                                    <!-- PORCENTAJE -->
+                                    <!-- Prioridad baja -->
                                     <div class="col-xl-3 col-lg-6 col-md-6">
                                         <div class="stat-card stat-red">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{ count($licitacion_prioridad) }}
+                                                    {{ $total_concursos_baja }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Prioridad alta
+                                                    Prioridad baja
                                                 </div>
                                             </div>
 
                                             <div class="stat-icon">
-                                                <i class="fas fa-chart-pie"></i>
+                                                <i class="fas fa-sort-amount-down"></i>
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
                                 <!-- FIN ESTADISTICAS -->
+                                {{-- PANEL DE GRAFICAS --}}
+                                <div class="row oculto" id="div_grafica_licitaciones">
+
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Dashboard KPI's</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <!-- graficaPrioridades -->
+                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                        <canvas id="graficaPrioridades"></canvas>
+                                                        <input type="hidden" id="p_alta" value="{{ $total_concursos_alta }}">
+                                                        <input type="hidden" id="p_media" value="{{ $total_concursos_media }}">
+                                                        <input type="hidden" id="p_baja" value="{{ $total_concursos_baja }}">
+                                                    </div>
+                                                    <!-- graficaTipodeContratacion -->
+                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                        <canvas id="graficaTipodeContratacion"></canvas>
+                                                        @php
+                                                            $datosTipoContratacion = $tipo_contratacion->groupBy(fn($unid) => $unid->tipo_contratacion)->map(fn($contratacion) => $contratacion->count());
+                                                        @endphp
+                                                        <script>
+                                                            window.datosTipoContratacion = @json($datosTipoContratacion);
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {{-- FIN PANEL --}}
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
 
