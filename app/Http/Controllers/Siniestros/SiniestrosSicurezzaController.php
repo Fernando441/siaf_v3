@@ -93,9 +93,10 @@ class SiniestrosSicurezzaController extends Controller
 
         $historial_deducibles = SiniestroSicurezzaHistorial::where('registro_sicurezza_id', $id_siniestro)->get();
         $historial_raplicada = SiniestroSicurezzaHistorialRAplicada::where('registro_sicurezza_id', $id_siniestro)->get();
+        $evidencia_siniestro = SiniestroSicurezzaEvidencia::where('siniestro_sicurezza_id', $id_siniestro)->get();
         
-
-        return view('siniestro.sicurezza.editar-registro-sicurezza', compact('siniestro_sicurezza', 'id_siniestro', 'cadenaTipoDocumento', 'historial_deducibles', 'historial_raplicada'));  
+        // dd($evidencia_siniestro);
+        return view('siniestro.sicurezza.editar-registro-sicurezza', compact('siniestro_sicurezza', 'id_siniestro', 'cadenaTipoDocumento', 'historial_deducibles', 'historial_raplicada', 'evidencia_siniestro'));  
     } 
 
     public function editsiniestrosic(Request $request)
@@ -183,5 +184,21 @@ class SiniestrosSicurezzaController extends Controller
 
         session()->flash('success', 'El siniestro se modifico correctamente');
         return redirect()->route('siniestro.catalogosicurezza');
+    }
+
+    public function deletesicurezzaevidencia(Request $request)
+    {
+        $doc = SiniestroSicurezzaEvidencia::findOrFail($request->id);
+        $estatus = true;
+        if ($doc){
+            Storage::delete('Siniestro sicurezza/'.$doc->id.'/'.$doc->documento);
+            SiniestroSicurezzaEvidencia::where('id', $request->id)->delete();
+        }else{
+            $estatus = false;
+        }
+
+        return response()->json([
+            'estatus' => $estatus,
+        ]);
     }
 }

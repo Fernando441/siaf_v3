@@ -32,7 +32,7 @@
                 <h3 class="card-title">Editar siniestro</h3>
             </div>
             <!--begin::Form-->
-            <input type="hidden" id="documentoEliminarPath" value="{{ route('cliente.eliminardocumentocliente') }}">
+            <input type="hidden" id="documentoEliminarPath" value="{{ route('siniestro.deletesicurezzaevidencia') }}">
             
             <form class="form" action="{{ route('siniestro.editsiniestrosic') }}" method="post" id="frmCliente" enctype="multipart/form-data">
                 @csrf
@@ -231,17 +231,17 @@
                                 </tr>
                                 </thead>
                                 <tbody id='tbodyDocumentos'>
-{{--                                     @foreach($documentos as $documento)
+                                    @foreach($evidencia_siniestro as $documento)
                                         <tr id="trDocumento{{ $documento->id }}">
-                                            <td><a href="{{ route('archivo.documentoCliente', ['id'=>$documento->id]) }}" class="link-primary" target="_blank"> {{ $documento->clienteTipoDocumento->tipo }} </a></td>
-                                            <td>{{ $documento->clienteTipoDocumento->tipo }}</td>
+                                            <td><a href="{{ route('archivo.evidenciasicurezza', ['id'=>$documento->id]) }}" class="link-primary" target="_blank"> {{ $documento->SiniestroTipoDocumento->nombre_documento }} </a></td>
+                                            <td>{{ $documento->SiniestroTipoDocumento->nombre_documento }}</td>
                                             <td>
-                                                <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminarDocumento' data-id='{{ $documento->id }}' data-documento='{{ $documento->documento }}'  data-toggle='tooltip' data-theme='dark' title='Eliminar'>
+                                                <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminarDocumento' data-id='{{ $documento->id }}' data-documento='{{ $documento->SiniestroTipoDocumento->nombre_documento }}'  data-toggle='tooltip' data-theme='dark' title='Eliminar'>
                                                     <i class='flaticon-delete'></i>
                                                 </a>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
 

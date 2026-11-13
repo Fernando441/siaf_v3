@@ -19,4 +19,5 @@
     	Route::get('/ver-siniestro-sicurezza/{id}', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'versiniestrosic'])->name('siniestro.versiniestrosic');
     	Route::get('/editar-siniestro-sicurezza/{id}', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'editarsiniestrosic'])->name('siniestro.editarsiniestrosic');
     	Route::post('/edit-siniestro-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'editsiniestrosic'])->name('siniestro.editsiniestrosic');
+    	Route::post('/delete-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'deletesicurezzaevidencia'])->name('siniestro.deletesicurezzaevidencia');
     	

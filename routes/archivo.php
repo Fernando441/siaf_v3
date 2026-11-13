@@ -137,3 +137,6 @@
 
     //ReguardoEvidencia
     Route::get('/documento-resguardo/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'documentoResguardo'])->name('archivo.documentoRes');
+
+    //EvidenciaSiniestroSicurezza
+    Route::get('/evidencia-sicurezza/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'evidenciasicurezza'])->name('archivo.evidenciasicurezza');
