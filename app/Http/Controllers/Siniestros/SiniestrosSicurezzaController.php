@@ -201,4 +201,69 @@ class SiniestrosSicurezzaController extends Controller
             'estatus' => $estatus,
         ]);
     }
+
+    public function crearsiniestrosic()
+    {
+        $documentos = SiniestroTipoDocumento::where('id_status_delete',1)->get();
+        $cadenaTipoDocumento = "";
+        foreach($documentos as $documento){
+            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->nombre_documento.'",';
+        }
+        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+
+        return view('siniestro.sicurezza.crear-registro-sicurezza', compact('cadenaTipoDocumento')); 
+    }
+
+    public function addsiniestrosic(Request $request)
+    {
+        $data = [
+            'no_folio' => $this->folio->getFolioSiniestroSicurezza(),
+            'siniestros_agencia_id' => 2,
+            'siniestro_completo' => $request->siniestro_completo,
+            'deducibles' => $request->deducibles,
+            'recuperacion_aplicada' => $request->recuperacion_aplicada,
+            'proyecto' => $request->proyecto,
+            'serie' => $request->serie,
+            'fecha_ocurrencia' => $request['fecha_ocurrencia'],
+            'causa_enfermedad' => $request->causa_enfermedad,
+            'nombre_agente' => $request->nombre_agente,
+            'asegurado' => $request->asegurado,
+            'modelo' => $request->modelo,
+            'descripcion_auto' => $request->descripcion_auto,
+            'op_modificado' => 0,
+            'op_deducible' => 0,
+            'op_recuperacion_aplicada' => 0,
+            'created_at' =>date('Y-m-d H:i:s'),
+            'iduserCreated' =>auth()->user()->id,
+            'updated_at' =>date('Y-m-d H:i:s'),
+            'iduserUpdated' =>auth()->user()->id,
+        ];
+
+        $id_siniestro = SiniestroSicurezza::insert($data);
+
+        $colIdDocumento = $request->id_documento;
+        if($request->hasfile('archivo')){
+            $archivos = $request->file('archivo');
+            foreach($archivos as $indice => $archivo)
+            {
+                $archivoNombre = $archivo->hashName();
+                $mimeType = $archivo->getMimeType();
+                Storage::putFileAs('Siniestro sicurezza/'.$id_siniestro, $archivo, $archivoNombre);
+                $data = [
+                    'siniestro_sicurezza_id' => $id_siniestro,
+                    'tipo_documento_id' =>$colIdDocumento[$indice],
+                    'documento' => $archivoNombre,
+                    'created_at' =>date('Y-m-d H:i:s'),
+                    'updated_at' =>date('Y-m-d H:i:s'),
+                    'iduserCreated' =>auth()->user()->id,
+                    'iduserUpdated' =>auth()->user()->id
+                ];
+                SiniestroSicurezzaEvidencia::insert($data);
+            }
+        }
+
+        session()->flash('success', 'El siniestro se creo correctamente');
+        return redirect()->route('siniestro.catalogosicurezza');
+
+    }
 }

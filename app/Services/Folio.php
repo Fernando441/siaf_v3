@@ -123,5 +123,16 @@ class Folio
         return "D-".str_pad($folio,5,"0", STR_PAD_LEFT);
     }
 
+    public function getFolioSiniestroSicurezza(){
+
+        $folio = SiniestroFolioSicurezza::with('folio')->max('folio');
+        $folio = $folio ? ++$folio : 1;
+        $folioModel = new SiniestroFolioSicurezza();
+        $folioModel->folio = $folio;
+        $folioModel->anio = date('Y');
+        $folioModel->save();
+
+        return "S-".str_pad($folio,5,"0", STR_PAD_LEFT);
+    }
 
 }

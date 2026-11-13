@@ -56,7 +56,7 @@
                                 <div class="col-lg-6">
                                     <label>Siniestro completo</label>
                                     <div class="input-group">
-                                        <input type="text" name="siniestro_completo" value="{{ $siniestro_sicurezza->siniestro_completo }}" id="siniestro_completo" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
+                                        <input type="number" name="siniestro_completo" value="{{ $siniestro_sicurezza->siniestro_completo }}" id="siniestro_completo" class="form-control specialCharts" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -72,6 +72,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- Historial  --}}
                             <div class="form-group row oculto" id="deducible_historial_div">
                                 <input type="hidden" id="iput_deducible" value="0">
                                 <div class="card card-custom">
@@ -164,6 +165,7 @@
                                     </div>
                                 </div>                                
                             </div>
+                            {{-- END Historial --}}
                             <div class="form-group row">
                                 <div class="col-lg-6">
                                     <label>Proyecto</label>
