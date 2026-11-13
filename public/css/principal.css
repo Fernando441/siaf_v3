@@ -949,6 +949,13 @@ li#menuHome.menu-item.menu-item-active.menu-item-open a.menu-link {
   background-color: #c7e4aa;
 }
 
+.button-grafica {
+    height: 40px;
+    /* margin-left: -10px; */
+    cursor: pointer;
+}
+
+
 .bg-bubbles li:nth-child(10) {
   left: 90%;
   width: 160px;

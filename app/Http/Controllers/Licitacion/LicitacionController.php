@@ -48,6 +48,7 @@ use App\Models\Licitacion\LicitacionSeguroRC;
 use App\Models\User;
 use App\Models\Rol;
 use App\Models\RolPermiso;
+use PHPUnit\Framework\Constraint\Count;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -68,9 +69,9 @@ class LicitacionController extends Controller
     public function listadolicitaciones()
     {
 
-    	$documento = TipoDocumentoLicitacion::where('id_status_delete', 1)->get();
-    	$cliente = Cliente::where('id_status_delete', 1)->get();
-    	$tipo_contratacion = TipoContratacion::where('id_status_delete', 1)->get();
+        $documento = TipoDocumentoLicitacion::where('id_status_delete', 1)->get();
+        $cliente = Cliente::where('id_status_delete', 1)->get();
+        $tipo_contratacion = TipoContratacion::where('id_status_delete', 1)->get();
         $licitacion_prioridad = LicitacionPrioridad::where('id_licitacion_prioridad_estatus', 1)->get();
 
         //conteo total
@@ -81,8 +82,36 @@ class LicitacionController extends Controller
         $total_concursos_media = Licitacion::where('id_licitacion_prioridad', 2)->count();
         //conteo alta
         $total_concursos_alta = Licitacion::where('id_licitacion_prioridad', 1)->count();
+        //id licitacion tipo de contratacion
+        $total_tipo_contratacion =  Licitacion::select(
+            'licitaciones.id',
+            'licitaciones.folio',
+            'licitaciones.titulo_servicio',
+            'licitaciones.empresa_dependencia',
+            'licitaciones.no_licitacion',
+            'licitaciones.fecha_visita',
+            'licitaciones.junta_aclaraciones',
+            'licitaciones.apertura_proposiciones',
+            'licitaciones.acto_fallo',
+            'licitaciones.participacion_conjunta',
+            'licitaciones.publicacion_licitacion',
+            'pl.publicacion_licitacion as publ',
+            'licitaciones.cliente',
+            'cli.razon_social',
+            'licitaciones.id_licitacion_prioridad',
+            'tc.tipo_contratacion',
+            'licitaciones.contratacion',
+            'licitaciones.tipo_contrato'
+        )
+            ->leftjoin("publicacion_licitacion as pl", "pl.id", "licitaciones.publicacion_licitacion")
+            ->leftjoin("client as cli", "cli.id_cliente", "licitaciones.cliente")
+            ->leftjoin("tipo_contratacion as tc", "tc.id", "licitaciones.contratacion")
+            ->where("licitaciones.id_status_delete", 1)
 
-        return view('licitaciones.listado-licitaciones', compact('licitacion_prioridad', 'documento', 'cliente', 'tipo_contratacion','total_concursos','total_concursos_baja','total_concursos_media','total_concursos_alta'));
+            ->get();
+            //dd($total_tipo_contratacion);
+
+        return view('licitaciones.listado-licitaciones', compact('total_tipo_contratacion', 'licitacion_prioridad', 'documento', 'cliente', 'tipo_contratacion', 'total_concursos', 'total_concursos_baja', 'total_concursos_media', 'total_concursos_alta'));
     }
 
     public function licitaciondatatable(Request $request)
@@ -476,17 +505,17 @@ class LicitacionController extends Controller
     public function agregarlicitacion()
     {
 
-    	$documentos = TipoDocumentoLicitacion::where('id_status_delete', 1)->get();
-    	$emisores = Emisor::where('id_status_delete', 1)->get();
-    	$publicacion = PublicacionLicitacion::where('status_delete', 0)->get();
-    	$cliente = Cliente::where('id_status_delete', 1)->get();
-    	$tipo_contratacion = TipoContratacion::where('id_status_delete', 1)->get();
-    	$licitacion_prioridad = LicitacionPrioridad::where('id_licitacion_prioridad_estatus', 1)->get();
+        $documentos = TipoDocumentoLicitacion::where('id_status_delete', 1)->get();
+        $emisores = Emisor::where('id_status_delete', 1)->get();
+        $publicacion = PublicacionLicitacion::where('status_delete', 0)->get();
+        $cliente = Cliente::where('id_status_delete', 1)->get();
+        $tipo_contratacion = TipoContratacion::where('id_status_delete', 1)->get();
+        $licitacion_prioridad = LicitacionPrioridad::where('id_licitacion_prioridad_estatus', 1)->get();
 
-    	//tipo de documentos en formato json
-    	$cadenaTipoDocumento = "";
-    	foreach($documentos as $documento){
-            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->documento_licitacion.'",';
+        //tipo de documentos en formato json
+        $cadenaTipoDocumento = "";
+        foreach ($documentos as $documento) {
+            $cadenaTipoDocumento .= '"' . $documento->id . '":"' . $documento->documento_licitacion . '",';
 
         }
         $cadenaTipoDocumento = '{' . rtrim($cadenaTipoDocumento, ',') . '}';
@@ -494,10 +523,20 @@ class LicitacionController extends Controller
 
         $permiso = RolPermiso::where('permission_id', 141)->get();
         foreach ($permiso as $key => $value) {
-           $users = User::select('users.id', 'users.name', 'users.email', 'users.id_status_delete', 
-            'rol.name as name_role', 'users.role', 'users.rfc', 'users.telefono', 'users.ubicacion', 'users.avatar')
-            ->leftjoin("roles as rol","rol.id","users.role")->where('role', $value->role_id)->get();
-        }   
+            $users = User::select(
+                'users.id',
+                'users.name',
+                'users.email',
+                'users.id_status_delete',
+                'rol.name as name_role',
+                'users.role',
+                'users.rfc',
+                'users.telefono',
+                'users.ubicacion',
+                'users.avatar'
+            )
+                ->leftjoin("roles as rol", "rol.id", "users.role")->where('role', $value->role_id)->get();
+        }
 
         return view('licitaciones.agregar-licitacion', compact('licitacion_prioridad', 'cadenaTipoDocumento', 'emisores', 'publicacion', 'cliente', 'tipo_contratacion', 'users'));
     }
@@ -515,44 +554,43 @@ class LicitacionController extends Controller
             'contratacion' => $request->tipo_contratacion,
             'no_licitacion' => $request->no_licitacion,
             'fecha_visita_aplica' => $request->fecha_visita_aplica,
-            'fecha_visita' => $request->fecha_visita ? Carbon::now():null,
-            'junta_aclaraciones' => $request->junta_aclaraciones ? Carbon::now():null,
-            'fecha_preguntas' => $request->fecha_preguntas ? Carbon::now():null,
-            'apertura_proposiciones' => $request->apertura_proposiciones ? Carbon::createFromFormat('d/m/Y', $request->apertura_proposiciones)->format('Y-m-d'):null,
-            'acto_fallo' => $request->acto_fallo ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo)->format('Y-m-d'):null,
-            'acto_fallo_info' => $request->acto_fallo_info ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo_info)->format('Y-m-d'):null,
-            'publicacion_licitacion' =>$request->publicacion_licitacion,
-            'fecha_apertura_tecnica' => $request->fecha_apertura_tecnica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_tecnica)->format('Y-m-d'):null,
-            'fecha_apertura_economica' => $request->fecha_apertura_economica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_economica)->format('Y-m-d'):null,
+            'fecha_visita' => $request->fecha_visita ? Carbon::now() : null,
+            'junta_aclaraciones' => $request->junta_aclaraciones ? Carbon::now() : null,
+            'fecha_preguntas' => $request->fecha_preguntas ? Carbon::now() : null,
+            'apertura_proposiciones' => $request->apertura_proposiciones ? Carbon::createFromFormat('d/m/Y', $request->apertura_proposiciones)->format('Y-m-d') : null,
+            'acto_fallo' => $request->acto_fallo ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo)->format('Y-m-d') : null,
+            'acto_fallo_info' => $request->acto_fallo_info ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo_info)->format('Y-m-d') : null,
+            'publicacion_licitacion' => $request->publicacion_licitacion,
+            'fecha_apertura_tecnica' => $request->fecha_apertura_tecnica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_tecnica)->format('Y-m-d') : null,
+            'fecha_apertura_economica' => $request->fecha_apertura_economica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_economica)->format('Y-m-d') : null,
             'fecha_subasta_aplica' => $request->fecha_subasta_aplica,
-            'fecha_subasta' => $request->fecha_subasta ? Carbon::createFromFormat('d/m/Y', $request->fecha_subasta)->format('Y-m-d'):null,
-            'firma_entrega' =>$request->firma_entrega ? Carbon::createFromFormat('d/m/Y', $request->firma_entrega)->format('Y-m-d'):null,
-            'fecha_entrega' =>$request->fecha_entrega ? Carbon::createFromFormat('d/m/Y', $request->fecha_entrega)->format('Y-m-d'):null,
-            'fecha_cierre' =>$request->fecha_cierre ? Carbon::createFromFormat('d/m/Y', $request->fecha_cierre)->format('Y-m-d'):null,
-            'monto_fianza_liberada' => $request->monto_fianza_liberada ? $this->money_format->clearFormat($request->monto_fianza_liberada):null,
+            'fecha_subasta' => $request->fecha_subasta ? Carbon::createFromFormat('d/m/Y', $request->fecha_subasta)->format('Y-m-d') : null,
+            'firma_entrega' => $request->firma_entrega ? Carbon::createFromFormat('d/m/Y', $request->firma_entrega)->format('Y-m-d') : null,
+            'fecha_entrega' => $request->fecha_entrega ? Carbon::createFromFormat('d/m/Y', $request->fecha_entrega)->format('Y-m-d') : null,
+            'fecha_cierre' => $request->fecha_cierre ? Carbon::createFromFormat('d/m/Y', $request->fecha_cierre)->format('Y-m-d') : null,
+            'monto_fianza_liberada' => $request->monto_fianza_liberada ? $this->money_format->clearFormat($request->monto_fianza_liberada) : null,
             'modalidad' => $request->modalidad,
-            'fecha_compra_bases' =>  $request->fecha_compra_bases ? Carbon::createFromFormat('d/m/Y', $request->fecha_compra_bases)->format('Y-m-d'):null,
-            'fecha_entrega_propuestas' => $request->fecha_entrega_propuestas ? Carbon::now():null,
+            'fecha_compra_bases' => $request->fecha_compra_bases ? Carbon::createFromFormat('d/m/Y', $request->fecha_compra_bases)->format('Y-m-d') : null,
+            'fecha_entrega_propuestas' => $request->fecha_entrega_propuestas ? Carbon::now() : null,
             'fecha_repreguntas_aplica' => $request->fecha_repreguntas_aplica,
-            'fecha_repreguntas' => $request->fecha_repreguntas ? Carbon::createFromFormat('d/m/Y', $request->fecha_repreguntas)->format('Y-m-d'):null,
+            'fecha_repreguntas' => $request->fecha_repreguntas ? Carbon::createFromFormat('d/m/Y', $request->fecha_repreguntas)->format('Y-m-d') : null,
             'id_status_delete' => 1,
-            'iduserCreated' =>auth()->user()->id,
-            'iduserUpdated' =>auth()->user()->id,
-            'sector'=>$request->sector,
-            'tipo_partida'=>$request->tipo_partida,
-            'fecha_final_servicios' =>$request->fecha_final_servicios ? Carbon::createFromFormat('d/m/Y', $request->fecha_final_servicios)->format('Y-m-d'):null,
-            'numero_vehiculos'=>$request->numero_vehiculos,
-            'tipo_contrato'=>$request->tipo_contrato,
-            'created_at' =>date('Y-m-d H:i:s'),
-            'updated_at' =>date('Y-m-d H:i:s')
+            'iduserCreated' => auth()->user()->id,
+            'iduserUpdated' => auth()->user()->id,
+            'sector' => $request->sector,
+            'tipo_partida' => $request->tipo_partida,
+            'fecha_final_servicios' => $request->fecha_final_servicios ? Carbon::createFromFormat('d/m/Y', $request->fecha_final_servicios)->format('Y-m-d') : null,
+            'numero_vehiculos' => $request->numero_vehiculos,
+            'tipo_contrato' => $request->tipo_contrato,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
 
         ];
 
         $id = Licitacion::insertGetId($data);
 
-        if($request->acto_fallo != null || $request->acto_fallo != "")
-        {
-            if (in_array("141", Session::get('permisos'))){
+        if ($request->acto_fallo != null || $request->acto_fallo != "") {
+            if (in_array("141", Session::get('permisos'))) {
                 $this->notificacionconcursoganado($id, 1);
             }
         }
@@ -588,30 +626,30 @@ class LicitacionController extends Controller
     public function notificacionconcursoganado($id_licitacion, $tipo)
     {
         $info = Licitacion::where('id', $id_licitacion)->first();
-        if($tipo == 1){
-            $notificacion ="El concurso No.".$info->no_licitacion." fue creado";
+        if ($tipo == 1) {
+            $notificacion = "El concurso No." . $info->no_licitacion . " fue creado";
         }
-        if($tipo == 2){
-            $notificacion ="El concurso No".$info->no_licitacion." fue creado";    
+        if ($tipo == 2) {
+            $notificacion = "El concurso No" . $info->no_licitacion . " fue creado";
         }
 
 
         $permiso = RolPermiso::where('permission_id', 141)->get();
         foreach ($permiso as $key => $value) {
-           $users = User::where('role', $value->role_id)->get();
+            $users = User::where('role', $value->role_id)->get();
             foreach ($users as $user => $us) {
-               $data = [
-                'notificacion' => $notificacion,
-                'fecha_notificacion' =>date('Y-m-d H:i:s'),
-                'users_modifico' => auth()->user()->id,
-                'modulo_id' => 2,
-                'notificaciones_tipo_id' => $tipo,
-                'notificacion_estatus' => 2,
-                'users_permiso' => $us->id,
-                'created_at' =>date('Y-m-d H:i:s'),
-                'licitaciones_id'=> $info->id
+                $data = [
+                    'notificacion' => $notificacion,
+                    'fecha_notificacion' => date('Y-m-d H:i:s'),
+                    'users_modifico' => auth()->user()->id,
+                    'modulo_id' => 2,
+                    'notificaciones_tipo_id' => $tipo,
+                    'notificacion_estatus' => 2,
+                    'users_permiso' => $us->id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'licitaciones_id' => $info->id
                 ];
-               $id_not =  Notificaciones::insert($data);
+                $id_not = Notificaciones::insert($data);
             }
         }
     }
@@ -643,66 +681,75 @@ class LicitacionController extends Controller
             $cadenaTipoDocumento .= '"' . $documento->id . '":"' . $documento->documento_licitacion . '",';
         }
 
-        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+        $cadenaTipoDocumento = '{' . rtrim($cadenaTipoDocumento, ',') . '}';
 
         $permiso = RolPermiso::where('permission_id', 141)->get();
         foreach ($permiso as $key => $value) {
-           $users = User::select('users.id', 'users.name', 'users.email', 'users.id_status_delete', 
-            'rol.name as name_role', 'users.role', 'users.rfc', 'users.telefono', 'users.ubicacion',  'users.avatar')
-            ->leftjoin("roles as rol","rol.id","users.role")->where('role', $value->role_id)->get();
+            $users = User::select(
+                'users.id',
+                'users.name',
+                'users.email',
+                'users.id_status_delete',
+                'rol.name as name_role',
+                'users.role',
+                'users.rfc',
+                'users.telefono',
+                'users.ubicacion',
+                'users.avatar'
+            )
+                ->leftjoin("roles as rol", "rol.id", "users.role")->where('role', $value->role_id)->get();
 
-        }   
+        }
 
 
-   		return view('licitaciones.editar-licitaciones', compact('licitacion_prioridad','cadenaTipoDocumento','licitacion', 'info', 'tipo_documento', 'documentos', 'publicacion','cliente', 'tipo_contratacion', 'users', 'permiso_array'));
-   	}
+        return view('licitaciones.editar-licitaciones', compact('licitacion_prioridad', 'cadenaTipoDocumento', 'licitacion', 'info', 'tipo_documento', 'documentos', 'publicacion', 'cliente', 'tipo_contratacion', 'users', 'permiso_array'));
+    }
 
-   	public function modificarlicitacion(Request $request)
-   	{
+    public function modificarlicitacion(Request $request)
+    {
         // dd($request);
-	    $data = [
-	        'titulo_servicio' => $request->titulo_servicio,
-	        'observaciones' =>$request->observaciones,
-	        'cliente' => $request->cliente,
-	        'id_licitacion_prioridad' => $request->prioridad,
-	        'contratacion' => $request->tipo_contratacion,
-	        'no_licitacion' => $request->no_licitacion,
+        $data = [
+            'titulo_servicio' => $request->titulo_servicio,
+            'observaciones' => $request->observaciones,
+            'cliente' => $request->cliente,
+            'id_licitacion_prioridad' => $request->prioridad,
+            'contratacion' => $request->tipo_contratacion,
+            'no_licitacion' => $request->no_licitacion,
             'fecha_visita_aplica' => $request->fecha_visita_aplica,
-            'fecha_visita' => $request->fecha_visita ? Carbon::now():null,
-	        'junta_aclaraciones' => $request->junta_aclaraciones ? Carbon::now():null,
-            'fecha_preguntas' => $request->fecha_preguntas ? Carbon::now():null,
-	        'apertura_proposiciones' => $request->apertura_proposiciones ? Carbon::createFromFormat('d/m/Y', $request->apertura_proposiciones)->format('Y-m-d'):null,
-	        'acto_fallo' => $request->acto_fallo ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo)->format('Y-m-d'):null,
-            'acto_fallo_info' => $request->acto_fallo_info ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo_info)->format('Y-m-d'):null,
-	        'participacion_conjunta' =>$request->participacion_conjunta,
-	        'publicacion_licitacion' =>$request->publicacion_licitacion,
-            'fecha_apertura_tecnica' => $request->fecha_apertura_tecnica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_tecnica)->format('Y-m-d'):null,
-            'fecha_apertura_economica' => $request->fecha_apertura_economica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_economica)->format('Y-m-d'):null,
+            'fecha_visita' => $request->fecha_visita ? Carbon::now() : null,
+            'junta_aclaraciones' => $request->junta_aclaraciones ? Carbon::now() : null,
+            'fecha_preguntas' => $request->fecha_preguntas ? Carbon::now() : null,
+            'apertura_proposiciones' => $request->apertura_proposiciones ? Carbon::createFromFormat('d/m/Y', $request->apertura_proposiciones)->format('Y-m-d') : null,
+            'acto_fallo' => $request->acto_fallo ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo)->format('Y-m-d') : null,
+            'acto_fallo_info' => $request->acto_fallo_info ? Carbon::createFromFormat('d/m/Y', $request->acto_fallo_info)->format('Y-m-d') : null,
+            'participacion_conjunta' => $request->participacion_conjunta,
+            'publicacion_licitacion' => $request->publicacion_licitacion,
+            'fecha_apertura_tecnica' => $request->fecha_apertura_tecnica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_tecnica)->format('Y-m-d') : null,
+            'fecha_apertura_economica' => $request->fecha_apertura_economica ? Carbon::createFromFormat('d/m/Y', $request->fecha_apertura_economica)->format('Y-m-d') : null,
             'fecha_subasta_aplica' => $request->fecha_subasta_aplica,
-            'fecha_subasta' => $request->fecha_subasta ? Carbon::createFromFormat('d/m/Y', $request->fecha_subasta)->format('Y-m-d'):null,
-	        'firma_entrega' => $request->firma_entrega ? Carbon::createFromFormat('d/m/Y', $request->firma_entrega)->format('Y-m-d'):null,
-            'fecha_entrega' => $request->fecha_entrega ? Carbon::createFromFormat('d/m/Y', $request->fecha_entrega)->format('Y-m-d'):null,
-            'fecha_cierre' => $request->fecha_cierre ? Carbon::createFromFormat('d/m/Y', $request->fecha_cierre)->format('Y-m-d'):null,
+            'fecha_subasta' => $request->fecha_subasta ? Carbon::createFromFormat('d/m/Y', $request->fecha_subasta)->format('Y-m-d') : null,
+            'firma_entrega' => $request->firma_entrega ? Carbon::createFromFormat('d/m/Y', $request->firma_entrega)->format('Y-m-d') : null,
+            'fecha_entrega' => $request->fecha_entrega ? Carbon::createFromFormat('d/m/Y', $request->fecha_entrega)->format('Y-m-d') : null,
+            'fecha_cierre' => $request->fecha_cierre ? Carbon::createFromFormat('d/m/Y', $request->fecha_cierre)->format('Y-m-d') : null,
             'modalidad' => $request->modalidad,
-            'fecha_compra_bases' =>  $request->fecha_compra_bases ? Carbon::createFromFormat('d/m/Y', $request->fecha_compra_bases)->format('Y-m-d'):null,
-            'fecha_entrega_propuestas' => $request->fecha_entrega_propuestas ? Carbon::now():null,
+            'fecha_compra_bases' => $request->fecha_compra_bases ? Carbon::createFromFormat('d/m/Y', $request->fecha_compra_bases)->format('Y-m-d') : null,
+            'fecha_entrega_propuestas' => $request->fecha_entrega_propuestas ? Carbon::now() : null,
             'fecha_repreguntas_aplica' => $request->fecha_repreguntas_aplica,
-            'fecha_repreguntas' => $request->fecha_repreguntas ? Carbon::createFromFormat('d/m/Y', $request->fecha_repreguntas)->format('Y-m-d'):null,
+            'fecha_repreguntas' => $request->fecha_repreguntas ? Carbon::createFromFormat('d/m/Y', $request->fecha_repreguntas)->format('Y-m-d') : null,
             'id_status_delete' => 1,
-            'sector'=>$request->sector,
-            'tipo_partida'=>$request->tipo_partida,
-            'fecha_final_servicios' => $request->fecha_final_servicios ? Carbon::createFromFormat('d/m/Y', $request->fecha_final_servicios)->format('Y-m-d'):null,
-            'numero_vehiculos'=>$request->numero_vehiculos,
-            'tipo_contrato'=>$request->tipo_contrato,
-	        'iduserUpdated' =>auth()->user()->id,
-	        'updated_at' =>date('Y-m-d H:i:s')
-	    ];
+            'sector' => $request->sector,
+            'tipo_partida' => $request->tipo_partida,
+            'fecha_final_servicios' => $request->fecha_final_servicios ? Carbon::createFromFormat('d/m/Y', $request->fecha_final_servicios)->format('Y-m-d') : null,
+            'numero_vehiculos' => $request->numero_vehiculos,
+            'tipo_contrato' => $request->tipo_contrato,
+            'iduserUpdated' => auth()->user()->id,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
-	    Licitacion::where('id', $request->id)->update($data);
+        Licitacion::where('id', $request->id)->update($data);
 
-        if($request->acto_fallo != null || $request->acto_fallo != "")
-        {
-            if (in_array("141", Session::get('permisos'))){
+        if ($request->acto_fallo != null || $request->acto_fallo != "") {
+            if (in_array("141", Session::get('permisos'))) {
                 $this->notificacionconcursoganado($request->id, 2);
             }
         }
@@ -785,8 +832,8 @@ class LicitacionController extends Controller
         $data = [
             'id_status_delete' => 2,
             'motivo_desactivar' => $request->motivo,
-            'iduserUpdated' =>auth()->user()->id,
-            'updated_at' =>date('Y-m-d H:i:s')
+            'iduserUpdated' => auth()->user()->id,
+            'updated_at' => date('Y-m-d H:i:s')
 
         ];
         Licitacion::find($request->id)->update($data);
@@ -844,7 +891,7 @@ class LicitacionController extends Controller
             ->leftjoin("segmento_carroceria as sc", "sc.id", "sg.carroceria_id")
             ->leftjoin("segmento_motor as sm", "sm.id", "sg.motor_id")
             ->leftjoin("segmento_transmision as st", "st.id", "sg.transmision_id")
-            ->where("licitacion_proposicion_economica.licitacion_id",$licitacion)
+            ->where("licitacion_proposicion_economica.licitacion_id", $licitacion)
             ->get();
 
 
@@ -854,26 +901,40 @@ class LicitacionController extends Controller
     public function catalogolicitacionesinactivas()
     {
 
-      $licitaciones = Licitacion::select('licitaciones.id','licitaciones.folio', 'licitaciones.titulo_servicio' ,
-          'licitaciones.empresa_dependencia', 'licitaciones.no_licitacion', 'licitaciones.fecha_visita',
-          'licitaciones.junta_aclaraciones', 'licitaciones.apertura_proposiciones', 'licitaciones.acto_fallo',
-          'licitaciones.participacion_conjunta', 'licitaciones.publicacion_licitacion', 'pl.publicacion_licitacion as publ',
-          'licitaciones.cliente', 'cli.razon_social', 'licitaciones.id_licitacion_prioridad', 'tc.tipo_contratacion',
-          'licitaciones.contratacion', 'licitaciones.motivo_desactivar')
-          ->leftjoin("publicacion_licitacion as pl","pl.id","licitaciones.publicacion_licitacion")
-          ->leftjoin("client as cli", "cli.id_cliente", "licitaciones.cliente")
-          ->leftjoin("tipo_contratacion as tc", "tc.id", "licitaciones.contratacion")
-          ->where("licitaciones.id_status_delete", 2)
-          ->get();
+        $licitaciones = Licitacion::select(
+            'licitaciones.id',
+            'licitaciones.folio',
+            'licitaciones.titulo_servicio',
+            'licitaciones.empresa_dependencia',
+            'licitaciones.no_licitacion',
+            'licitaciones.fecha_visita',
+            'licitaciones.junta_aclaraciones',
+            'licitaciones.apertura_proposiciones',
+            'licitaciones.acto_fallo',
+            'licitaciones.participacion_conjunta',
+            'licitaciones.publicacion_licitacion',
+            'pl.publicacion_licitacion as publ',
+            'licitaciones.cliente',
+            'cli.razon_social',
+            'licitaciones.id_licitacion_prioridad',
+            'tc.tipo_contratacion',
+            'licitaciones.contratacion',
+            'licitaciones.motivo_desactivar'
+        )
+            ->leftjoin("publicacion_licitacion as pl", "pl.id", "licitaciones.publicacion_licitacion")
+            ->leftjoin("client as cli", "cli.id_cliente", "licitaciones.cliente")
+            ->leftjoin("tipo_contratacion as tc", "tc.id", "licitaciones.contratacion")
+            ->where("licitaciones.id_status_delete", 2)
+            ->get();
 
-      return view('licitaciones.listado-licitaciones-inactivas', compact('licitaciones'));
+        return view('licitaciones.listado-licitaciones-inactivas', compact('licitaciones'));
     }
 
     public function activarlicitacion(Request $request)
     {
         $data = [
             'id_status_delete' => 1,
-            'updated_at' =>date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s')
         ];
 
         Licitacion::where('id', $request->id)->update($data);
@@ -890,7 +951,7 @@ class LicitacionController extends Controller
         $estatus = StatusUnidad::where('id_status_delete', 1)->get();
         $contratos = Proyecto::where('id_status_delete', 1)->get();
 
-        return view('unidades.gerenciacomercial.unidades', compact('ubicaciones', 'marcas', 'modelos', 'estatus', 'contratos'));        
+        return view('unidades.gerenciacomercial.unidades', compact('ubicaciones', 'marcas', 'modelos', 'estatus', 'contratos'));
     }
 
     public function unidaddatatablecomercial(Request $request)
@@ -1369,7 +1430,7 @@ class LicitacionController extends Controller
             "aaData" => $data_arr
         );
 
-        return response()->json($response); 
+        return response()->json($response);
     }
 
     public function verUnidad($unidad)
@@ -1394,7 +1455,7 @@ class LicitacionController extends Controller
             $ver = $active->id;
         }
 
-        $bitacora_unidad = UnidadMovimientos::select('unidad_movimientos.id', 'unidad_movimientos.fecha_asignacion', 'unidad_movimientos.fecha_salida', 'as.asignacion', 'pr.no_folio', 'pr.id_contrato', 'pr.titulo_servicio', 'uu.ubicacion','uts.tipo_asignacion', 'unidad_movimientos.asignacion_id')
+        $bitacora_unidad = UnidadMovimientos::select('unidad_movimientos.id', 'unidad_movimientos.fecha_asignacion', 'unidad_movimientos.fecha_salida', 'as.asignacion', 'pr.no_folio', 'pr.id_contrato', 'pr.titulo_servicio', 'uu.ubicacion', 'uts.tipo_asignacion', 'unidad_movimientos.asignacion_id')
             ->leftjoin("unidad_asignacion as as", "as.id", "unidad_movimientos.asignacion_id")
             ->leftjoin("proyectos as pr", "pr.id", "unidad_movimientos.proyectos_id")
             ->leftjoin("ubicacion_unidad as uu", "uu.id", "unidad_movimientos.ubicacion_id")
@@ -1470,18 +1531,18 @@ class LicitacionController extends Controller
         $documentos = Afianzadora::where('id_status_delete', 1)->get();
         //tipo de documentos en formato json
         $cadenaTipoDocumento = "";
-        foreach($documentos as $documento){
-            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->nombre_afianzadora.'",';
+        foreach ($documentos as $documento) {
+            $cadenaTipoDocumento .= '"' . $documento->id . '":"' . $documento->nombre_afianzadora . '",';
         }
-        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+        $cadenaTipoDocumento = '{' . rtrim($cadenaTipoDocumento, ',') . '}';
 
         $tipo_fianzas = LicitacionTipoFianza::where('id_status_delete', 1)->get();
         //tipo de documentos en formato json
         $cadenaTipoFianza = "";
-        foreach($tipo_fianzas as $documento){
-            $cadenaTipoFianza .= '"'.$documento->id.'":"'.$documento->tipo_fianza.'",';
+        foreach ($tipo_fianzas as $documento) {
+            $cadenaTipoFianza .= '"' . $documento->id . '":"' . $documento->tipo_fianza . '",';
         }
-        $cadenaTipoFianza = '{'.rtrim($cadenaTipoFianza, ',').'}';
+        $cadenaTipoFianza = '{' . rtrim($cadenaTipoFianza, ',') . '}';
 
         return view('licitaciones.informacion-fianzas', compact('segmento', 'licitacion', 'idlicitacion', 'count_segmento', 'proposicioneconomica', 'cadenaTipoDocumento', 'cadenaTipoFianza', 'licitacion_fianzas', 'licitacion_segurosrc', 'permiso_array'));
 
@@ -1491,32 +1552,31 @@ class LicitacionController extends Controller
     {
         $licitacion = Licitacion::where('id', $request->id_licitacion)->first();
 
-        $colIdTipofianza= $request->tipo_fianza;
+        $colIdTipofianza = $request->tipo_fianza;
         $colIdAfianzadora = $request->nombre_fianza;
         $colVigenciaInicial = $request->vigencia_inicial;
         $colVigenciaFinal = $request->vigencia_final;
         $colPorcentaje = $request->porcentaje;
 
-        if($request->hasfile('select_documento')){
+        if ($request->hasfile('select_documento')) {
             $archivos = $request->file('select_documento');
-            foreach($archivos as $indice => $archivo)
-            {
+            foreach ($archivos as $indice => $archivo) {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('licitacion/'.$licitacion->folio, $archivo, $archivoNombre);
+                Storage::putFileAs('licitacion/' . $licitacion->folio, $archivo, $archivoNombre);
 
                 $data = [
                     'licitaciones_id' => $request->id_licitacion,
                     'tipo_fianza_id' => $colIdTipofianza[$indice],
                     'afianzadoras_id' => $colIdAfianzadora[$indice],
-                    'vigencia_inicial' => $colVigenciaInicial[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaInicial[$indice])->format('Y-m-d'):null,
-                    'vigencia_final' => $colVigenciaFinal[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaFinal[$indice])->format('Y-m-d'):null,
+                    'vigencia_inicial' => $colVigenciaInicial[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaInicial[$indice])->format('Y-m-d') : null,
+                    'vigencia_final' => $colVigenciaFinal[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaFinal[$indice])->format('Y-m-d') : null,
                     'documento' => $archivoNombre,
                     'porcentaje' => $colPorcentaje[$indice],
-                    'created_at' =>date('Y-m-d H:i:s'),
-                    'updated_at' =>date('Y-m-d H:i:s'),
-                    'iduserCreated' =>auth()->user()->id,
-                    'iduserUpdated' =>auth()->user()->id
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'iduserCreated' => auth()->user()->id,
+                    'iduserUpdated' => auth()->user()->id
                 ];
 
                 LicitacionFianza::insert($data);
@@ -1527,42 +1587,41 @@ class LicitacionController extends Controller
         $colVigenciaInicialrc = $request->vigencia_inicialrc;
         $colVigenciaFinalrc = $request->vigencia_finalrc;
         $colPorcentajerc = $request->porcentajerc;
-        if($request->hasfile('select_documentorc')){
+        if ($request->hasfile('select_documentorc')) {
             $archivos = $request->file('select_documentorc');
-            foreach($archivos as $indice => $archivo)
-            {
+            foreach ($archivos as $indice => $archivo) {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('licitacion/'.$licitacion->folio, $archivo, $archivoNombre);
+                Storage::putFileAs('licitacion/' . $licitacion->folio, $archivo, $archivoNombre);
 
                 $data = [
                     'licitaciones_id' => $request->id_licitacion,
                     'afianzadoras_id' => $colIdAfianzadorarc[$indice],
-                    'vigencia_inicialrc' => $colVigenciaInicialrc[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaInicialrc[$indice])->format('Y-m-d'):null,
-                    'vigencia_finalrc' => $colVigenciaFinalrc[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaFinalrc[$indice])->format('Y-m-d'):null,
+                    'vigencia_inicialrc' => $colVigenciaInicialrc[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaInicialrc[$indice])->format('Y-m-d') : null,
+                    'vigencia_finalrc' => $colVigenciaFinalrc[$indice] ? Carbon::createFromFormat('d/m/Y', $colVigenciaFinalrc[$indice])->format('Y-m-d') : null,
                     'documento_rc' => $archivoNombre,
                     'porcentajerc' => $colPorcentajerc[$indice],
-                    'created_at' =>date('Y-m-d H:i:s'),
-                    'updated_at' =>date('Y-m-d H:i:s'),
-                    'iduserCreated' =>auth()->user()->id,
-                    'iduserUpdated' =>auth()->user()->id
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'iduserCreated' => auth()->user()->id,
+                    'iduserUpdated' => auth()->user()->id
                 ];
                 LicitacionSeguroRC::insert($data);
             }
         }
 
         session()->flash('success', 'La información se guardo correctamente');
-        return redirect()->route('licitacion.informacionfinanzas', $request->id_licitacion );
+        return redirect()->route('licitacion.informacionfinanzas', $request->id_licitacion);
     }
 
     public function eliminarinfofinanciera(Request $request)
     {
         $doc = LicitacionFianza::findOrFail($request->id);
         $estatus = true;
-        if ($doc){
+        if ($doc) {
             // Storage::delete('cliente/'.$doc->id_cliente.'/'.$doc->documento);
             LicitacionFianza::where('id', $request->id)->delete();
-        }else{
+        } else {
             $estatus = false;
         }
 
@@ -1575,16 +1634,16 @@ class LicitacionController extends Controller
     {
         $doc = LicitacionSeguroRC::findOrFail($request->id);
         $estatus = true;
-        if ($doc){
+        if ($doc) {
             // Storage::delete('cliente/'.$doc->id_cliente.'/'.$doc->documento);
             LicitacionSeguroRC::where('id', $request->id)->delete();
-        }else{
+        } else {
             $estatus = false;
         }
 
         return response()->json([
             'estatus' => $estatus,
-        ]);       
+        ]);
     }
 
     public function verlicitacionPDF($licitacion)
@@ -1619,20 +1678,20 @@ class LicitacionController extends Controller
             'sm.motor',
             'st.transmision'
         )
-        ->leftjoin("segmentos as sg", "sg.id", "licitacion_proposicion_economica.segmento_id")
-        ->leftjoin("segmento_tipo_vehiculo as tv", "tv.id", "sg.tipo_vehiculo_id")
-        ->leftjoin("segmento_carroceria as sc", "sc.id", "sg.carroceria_id")
-        ->leftjoin("segmento_motor as sm", "sm.id", "sg.motor_id")
-        ->leftjoin("segmento_transmision as st", "st.id", "sg.transmision_id")
-        ->where("licitacion_proposicion_economica.licitacion_id", $licitacion)
+            ->leftjoin("segmentos as sg", "sg.id", "licitacion_proposicion_economica.segmento_id")
+            ->leftjoin("segmento_tipo_vehiculo as tv", "tv.id", "sg.tipo_vehiculo_id")
+            ->leftjoin("segmento_carroceria as sc", "sc.id", "sg.carroceria_id")
+            ->leftjoin("segmento_motor as sm", "sm.id", "sg.motor_id")
+            ->leftjoin("segmento_transmision as st", "st.id", "sg.transmision_id")
+            ->where("licitacion_proposicion_economica.licitacion_id", $licitacion)
             ->get();
-        
+
         $header = view('licitaciones.ver-licitaciones-pdf-header', compact('info'))->render();
         $footer = view('licitaciones.ver-licitaciones-pdf-footer')->render();
-        $body = view('licitaciones.ver-licitaciones-pdf-body', compact('info','cliente', 'tipo_contratacion', 'publicacion','segmento'))->render();
+        $body = view('licitaciones.ver-licitaciones-pdf-body', compact('info', 'cliente', 'tipo_contratacion', 'publicacion', 'segmento'))->render();
 
         $path = public_path() . '/theme/assets/media/logos/logojetvan-pdf.png';
-        
+
         $mpdf = new Mpdf(['format' => [216, 340]]);
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->setAutoTopMargin = 'stretch';
@@ -1640,11 +1699,11 @@ class LicitacionController extends Controller
         $mpdf->SetHTMLHeader($header);
         $mpdf->SetFooter($footer);
         $mpdf->WriteHTML($body);
-        if(File::exists($path)) {
+        if (File::exists($path)) {
             $mpdf->imageVars['logo'] = File::get($path);
         }
         $mpdf->Output();
-        
+
     }
 
 }

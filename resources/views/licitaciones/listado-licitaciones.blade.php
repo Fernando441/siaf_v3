@@ -30,18 +30,15 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <span class="card-icon">
-                                        <i class="flaticon2-file text-primary"></i>
+                                        <a class="grafica-tooltip">
+                                        <img alt="Logo" id="grafica" class="button-grafica brand-logo"
+                                            src="{{ asset('img/grafica.png') }} " title="Graficar" />
+                                        <span class="tooltip-text"></span>
+                                    </a>
                                     </span>
                                     <h3 class="card-label">Listado de concursos</h3>
                                 </div>
                                 <div class="card-toolbar">
-
-                                    <a class="grafica-tooltip">
-                                        <img alt="Logo" id="grafica" class="h-40px brand-logo"
-                                            src="{{ asset('img/grafica.png') }}" />
-                                        <span class="tooltip-text"></span>
-                                    </a>
-
                                     <a class="btn btn-link-primary font-weight-bold mr-2 busqueda" data-toggle="collapse"
                                         href="#collapseExample" role="button" aria-expanded="false"
                                         aria-controls="collapseExample">
@@ -224,18 +221,32 @@
                                                     <!-- graficaPrioridades -->
                                                     <div class="col-lg-4 col-md-6 mb-4">
                                                         <canvas id="graficaPrioridades"></canvas>
-                                                        <input type="hidden" id="p_alta" value="{{ $total_concursos_alta }}">
-                                                        <input type="hidden" id="p_media" value="{{ $total_concursos_media }}">
-                                                        <input type="hidden" id="p_baja" value="{{ $total_concursos_baja }}">
+                                                        <input type="hidden" id="p_alta"
+                                                            value="{{ $total_concursos_alta }}">
+                                                        <input type="hidden" id="p_media"
+                                                            value="{{ $total_concursos_media }}">
+                                                        <input type="hidden" id="p_baja"
+                                                            value="{{ $total_concursos_baja }}">
                                                     </div>
                                                     <!-- graficaTipodeContratacion -->
                                                     <div class="col-lg-4 col-md-6 mb-4">
                                                         <canvas id="graficaTipodeContratacion"></canvas>
                                                         @php
-                                                            $datosTipoContratacion = $tipo_contratacion->groupBy(fn($unid) => $unid->tipo_contratacion)->map(fn($contratacion) => $contratacion->count());
+                                                            
+                                                            $tipo_contrataciones = $total_tipo_contratacion->groupBy(fn($unid) => $unid->tipo_contratacion)->map(fn($contra) => $contra->count());
                                                         @endphp
                                                         <script>
-                                                            window.datosTipoContratacion = @json($datosTipoContratacion);
+                                                            window.tipo_contrataciones = @json($tipo_contrataciones);
+                                                        </script>
+                                                    </div>
+                                                    <!-- graficaPublicacionConcurso -->
+                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                        <canvas id="graficaPublicacionConcurso"></canvas>
+                                                        @php
+                                                            $tipo_publicaciones = $total_tipo_contratacion->groupBy(fn($unid) => $unid->publ)->map(fn($contra) => $contra->count());
+                                                        @endphp
+                                                        <script>
+                                                            window.tipo_publicaciones = @json($tipo_publicaciones);
                                                         </script>
                                                     </div>
                                                 </div>

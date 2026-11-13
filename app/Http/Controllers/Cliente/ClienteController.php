@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,19 +30,23 @@ use App\Imports\ClientesImport;
 class ClienteController extends Controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
     public function catalogoCliente()
     {
+        //conteo total
+        $total_clientes = Cliente::count();
+
         $estados = Estado::orderBy('id_estado', 'asc')->where('id_status_delete', 1)->get();
         $municipios = DB::table('municipio')
-        ->join('estado', 'estado.id_estado', '=', 'municipio.id_estado')
-        ->where('municipio.id_status_delete', 1)
-        ->get();
+            ->join('estado', 'estado.id_estado', '=', 'municipio.id_estado')
+            ->where('municipio.id_status_delete', 1)
+            ->get();
 
-        return view('clientes.catalogo-clientes', compact('estados', 'municipios'));
+        return view('clientes.catalogo-clientes', compact('total_clientes','estados', 'municipios'));
     }
 
     public function clientedatatable(Request $request)
@@ -64,7 +69,7 @@ class ClienteController extends Controller
 
         // Total records
         $totalRecords = Cliente::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Cliente::select('count(*) as allcount')->where('id_cliente', 'like', '%' .$searchValue . '%')->count();
+        $totalRecordswithFilter = Cliente::select('count(*) as allcount')->where('id_cliente', 'like', '%' . $searchValue . '%')->count();
 
         /* Getting the first element of the array. */
         $order_arr = $columnIndex_arr[0];
@@ -81,10 +86,20 @@ class ClienteController extends Controller
 
         $order_column_dir = $order_column_dir == 'asc' ? 'asc' : 'desc';
 
-        $records = Cliente::select('client.id_cliente as id', 'client.rfc', 'client.razon_social', 'client.alias',
-            'client.calle_numero', 'client.colonia', 'client.codigo_postal', 'client.id_municipio', 'client.id_estado',
-            'es.estado_nombre', 'mu.municipio_nombre')
-            ->leftjoin("estado as es","es.id_estado","client.id_estado")
+        $records = Cliente::select(
+            'client.id_cliente as id',
+            'client.rfc',
+            'client.razon_social',
+            'client.alias',
+            'client.calle_numero',
+            'client.colonia',
+            'client.codigo_postal',
+            'client.id_municipio',
+            'client.id_estado',
+            'es.estado_nombre',
+            'mu.municipio_nombre'
+        )
+            ->leftjoin("estado as es", "es.id_estado", "client.id_estado")
             ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
             ->where('client.id_status_delete', 0)
             ->orderBy($order_column_name, $order_column_dir)
@@ -94,17 +109,27 @@ class ClienteController extends Controller
 
         $valor = "No";
         // Bandera para varlidar si no hay filtros   $valor = "No";
-        foreach ($columnName_arr as $indice => $columna){
-            if($columna['data']=='rfc'){
-                if (!empty($columna['search']['value'])){
+        foreach ($columnName_arr as $indice => $columna) {
+            if ($columna['data'] == 'rfc') {
+                if (!empty($columna['search']['value'])) {
                     $valor = trim($columna['search']['value']);
-                    $records = Cliente::select('client.id_cliente as id', 'client.rfc', 'client.razon_social', 'client.alias',
-                        'client.calle_numero', 'client.colonia', 'client.codigo_postal', 'client.id_municipio', 'client.id_estado',
-                        'es.estado_nombre', 'mu.municipio_nombre')
-                        ->leftjoin("estado as es","es.id_estado","client.id_estado")
+                    $records = Cliente::select(
+                        'client.id_cliente as id',
+                        'client.rfc',
+                        'client.razon_social',
+                        'client.alias',
+                        'client.calle_numero',
+                        'client.colonia',
+                        'client.codigo_postal',
+                        'client.id_municipio',
+                        'client.id_estado',
+                        'es.estado_nombre',
+                        'mu.municipio_nombre'
+                    )
+                        ->leftjoin("estado as es", "es.id_estado", "client.id_estado")
                         ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
                         ->where('client.id_status_delete', 1)
-                        ->where('client.rfc', 'like', '%' .$valor . '%')
+                        ->where('client.rfc', 'like', '%' . $valor . '%')
                         ->orderBy($order_column_name, $order_column_dir)
                         ->skip($start)
                         ->take($rowperpage)
@@ -112,16 +137,26 @@ class ClienteController extends Controller
                 }
             }
 
-            if($columna['data']=='razon_social'){
-                if (!empty($columna['search']['value'])){
+            if ($columna['data'] == 'razon_social') {
+                if (!empty($columna['search']['value'])) {
                     $valor = trim($columna['search']['value']);
-                    $records = Cliente::select('client.id_cliente as id', 'client.rfc', 'client.razon_social', 'client.alias',
-                        'client.calle_numero', 'client.colonia', 'client.codigo_postal', 'client.id_municipio', 'client.id_estado',
-                        'es.estado_nombre', 'mu.municipio_nombre')
-                        ->leftjoin("estado as es","es.id_estado","client.id_estado")
+                    $records = Cliente::select(
+                        'client.id_cliente as id',
+                        'client.rfc',
+                        'client.razon_social',
+                        'client.alias',
+                        'client.calle_numero',
+                        'client.colonia',
+                        'client.codigo_postal',
+                        'client.id_municipio',
+                        'client.id_estado',
+                        'es.estado_nombre',
+                        'mu.municipio_nombre'
+                    )
+                        ->leftjoin("estado as es", "es.id_estado", "client.id_estado")
                         ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
                         ->where('client.id_status_delete', 1)
-                        ->where('client.razon_social', 'like', '%' .$valor . '%')
+                        ->where('client.razon_social', 'like', '%' . $valor . '%')
                         ->orderBy($order_column_name, $order_column_dir)
                         ->skip($start)
                         ->take($rowperpage)
@@ -129,16 +164,26 @@ class ClienteController extends Controller
                 }
             }
 
-            if($columna['data']=='id_estado'){
-                if (!empty($columna['search']['value'])){
+            if ($columna['data'] == 'id_estado') {
+                if (!empty($columna['search']['value'])) {
                     $valor = trim($columna['search']['value']);
-                    $records = Cliente::select('client.id_cliente as id', 'client.rfc', 'client.razon_social', 'client.alias',
-                        'client.calle_numero', 'client.colonia', 'client.codigo_postal', 'client.id_municipio', 'client.id_estado',
-                        'es.estado_nombre', 'mu.municipio_nombre')
-                        ->leftjoin("estado as es","es.id_estado","client.id_estado")
+                    $records = Cliente::select(
+                        'client.id_cliente as id',
+                        'client.rfc',
+                        'client.razon_social',
+                        'client.alias',
+                        'client.calle_numero',
+                        'client.colonia',
+                        'client.codigo_postal',
+                        'client.id_municipio',
+                        'client.id_estado',
+                        'es.estado_nombre',
+                        'mu.municipio_nombre'
+                    )
+                        ->leftjoin("estado as es", "es.id_estado", "client.id_estado")
                         ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
                         ->where('client.id_status_delete', 1)
-                        ->where('client.id_estado', 'like', '%' .$valor . '%')
+                        ->where('client.id_estado', 'like', '%' . $valor . '%')
                         ->orderBy($order_column_name, $order_column_dir)
                         ->skip($start)
                         ->take($rowperpage)
@@ -146,16 +191,26 @@ class ClienteController extends Controller
                 }
             }
 
-            if($columna['data']=='id_municipio'){
-                if (!empty($columna['search']['value'])){
+            if ($columna['data'] == 'id_municipio') {
+                if (!empty($columna['search']['value'])) {
                     $valor = trim($columna['search']['value']);
-                    $records = Cliente::select('client.id_cliente as id', 'client.rfc', 'client.razon_social', 'client.alias',
-                        'client.calle_numero', 'client.colonia', 'client.codigo_postal', 'client.id_municipio', 'client.id_estado',
-                        'es.estado_nombre', 'mu.municipio_nombre')
-                        ->leftjoin("estado as es","es.id_estado","client.id_estado")
+                    $records = Cliente::select(
+                        'client.id_cliente as id',
+                        'client.rfc',
+                        'client.razon_social',
+                        'client.alias',
+                        'client.calle_numero',
+                        'client.colonia',
+                        'client.codigo_postal',
+                        'client.id_municipio',
+                        'client.id_estado',
+                        'es.estado_nombre',
+                        'mu.municipio_nombre'
+                    )
+                        ->leftjoin("estado as es", "es.id_estado", "client.id_estado")
                         ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
                         ->where('client.id_status_delete', 1)
-                        ->where('client.id_municipio', 'like', '%' .$valor . '%')
+                        ->where('client.id_municipio', 'like', '%' . $valor . '%')
                         ->orderBy($order_column_name, $order_column_dir)
                         ->skip($start)
                         ->take($rowperpage)
@@ -165,30 +220,40 @@ class ClienteController extends Controller
 
         }
 
-        if($valor == "No"){
-            $records = Cliente::select('client.id_cliente as id', 'client.rfc', 'client.razon_social', 'client.alias',
-            'client.calle_numero', 'client.colonia', 'client.codigo_postal', 'client.id_municipio', 'client.id_estado',
-            'es.estado_nombre', 'mu.municipio_nombre')
-            ->leftjoin("estado as es","es.id_estado","client.id_estado")
-            ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
-            ->where('client.id_status_delete', 1)
-            ->orderBy($order_column_name, $order_column_dir)
-            ->skip($start)
-            ->take($rowperpage)
-            ->get();
-        }else{
+        if ($valor == "No") {
+            $records = Cliente::select(
+                'client.id_cliente as id',
+                'client.rfc',
+                'client.razon_social',
+                'client.alias',
+                'client.calle_numero',
+                'client.colonia',
+                'client.codigo_postal',
+                'client.id_municipio',
+                'client.id_estado',
+                'es.estado_nombre',
+                'mu.municipio_nombre'
+            )
+                ->leftjoin("estado as es", "es.id_estado", "client.id_estado")
+                ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
+                ->where('client.id_status_delete', 1)
+                ->orderBy($order_column_name, $order_column_dir)
+                ->skip($start)
+                ->take($rowperpage)
+                ->get();
+        } else {
             $totalRecords = count($records);
             $totalRecordswithFilter = count($records);
         }
 
         $data_arr = array();
-        $pro="";
-        foreach($records as $record){
+        $pro = "";
+        foreach ($records as $record) {
 
             $data_arr[] = array(
                 "id" => $record->id,
                 "rfc" => $record->rfc,
-                "razon_social" =>$record->razon_social,
+                "razon_social" => $record->razon_social,
                 "alias" => $record->alias,
                 "calle_numero" => $record->calle_numero,
                 "colonia" => $record->colonia,
@@ -196,15 +261,15 @@ class ClienteController extends Controller
                 "id_estado" => $record->estado_nombre,
                 "codigo_postal" => $record->codigo_postal,
                 "permisos" => $permiso_array,
-                'acciones'=>null,
+                'acciones' => null,
             );
         }
 
         $response = array(
-           "draw" => intval($draw),
-           "iTotalRecords" => $totalRecords,
-           "iTotalDisplayRecords" => $totalRecordswithFilter,
-           "aaData" => $data_arr
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr
         );
 
         return response()->json($response);
@@ -217,17 +282,17 @@ class ClienteController extends Controller
         $estados = Estado::orderBy('id_estado', 'asc')->where('id_status_delete', 1)->get();
         $municipios = Municipio::orderBy('id_municipio', 'asc')->where('id_status_delete', 1)->get();
 
-        $documentos = ClienteTipoDocumento::where('id_status_delete',1)->get();
+        $documentos = ClienteTipoDocumento::where('id_status_delete', 1)->get();
 
         //tipo de documentos en formato json
         $cadenaTipoDocumento = "";
-        foreach($documentos as $documento){
-            $cadenaTipoDocumento .= '"'.$documento->id.'":"'.$documento->tipo.'",';
+        foreach ($documentos as $documento) {
+            $cadenaTipoDocumento .= '"' . $documento->id . '":"' . $documento->tipo . '",';
         }
-        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+        $cadenaTipoDocumento = '{' . rtrim($cadenaTipoDocumento, ',') . '}';
 
 
-        return view('clientes.agregar-cliente', compact('estados', 'municipios','cadenaTipoDocumento'));
+        return view('clientes.agregar-cliente', compact('estados', 'municipios', 'cadenaTipoDocumento'));
     }
 
     public function guardarCliente(Request $request)
@@ -246,32 +311,31 @@ class ClienteController extends Controller
             'codigo_postal' => $request->codigo_postal,
             'id_municipio' => $request->id_municipio,
             'id_estado' => $request->id_estado,
-            'cedula_fiscal' => $request->cedula_fiscal,  
+            'cedula_fiscal' => $request->cedula_fiscal,
             'id_status_delete' => 1,
-            'created_at' =>date('Y-m-d H:i:s'),
-            'updated_at' =>date('Y-m-d H:i:s'),
-            'iduserCreated' =>auth()->user()->id,
-            'iduserUpdated' =>auth()->user()->id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+            'iduserCreated' => auth()->user()->id,
+            'iduserUpdated' => auth()->user()->id,
         ];
         $id_cliente = Cliente::insertGetId($data);
 
         $colIdDocumento = $request->id_documento;
-        if($request->hasfile('archivo')){
+        if ($request->hasfile('archivo')) {
             $archivos = $request->file('archivo');
-            foreach($archivos as $indice => $archivo)
-            {
+            foreach ($archivos as $indice => $archivo) {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('cliente/'.$id_cliente, $archivo, $archivoNombre);
+                Storage::putFileAs('cliente/' . $id_cliente, $archivo, $archivoNombre);
                 $data = [
                     'id_cliente' => $id_cliente,
-                    'cliente_tipo_documento_id' =>$colIdDocumento[$indice],
+                    'cliente_tipo_documento_id' => $colIdDocumento[$indice],
                     'documento' => $archivoNombre,
                     'mime_type' => $mimeType,
-                    'created_at' =>date('Y-m-d H:i:s'),
-                    'updated_at' =>date('Y-m-d H:i:s'),
-                    'iduserCreated' =>auth()->user()->id,
-                    'iduserUpdated' =>auth()->user()->id
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'iduserCreated' => auth()->user()->id,
+                    'iduserUpdated' => auth()->user()->id
                 ];
                 ClienteDocumento::insert($data);
             }
@@ -287,21 +351,21 @@ class ClienteController extends Controller
 
         $cliente = Cliente::where('id_cliente', $id_cliente)
             ->first();
-            // dd($cliente);
+        // dd($cliente);
         $estados = Estado::orderBy('id_estado', 'asc')->get();
         $municipios = Municipio::orderBy('id_municipio', 'asc')->get();
 
-        $documento = ClienteTipoDocumento::where('id_status_delete',1)->get();
+        $documento = ClienteTipoDocumento::where('id_status_delete', 1)->get();
         //tipo de documentos en formato json
         $cadenaTipoDocumento = "";
-        foreach($documento as $doc){
-            $cadenaTipoDocumento .= '"'.$doc->id.'":"'.$doc->tipo.'",';
+        foreach ($documento as $doc) {
+            $cadenaTipoDocumento .= '"' . $doc->id . '":"' . $doc->tipo . '",';
         }
-        $cadenaTipoDocumento = '{'.rtrim($cadenaTipoDocumento, ',').'}';
+        $cadenaTipoDocumento = '{' . rtrim($cadenaTipoDocumento, ',') . '}';
 
-        $documentos = ClienteDocumento::where('id_cliente',$id_cliente)->get();
+        $documentos = ClienteDocumento::where('id_cliente', $id_cliente)->get();
 
-        return view('clientes.editar-cliente', compact('cliente','estados', 'municipios','cadenaTipoDocumento','documentos'));
+        return view('clientes.editar-cliente', compact('cliente', 'estados', 'municipios', 'cadenaTipoDocumento', 'documentos'));
 
     }
 
@@ -321,10 +385,10 @@ class ClienteController extends Controller
             'codigo_postal' => $request->codigo_postal,
             'id_municipio' => $request->id_municipio,
             'id_estado' => $request->id_estado,
-            'cedula_fiscal' => $request->cedula_fiscal, 
+            'cedula_fiscal' => $request->cedula_fiscal,
             'id_status_delete' => 1,
-            'updated_at' =>date('Y-m-d H:i:s'),
-            'iduserUpdated' =>auth()->user()->id,
+            'updated_at' => date('Y-m-d H:i:s'),
+            'iduserUpdated' => auth()->user()->id,
         ];
 
         Cliente::where('id_cliente', $request->id_cliente)->update($data);
@@ -333,22 +397,21 @@ class ClienteController extends Controller
         $colIdDocumento = $request->id_documento;
         $cliente = Cliente::where('rfc', $request->rfc)->first();
 
-        if($request->hasfile('archivo')){
+        if ($request->hasfile('archivo')) {
             $archivos = $request->file('archivo');
-            foreach($archivos as $indice => $archivo)
-            {
+            foreach ($archivos as $indice => $archivo) {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('cliente/'.$cliente->id_cliente, $archivo, $archivoNombre);
+                Storage::putFileAs('cliente/' . $cliente->id_cliente, $archivo, $archivoNombre);
                 $data = [
                     'id_cliente' => $cliente->id_cliente,
-                    'cliente_tipo_documento_id' =>$colIdDocumento[$indice],
+                    'cliente_tipo_documento_id' => $colIdDocumento[$indice],
                     'documento' => $archivoNombre,
                     'mime_type' => $mimeType,
-                    'created_at' =>date('Y-m-d H:i:s'),
-                    'updated_at' =>date('Y-m-d H:i:s'),
-                    'iduserCreated' =>auth()->user()->id,
-                    'iduserUpdated' =>auth()->user()->id
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'iduserCreated' => auth()->user()->id,
+                    'iduserUpdated' => auth()->user()->id
                 ];
                 ClienteDocumento::insert($data);
             }
@@ -365,10 +428,10 @@ class ClienteController extends Controller
     {
         $doc = ClienteDocumento::findOrFail($request->id);
         $estatus = true;
-        if ($doc){
-            Storage::delete('cliente/'.$doc->id_cliente.'/'.$doc->documento);
+        if ($doc) {
+            Storage::delete('cliente/' . $doc->id_cliente . '/' . $doc->documento);
             ClienteDocumento::where('id', $request->id)->delete();
-        }else{
+        } else {
             $estatus = false;
         }
 
@@ -380,15 +443,26 @@ class ClienteController extends Controller
 
     public function catalogoClientesinactivos()
     {
-        $clientes = Cliente::select('client.id_cliente as id', 'client.rfc', 'client.razon_social', 'client.alias',
-            'client.calle_numero', 'client.colonia', 'client.codigo_postal', 'client.id_municipio', 'client.id_estado',
-            'es.estado_nombre', 'mu.municipio_nombre', 'client.motivo_desactivar',)
-            ->leftjoin("estado as es","es.id_estado","client.id_estado")
+        $clientes = Cliente::select(
+            'client.id_cliente as id',
+            'client.rfc',
+            'client.razon_social',
+            'client.alias',
+            'client.calle_numero',
+            'client.colonia',
+            'client.codigo_postal',
+            'client.id_municipio',
+            'client.id_estado',
+            'es.estado_nombre',
+            'mu.municipio_nombre',
+            'client.motivo_desactivar',
+        )
+            ->leftjoin("estado as es", "es.id_estado", "client.id_estado")
             ->leftjoin("municipio as mu", "mu.id_municipio", "client.id_municipio")
-            ->where('client.id_status_delete',2)
+            ->where('client.id_status_delete', 2)
             ->get();
 
-        $documentos = ClienteTipoDocumento::where('id_status_delete',1)->get();
+        $documentos = ClienteTipoDocumento::where('id_status_delete', 1)->get();
 
         return view('clientes.catalogo-clientes-inactivos', compact('clientes'));
     }
@@ -398,7 +472,7 @@ class ClienteController extends Controller
         $data = [
             'id_status_delete' => 2,
             'motivo_desactivar' => $request->motivo,
-            'updated_at' =>date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s')
         ];
 
         Cliente::where('id_cliente', $request->id)->update($data);
@@ -411,7 +485,7 @@ class ClienteController extends Controller
     {
         $data = [
             'id_status_delete' => 1,
-            'updated_at' =>date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s')
         ];
 
         Cliente::where('id_cliente', $request->id)->update($data);
@@ -429,9 +503,9 @@ class ClienteController extends Controller
             ->first();
         $estados = Estado::orderBy('id_estado', 'asc')->get();
         $municipios = Municipio::orderBy('id_municipio', 'asc')->get();
-        $documentos = ClienteDocumento::where('id_cliente',$id_cliente)->get();
+        $documentos = ClienteDocumento::where('id_cliente', $id_cliente)->get();
 
-        return view('clientes.ver-cliente', compact('cliente','estados', 'municipios','documentos'));
+        return view('clientes.ver-cliente', compact('cliente', 'estados', 'municipios', 'documentos'));
     }
 
     public function obtenermunicipios(Request $request)
@@ -447,7 +521,7 @@ class ClienteController extends Controller
 
     public function cargamasivaexcel(Request $request)
     {
-        Excel::import( new ClientesImport(), $request->file('file_carga'));
+        Excel::import(new ClientesImport(), $request->file('file_carga'));
 
         session()->flash('success', 'Se importó correctamente el archivo.');
         return redirect()->route('cliente.catalogoCliente');

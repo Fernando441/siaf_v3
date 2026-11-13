@@ -162,6 +162,7 @@ class Licitacion extends Model
         return $this->belongsTo('App\Models\Licitacion\LicitacionEstatus', 'id_licitacion_estatus');
     }
 
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
