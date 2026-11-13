@@ -39,7 +39,10 @@
                   <h3 class="card-label">Inventario de equipo de computo</h3>
                 </div>
                 <div class="card-toolbar">
-                  <img alt="Logo" id="grafica" class="h-55px brand-logo" src="{{ asset('img/grafica.png') }}" />
+                  <a href="#" class="grafica-tooltip">
+                    <img alt="Logo" id="grafica" class="h-55px brand-logo" src="{{ asset('img/grafica.png') }}" />
+                    <span class="tooltip-text"></span>
+                  </a>
                   <!--begin::Button-->
                   <a href="{{ route('sistemas.agregarRegistro') }}"
                     class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
@@ -151,7 +154,7 @@
 
                       <div class="card-body">
                         <div class="row">
-                          
+
                           <!-- graficaEquiposAsignados -->
                           <div class="col-lg-4 col-md-6 mb-4">
                             <canvas id="graficaEquiposAsignados"></canvas>

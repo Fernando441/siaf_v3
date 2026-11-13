@@ -71,10 +71,18 @@ class LicitacionController extends Controller
     	$documento = TipoDocumentoLicitacion::where('id_status_delete', 1)->get();
     	$cliente = Cliente::where('id_status_delete', 1)->get();
     	$tipo_contratacion = TipoContratacion::where('id_status_delete', 1)->get();
-
         $licitacion_prioridad = LicitacionPrioridad::where('id_licitacion_prioridad_estatus', 1)->get();
 
-        return view('licitaciones.listado-licitaciones', compact('licitacion_prioridad', 'documento', 'cliente', 'tipo_contratacion'));
+        //conteo total
+        $total_concursos = Licitacion::count();
+        //conteo baja
+        $total_concursos_baja = Licitacion::where('id_licitacion_prioridad', 3)->count();
+        //conteo media
+        $total_concursos_media = Licitacion::where('id_licitacion_prioridad', 2)->count();
+        //conteo alta
+        $total_concursos_alta = Licitacion::where('id_licitacion_prioridad', 1)->count();
+
+        return view('licitaciones.listado-licitaciones', compact('licitacion_prioridad', 'documento', 'cliente', 'tipo_contratacion','total_concursos','total_concursos_baja','total_concursos_media','total_concursos_alta'));
     }
 
     public function licitaciondatatable(Request $request)
