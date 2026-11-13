@@ -68,6 +68,7 @@ use App\Models\Tablero\PendientesEvidencia;
 use App\Models\Sistemas\InventarioEvidenciaComputo;
 use App\Models\Sistemas\ResguardoEvidencia;
 use App\Models\Siniestros\SiniestroSicurezzaEvidencia;
+use App\Models\Siniestros\SiniestroDinaEvidencia;
 
 class ArchivoController extends Controller
 {
@@ -772,5 +773,18 @@ class ArchivoController extends Controller
         }else{
             return abort('403');
         } 
+    }
+
+    public function evidenciadina(Request $request)
+    {
+        $user = auth()->user();
+        $id = $request->id;
+        $documento = SiniestroDinaEvidencia::findOrFail($id);
+        $existeArchivo = Storage::exists('Siniestro dina/'.$documento->id.'/'.$documento->documento);
+        if($user && $documento && $existeArchivo) {
+            return Storage::download('Siniestro dina/'.$documento->id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
+        }else{
+            return abort('403');
+        }         
     }
 }

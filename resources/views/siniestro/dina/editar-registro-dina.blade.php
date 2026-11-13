@@ -247,6 +247,17 @@
                                             </tr>
                                             </thead>
                                             <tbody id='tbodyDocumentos'>
+                                                @foreach($evidencia_siniestro as $documento)
+                                                    <tr id="trDocumento{{ $documento->id }}">
+                                                        <td><a href="{{ route('archivo.evidenciadina', ['id'=>$documento->id]) }}" class="link-primary" target="_blank"> {{ $documento->SiniestroTipoDocumento->nombre_documento }} </a></td>
+                                                        <td>{{ $documento->documento }}</td>
+                                                        <td>
+                                                            <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminarDocumento' data-id='{{ $documento->id }}' data-documento='{{ $documento->SiniestroTipoDocumento->nombre_documento }}'  data-toggle='tooltip' data-theme='dark' title='Eliminar'>
+                                                                <i class='flaticon-delete'></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

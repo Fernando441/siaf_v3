@@ -144,7 +144,7 @@ class SiniestrosDinaController extends Controller
         }
 
         $data = [
-            'deducible' => $request->deducibles,
+            'deducible' => $request->deducible,
             'recuperacion_aplicada' => $request->recuperacion_aplicada,
             'no_siniestro' => $request->no_siniestro,
             'serie' => $request->serie,
@@ -174,7 +174,7 @@ class SiniestrosDinaController extends Controller
             {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('Siniestro sicurezza/'.$request->id, $archivo, $archivoNombre);
+                Storage::putFileAs('Siniestro dina/'.$request->id, $archivo, $archivoNombre);
                 $data = [
                     'siniestros_dina_id' => $request->id,
                     'tipo_documento_id' =>$colIdDocumento[$indice],
