@@ -5,7 +5,38 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/sistemas/CatalogoSistemas.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="{{ asset('js/siniestros/GraficaSiniestros.js') }}"></script>
+    <script src="{{ asset('js/siniestros/Catalogosiniestro.js') }}"></script>
+    <script>
+        new Chart(document.getElementById('siniestros_deducible_sicurezza'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Con Deducible', 'Con Recuperacion Aplicada', 'Con ambas'],
+                datasets: [{
+                    data: [siniestro_con_deducible, siniestro_recuperacion, siniestro_ambas],
+                    backgroundColor: [
+                        'rgb(69, 255, 78)',
+                        'rgb(255, 248, 82)',
+                        'rgb(255, 87, 69)',
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'TOTAL DE SINIESTROS'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
 @endpush
 
 @section('content')
@@ -37,6 +68,7 @@
                             </div>
                             <div class="card-toolbar">
 
+                                    <img alt="Logo" id="grafica" class="h-55px brand-logo" src="{{ asset('img/grafica.png') }}" />
                                 <!--begin::Button-->
                                     <a href="{{ route('sistemas.agregarRegistro') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                     <i class="la la-plus"></i>Nuevo</a>
@@ -60,7 +92,7 @@
                                         <div class="stat-card stat-blue">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{-- dato --}}
+                                                    {{ count($siniestro_sicurezza) }}
                                                 </div>
                                                 <div class="stat-label">
                                                     Total de siniestros
@@ -78,10 +110,10 @@
                                         <div class="stat-card stat-cyan">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                   {{-- dato --}}
+                                                   {{ count($siniestro_con_deducible) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Siniestros Finalizados
+                                                    Con Deducible
                                                 </div>
                                             </div>
 
@@ -96,10 +128,10 @@
                                         <div class="stat-card stat-gold">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{-- dato --}}
+                                                    {{ count($siniestro_con_recuperacion) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Siniestros Pendientes
+                                                    Con Recuperacion Aplicada
                                                 </div>
                                             </div>
 
@@ -114,10 +146,10 @@
                                         <div class="stat-card stat-red">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{-- Dato --}}
+                                                    {{ count($siniestro_con_ambas) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Pendiente
+                                                    Siniestros con Ambas
                                                 </div>
                                             </div>
 
@@ -130,6 +162,30 @@
                                 </div>
                                 <!-- FIN ESTADISTICAS -->
 
+                                {{-- GRAFICAS --}}
+                                <div class="row oculto" id="div_grafica">
+                                    <input type="hidden" id="op_div_grafica" value="0">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">
+                                                    KPI's
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <canvas id="siniestros_deducible_sicurezza" style="width: 100px;"></canvas>
+                                                        <input type="hidden" id="siniestro_con_deducible" value="{{ count($siniestro_con_deducible) }}">
+                                                        <input type="hidden" id="siniestro_recuperacion" value="{{ count($siniestro_con_recuperacion) }}">
+                                                        <input type="hidden" id="siniestro_ambas" value="{{ count($siniestro_con_ambas) }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- END GRAFICAS --}}
                             
                             <div class="card card-custom gutter-b oculto" id="div_cargamasiva">
                               <div class="card-header">
@@ -169,39 +225,78 @@
                           {{-- END  Carga masiva  --}}
 
                             <!--begin: Datatable-->
-                            <table class="table table-hover table-checkable table-responsive" id="kdatatable_inventario">
+                            <table class="table table-hover table-checkable" id="kdatatable_inventario">
                                 <thead>
                                 <tr>
                                     <th>No. Folio</th>
+                                    <th>Siniestro Completo</th>
                                     <th>No. Serie</th>
-                                    <th>Tipo de equipo</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Fecha ingreso</th>
-                                    <th>Estatus</th>
-                                    <th>Personal</th>
-                                  <th class="text-center">Opciones</th>
+                                    <th class="text-center">Opciones</th>
+                                    <th>Proyecto</th>
+                                    <th>Proveedor</th>
+                                    <th>Deducible</th>
+                                    <th>Recuperacion aplicada</th>
+                                    <th>Causa / Enfermedad 2</th>
+                                    <th>Creado por</th>
+                                    <th>Estado</th>
+                                  
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($siniestro_sicurezza as $siniestro)
+                                        <tr>
+                                            <td>{{ $siniestro->no_folio }}</td>
+                                            <td>{{ $siniestro->siniestro_completo }}</td>
+                                            <td>{{ $siniestro->serie }}</td>
+                                            <td>
+                                                <a href="{{ route('siniestro.versiniestrosic', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Ver registro" data-theme="dark" data-toggle="tooltip" data-placement="top"> <i class="flaticon-eye"></i></a>
+
+                                                <a href="{{ route('siniestro.editarsiniestrosic',$siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Editar registro" data-theme="dark" data-toggle="tooltip" data-placement="top"><i class="flaticon-edit"></i></a>
+                                            </td>
+                                            <td>{{ $siniestro->proyecto }}</td>
+                                            <td>Proveedor</td>
+                                            <td>
+                                                @if($siniestro->deducibles == '0.00')
+                                                    ${{ $siniestro->deducibles }}
+                                                @else
+                                                    <span class="label font-weight-bold label-outline-warning label-inline">${{ $siniestro->deducibles }}</span>
+                                                    
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($siniestro->recuperacion_aplicada == '0.00')
+                                                    ${{ $siniestro->recuperacion_aplicada }}
+                                                @else
+                                                    
+                                                    <span class="label font-weight-bold label-outline-warning label-inline">${{ $siniestro->recuperacion_aplicada }}</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $siniestro->causa_enfermedad }}</td>
+                                            <td>{{ $siniestro->userCreated->name}}</td>
+                                            <td>S/N</td>
+                                        </tr>
+                                    @endforeach
                                     {{-- Datos --}}
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <th>No. Folio</th>
+                                    <th>Siniestro Completo</th>
                                     <th>No. Serie</th>
-                                    <th>Tipo de equipo</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Fecha ingreso</th>
-                                    <th>Estatus</th>
-                                    <th>Personal</th>
-                                  <th class="text-center">Opciones</th>
+                                    <th class="text-center">Opciones</th>
+                                    <th>Proyecto</th>
+                                    <th>Proveedor</th>
+                                    <th>Deducible</th>
+                                    <th>Recuperacion aplicada</th>
+                                    <th>Causa / Enfermedad 2</th>
+                                    <th>Creado por</th>
+                                    <th>Estado</th>
+                                  
                                 </tr>
                                 </tfoot>
 
                             </table>
-                            <!--end: Datatable-->
+
 
                             <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
 
