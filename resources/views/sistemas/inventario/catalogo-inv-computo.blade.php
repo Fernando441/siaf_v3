@@ -49,8 +49,6 @@
                     class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                     <i class="la la-plus"></i>Nuevo</a>
 
-
-
                   <a href="#" id="carga_masiva_equ" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                     <i class="la la-plus"></i>carga masiva</a>
                   <input type="hidden" id="num_carga" value="0">
@@ -128,15 +126,15 @@
                     <div class="stat-card stat-red">
                       <div class="stat-content">
                         <div class="stat-value">
-
+                          {{ count($inventario_inactivo) }}
                         </div>
                         <div class="stat-label">
-                          BUSCAR
+                          Equipos inactivos
                         </div>
                       </div>
 
                       <div class="stat-icon">
-                        <i class="fas fa-chart-pie"></i>
+                        <i class="far fa-trash-alt"></i>
                       </div>
                     </div>
                   </div>
@@ -156,7 +154,7 @@
                       <div class="card-body">
                         <div class="row">
                           <!-- graficaEquiposAsignados -->
-                          <div class="col-lg-4 col-md-6 mb-4">
+                          <div class="col-lg-3 col-md-6 mb-4">
                             <canvas id="graficaEquiposAsignados"></canvas>
                             <input type="hidden" id="equipos_asignados"
                               value="{{ $inventario->where('estatus_asignado', 1)->count()}}">
@@ -173,6 +171,26 @@
                               window.datosTiposEquipos = @json($datosTiposEquipos);
                             </script>
                           </div>
+
+                          <div class="col-lg-3">
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Equipo</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($datosTiposEquipos as $equipo => $cantidad)
+                                        <tr>
+                                            <td>{{ $equipo }}</td>
+                                            <td>{{ $cantidad }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -256,7 +274,7 @@
                         </td>
                         <td>
                           @if($unid->estatus_asignado == 0)
-                            ---
+                            -----
                           @else
                             {{ $unid->userAsignado->name }}
                           @endif

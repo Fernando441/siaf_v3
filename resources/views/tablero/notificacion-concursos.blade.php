@@ -86,7 +86,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">Propuesta económica </h3>
                                             <div class="card-toolbar">
-                                                <h4>${{ number_format($total_monto,2,'.',',') }}</h4>
+                                                {{-- <h4>${{ number_format($total_monto,2,'.',',') }}</h4> --}}
                                             </div>
                                         </div>
                                          <div class="card-body">
@@ -100,7 +100,7 @@
                                                         <th>Transmisión</th>
                                                         <th>Cantidad</th>
                                                         <th>Precio Unitario</th>
-                                                        <th>Total</th>
+                                                        {{-- <th>Total</th> --}}
                                                     </tr>
                                                 </thead>
 
@@ -126,9 +126,9 @@
                                                                 <p>{{ number_format($unid->precio_unitario,2,'.',',') }}</p>
                                                             </td>
                      
-                                                            <td>
+{{--                                                             <td>
                                                                 <p>{{ number_format($total,2,'.',',') }}</p>
-                                                            </td>
+                                                            </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -139,8 +139,8 @@
                                                 <div class="col-lg-8"><span>Nota: IVA del 16%</span></div>
                                                 <div class="col-lg-4">
                                                     <div class="row">
-                                                        <div class="col-lg-6"><span>Subtotal: ${{ number_format($precio_unitario,2,'.',',') }}</span></div>
-                                                        <div class="col-lg-6"><span>IVA: ${{ number_format($iva,2,'.',',') }}</span></div>
+                                                        {{-- <div class="col-lg-6"><span>Subtotal: ${{ number_format($precio_unitario,2,'.',',') }}</span></div> --}}
+                                                        {{-- <div class="col-lg-6"><span>IVA: ${{ number_format($iva,2,'.',',') }}</span></div> --}}
                                                     </div>
                                                 </div>
                                             </div>

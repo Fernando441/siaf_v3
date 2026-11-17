@@ -18,14 +18,12 @@ $(document).ready(function () {
 		new Chart(document.getElementById('graficaEquiposAsignados'), {
 			type: 'doughnut',
 			data: {
-				labels: ['Equipos Asignados', 'Equipos no Asignados'],
+				labels: ['Equipos Asignados: '+asignados+' ', 'Equipos no Asignados:  '+noasignados+' '],
 				datasets: [{
 					data: [asignados, noasignados],
 					backgroundColor: [
-						'rgb(84, 247, 9)',
-						'rgb(230, 29, 2)',
-						// 'rgb(255, 205, 86)',
-						// 'rgb(102, 205, 170)'
+						'rgb(91, 255, 86)',
+						'rgb(255, 168, 0)',
 					],
 					hoverOffset: 4
 				}]
@@ -44,10 +42,9 @@ $(document).ready(function () {
 			}
 		});
 	}
+
 	function graficaTiposEquipos() {
-
 		var datos = window.datosTiposEquipos;
-
 		new Chart(document.getElementById('graficaTiposEquipos'), {
 			type: 'bar',
 			data: {
