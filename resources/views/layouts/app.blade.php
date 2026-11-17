@@ -4150,6 +4150,7 @@
     <!--end::Global Theme Bundle-->
     <!--begin::Page Vendors(used by this page)-->
     <script src="{{ asset('vendors/select2/i18n/es.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('theme/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
     <script src="{{ asset('theme/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('theme/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js') }}"></script>

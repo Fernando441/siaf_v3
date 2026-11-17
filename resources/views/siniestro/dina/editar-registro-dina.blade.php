@@ -16,7 +16,7 @@
                     <h3 class="card-title">Editar registro</h3>
                 </div>
                 
-                <input type="hidden" id="documentoEliminarPath" value="{{ route('siniestro.deletesicurezzaevidencia') }}">
+                <input type="hidden" id="documentoEliminarPath" value="{{ route('siniestro.deletedinaevidencia') }}">
                 <!--begin::Form-->
                 <form class="form" action="{{ route('siniestro.editsiniestrodina') }}" method="post" id="frmCliente" enctype="multipart/form-data">
                     @csrf   
@@ -88,15 +88,6 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
-
-                                            <tfoot>
-                                            <tr>
-                                                <th>Deducible</th>
-                                                <th>Persona que modifico</th>
-                                                <th>Fecha y hora de modificacion</th>
-                                            </tr>
-                                            </tfoot>
-
                                         </table>
                                         <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
                                     </div>
@@ -134,14 +125,6 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
-
-                                            <tfoot>
-                                            <tr>
-                                                <th>Deducible</th>
-                                                <th>Persona que modifico</th>
-                                                <th>Fecha y hora de modificacion</th>
-                                            </tr>
-                                            </tfoot>
 
                                         </table>
                                         <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
@@ -247,6 +230,17 @@
                                             </tr>
                                             </thead>
                                             <tbody id='tbodyDocumentos'>
+                                                @foreach($evidencia_siniestro as $documento)
+                                                    <tr id="trDocumento{{ $documento->id }}">
+                                                        <td><a href="{{ route('archivo.evidenciadina', ['id'=>$documento->id]) }}" class="link-primary" target="_blank"> {{ $documento->SiniestroTipoDocumento->nombre_documento }} </a></td>
+                                                        <td>{{ $documento->documento }}</td>
+                                                        <td>
+                                                            <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminarDocumento' data-id='{{ $documento->id }}' data-documento='{{ $documento->SiniestroTipoDocumento->nombre_documento }}'  data-toggle='tooltip' data-theme='dark' title='Eliminar'>
+                                                                <i class='flaticon-delete'></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

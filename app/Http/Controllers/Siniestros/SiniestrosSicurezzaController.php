@@ -168,7 +168,7 @@ class SiniestrosSicurezzaController extends Controller
             {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('Siniestro sicurezza/'.$request->id, $archivo, $archivoNombre);
+                Storage::putFileAs('Siniestrosicurezza/'.$request->id, $archivo, $archivoNombre);
                 $data = [
                     'siniestro_sicurezza_id' => $request->id,
                     'tipo_documento_id' =>$colIdDocumento[$indice],
@@ -191,7 +191,7 @@ class SiniestrosSicurezzaController extends Controller
         $doc = SiniestroSicurezzaEvidencia::findOrFail($request->id);
         $estatus = true;
         if ($doc){
-            Storage::delete('Siniestro sicurezza/'.$doc->id.'/'.$doc->documento);
+            Storage::delete('Siniestrosicurezza/'.$doc->id.'/'.$doc->documento);
             SiniestroSicurezzaEvidencia::where('id', $request->id)->delete();
         }else{
             $estatus = false;
@@ -239,7 +239,7 @@ class SiniestrosSicurezzaController extends Controller
             'iduserUpdated' =>auth()->user()->id,
         ];
 
-        $id_siniestro = SiniestroSicurezza::insert($data);
+        $id_siniestro = SiniestroSicurezza::insertGetId($data);
 
         $colIdDocumento = $request->id_documento;
         if($request->hasfile('archivo')){
@@ -248,7 +248,7 @@ class SiniestrosSicurezzaController extends Controller
             {
                 $archivoNombre = $archivo->hashName();
                 $mimeType = $archivo->getMimeType();
-                Storage::putFileAs('Siniestro sicurezza/'.$id_siniestro, $archivo, $archivoNombre);
+                Storage::putFileAs('Siniestrosicurezza/'.$id_siniestro, $archivo, $archivoNombre);
                 $data = [
                     'siniestro_sicurezza_id' => $id_siniestro,
                     'tipo_documento_id' =>$colIdDocumento[$indice],

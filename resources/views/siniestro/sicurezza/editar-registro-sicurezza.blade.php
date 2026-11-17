@@ -105,14 +105,6 @@
                                                 @endforeach
                                             </tbody>
 
-                                            <tfoot>
-                                            <tr>
-                                                <th>Deducible</th>
-                                                <th>Persona que modifico</th>
-                                                <th>Fecha y hora de modificacion</th>
-                                            </tr>
-                                            </tfoot>
-
                                         </table>
                                         <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
                                     </div>
@@ -150,15 +142,6 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
-
-                                            <tfoot>
-                                            <tr>
-                                                <th>Deducible</th>
-                                                <th>Persona que modifico</th>
-                                                <th>Fecha y hora de modificacion</th>
-                                            </tr>
-                                            </tfoot>
-
                                         </table>
                                         <input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
 

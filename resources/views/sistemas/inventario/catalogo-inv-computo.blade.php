@@ -91,7 +91,7 @@
                     <div class="stat-card stat-cyan">
                       <div class="stat-content">
                         <div class="stat-value">
-                          {{ $inventario->where('estatus_asignado', 1)->count()}}
+                          {{ $inventario->where('estatus_asignado', 2)->count()}}
                         </div>
                         <div class="stat-label">
                           Equipos asignados

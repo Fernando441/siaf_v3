@@ -140,3 +140,6 @@
 
     //EvidenciaSiniestroSicurezza
     Route::get('/evidencia-sicurezza/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'evidenciasicurezza'])->name('archivo.evidenciasicurezza');
+
+    //EvidenciaSiniestroDina
+    Route::get('/evidencia-dina/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'evidenciadina'])->name('archivo.evidenciadina');
