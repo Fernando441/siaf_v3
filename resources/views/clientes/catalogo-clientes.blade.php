@@ -2,6 +2,8 @@
 @push('scripts')
     <script src="{{ asset('js/cliente/CatalogoClientes.js') }}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <script src="{{ asset('js/cliente/GraficasClientes.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush
 
 @section('title')
@@ -9,8 +11,7 @@
 @endsection
 
 @section('content')
-
-    <style type="text/css">
+    <style>
         .oculto {
             display: none;
         }
@@ -161,7 +162,7 @@
                                         <div class="stat-card stat-cyan">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{ count($estados) }}
+                                                    {{ $total_fisicas }}
                                                 </div>
                                                 <div class="stat-label">
                                                     Total personas fisicas
@@ -180,7 +181,7 @@
                                         <div class="stat-card stat-gold">
                                             <div class="stat-content">
                                                 <div class="stat-value">
-                                                    {{ count($municipios) }}
+                                                    {{ $total_morales }}
                                                 </div>
                                                 <div class="stat-label">
                                                     Total personas morales
@@ -213,6 +214,43 @@
 
                                 </div>
                                 <!-- FIN ESTADISTICAS -->
+                                {{-- PANEL DE GRAFICAS --}}
+                                <div class="row oculto" id="div_grafica_licitaciones">
+
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Dashboard KPI's</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <!-- graficaTipoPersonas -->
+                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                        <canvas id="graficaEquipTipoPersonas"></canvas>
+                                                        <input type="hidden" id="fisicas" value="{{ $total_fisicas }}">
+                                                        <input type="hidden" id="morales" value="{{ $total_morales }}">
+                                                    </div>
+                                                    <!-- graficaRegistrosEstados -->
+                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                        <canvas id="graficaRegistrosEstados"></canvas>
+
+                                                        <script>
+                                                            var totalclientesestado = @json($total_clientes_estados);
+                                                        </script>
+                                                    </div>
+                                                    <!-- graficaClientesActivosNoActivos -->
+                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                        <canvas id="graficaClientesActivosNoActivos"></canvas>
+                                                        <input type="hidden" id="activos" value="{{ $total_clientes_activos }}">
+                                                        <input type="hidden" id="noactivos" value="{{ $total_clientes_no_activos }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {{-- FIN PANEL --}}
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
 

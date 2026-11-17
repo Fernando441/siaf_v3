@@ -39,6 +39,25 @@ class ClienteController extends Controller
     {
         //conteo total
         $total_clientes = Cliente::count();
+        //conteo fisicas
+        $total_fisicas = Cliente::where('tipo_cliente', '1')->count();
+        //conteo morales
+        $total_morales = Cliente::where('tipo_cliente', '2')->count();
+        // Clientes por estados
+        $total_clientes_estados = DB::table('client as c')
+            ->join('estado as e', 'c.id_estado', '=', 'e.id_estado')
+            ->select(
+                'e.id_estado',
+                'e.estado_nombre',
+                DB::raw('COUNT(c.id_estado) AS total_registros')
+            )
+            ->groupBy('e.id_estado', 'e.estado_nombre')
+            ->orderByDesc('total_registros')
+            ->get();
+        //clientes activos
+        $total_clientes_activos = Cliente::where('id_status_delete','1')->count();
+        //clientes no activos
+        $total_clientes_no_activos = Cliente::where('id_status_delete','2')->count();
 
         $estados = Estado::orderBy('id_estado', 'asc')->where('id_status_delete', 1)->get();
         $municipios = DB::table('municipio')
@@ -46,7 +65,7 @@ class ClienteController extends Controller
             ->where('municipio.id_status_delete', 1)
             ->get();
 
-        return view('clientes.catalogo-clientes', compact('total_clientes','estados', 'municipios'));
+        return view('clientes.catalogo-clientes', compact('total_clientes_activos','total_clientes_no_activos','total_clientes_estados','total_morales', 'total_fisicas', 'total_clientes', 'estados', 'municipios'));
     }
 
     public function clientedatatable(Request $request)

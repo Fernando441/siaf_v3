@@ -70,7 +70,6 @@ class ClientesImport implements ToCollection, WithHeadingRow
 
         if($data_municipio == null)
         {
-
             $data = [
                 'municipio_nombre' => $municipio,
                 'id_estado' => $estado,
