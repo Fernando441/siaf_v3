@@ -117,13 +117,13 @@ class ResguardoController extends Controller
                 ];
                 ResguardoEquipo::insert($data);
 
-                // $data_inv = [
-                //     'estatus_asignado' => 2,
-                //     'user_asignado' => $request->id_user,
-                //     'updated_at' =>date('Y-m-d H:i:s')
-                // ];
+                $data_inv = [
+                    'estatus_asignado' => 2,
+                    'user_asignado' => $request->id_user,
+                    'updated_at' =>date('Y-m-d H:i:s')
+                ];
 
-                // InventarioComputo::where('id', $indice)->update($data_inv);                
+                InventarioComputo::where('id', $indice)->update($data_inv);                
 
             }
         }
@@ -204,6 +204,15 @@ class ResguardoController extends Controller
                     'updated_at' =>date('Y-m-d H:i:s')
                 ];
                 ResguardoEquipo::insert($data);
+
+                $data_inv = [
+                    'estatus_asignado' => 2,
+                    'user_asignado' => $request->id_user,
+                    'updated_at' =>date('Y-m-d H:i:s')
+                ];
+
+                InventarioComputo::where('id', $indice)->update($data_inv);   
+
             }
         }
 
@@ -218,6 +227,14 @@ class ResguardoController extends Controller
         $estatus = true;
         if ($doc){
             ResguardoEquipo::where('id', $request->id)->delete();
+
+                $data_inv = [
+                    'estatus_asignado' => 0,
+                    'updated_at' =>date('Y-m-d H:i:s')
+                ];
+
+                InventarioComputo::where('id', $doc->computo_id)->update($data_inv); 
+
         }else{
             $estatus = false;
         }
@@ -245,16 +262,16 @@ class ResguardoController extends Controller
 
     public function verResguardo($id_resguardo)
     {
-$mpdf = new Mpdf();
-$mpdf->WriteHTML();
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML();
 
-$pdf = $mpdf->Output('', 'S');
+        $pdf = $mpdf->Output('', 'S');
 
-dd([
-    'bytes' => strlen($pdf),
-    'firma_pdf' => substr($pdf, 0, 5),
-    'es_pdf' => str_starts_with($pdf, '%PDF-')
-]);
+        dd([
+            'bytes' => strlen($pdf),
+            'firma_pdf' => substr($pdf, 0, 5),
+            'es_pdf' => str_starts_with($pdf, '%PDF-')
+        ]);
 
         $resguardo = Resguardo::where('id', $id_resguardo)->first();
         $usuarios = User::where('id_status_delete', 1)->get();

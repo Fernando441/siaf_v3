@@ -325,6 +325,11 @@ var Modulo = function() {
             ""].join(""));
         $("#tblDocEquipos tbody").append(html); //agrega el html creado
         //agrega validación del elemento creado
+        $("#id_equipo" + contadorDocumentos).select2({
+            placeholder: "Buscar equipo...",
+            allowClear: true,
+            width: '100%'
+        });
         validador.addField('id_equipo[' + contadorDocumentos + ']', tipoArchivoValidador);
         KTApp.initTooltips(); //inicia tooltip del elemento creado
         KTApp.initFileInput(); //inicia el elemento archivo del elemento creado
