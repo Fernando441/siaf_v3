@@ -153,25 +153,43 @@
 
                       <div class="card-body">
                         <div class="row">
-                          <!-- graficaEquiposAsignados -->
-                          <div class="col-lg-3 col-md-6 mb-4">
-                            <canvas id="graficaEquiposAsignados"></canvas>
-                            <input type="hidden" id="equipos_asignados"
-                              value="{{ $inventario->where('estatus_asignado', 1)->count()}}">
-                            <input type="hidden" id="equipos_no_asignados"
-                              value="{{ $inventario->where('estatus_asignado', 0)->count()}}">
-                          </div>
-                          <!-- graficaTiposEquipos -->
-                          <div class="col-lg-6 col-md-6 mb-4">
-                            <canvas id="graficaTiposEquipos"></canvas>
-                            @php
-                              $datosTiposEquipos = $inventario->groupBy(fn($unid) => $unid->Tipoequipo->tipo_equipo)->map(fn($equipos) => $equipos->count());
-                            @endphp
-                            <script>
-                              window.datosTiposEquipos = @json($datosTiposEquipos);
-                            </script>
-                          </div>
+                          <div class="col-lg-9">
+                            <div class="row">
+                              <!-- graficaEquiposAsignados -->
+                              <div class="col-lg-3 col-md-6 mb-4">
+                                <canvas id="graficaEquiposAsignados"></canvas>
+                                <input type="hidden" id="equipos_asignados"
+                                  value="{{ $inventario->where('estatus_asignado', 1)->count()}}">
+                                <input type="hidden" id="equipos_no_asignados"
+                                  value="{{ $inventario->where('estatus_asignado', 0)->count()}}">
+                              </div>
+                              <!-- graficaTiposEquipos -->
+                              <div class="col-lg-8 col-md-6 mb-4">
+                                <canvas id="graficaTiposEquipos"></canvas>
+                                @php
+                                  $datosTiposEquipos = $inventario->groupBy(fn($unid) => $unid->Tipoequipo->tipo_equipo)->map(fn($equipos) => $equipos->count());
+                                @endphp
+                                <script>
+                                  window.datosTiposEquipos = @json($datosTiposEquipos);
+                                </script>
+                              </div>
+                            </div>
 
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <canvas id="graficaMarcasEquipos"></canvas>
+                                @php
+
+                                  $datosMarcasEquipos = $inventario->groupBy(fn($unid) => $unid->marca)->map(fn($equipos) => $equipos->count());
+
+                                @endphp
+                                <script>
+                                  window.datosMarcasEquipos = @json($datosMarcasEquipos);
+                                </script>
+                              </div>
+                            </div>
+
+                          </div>
                           <div class="col-lg-3">
                             <table class="table table-bordered text-center">
                                 <thead>
@@ -190,8 +208,8 @@
                                 </tbody>
                             </table>
                           </div>
-
                         </div>
+
                       </div>
                     </div>
                   </div>

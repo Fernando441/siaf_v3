@@ -264,16 +264,6 @@ class ResguardoController extends Controller
 
     public function verResguardo($id_resguardo)
     {
-        $mpdf = new Mpdf();
-        $mpdf->WriteHTML();
-
-        $pdf = $mpdf->Output('', 'S');
-
-        dd([
-            'bytes' => strlen($pdf),
-            'firma_pdf' => substr($pdf, 0, 5),
-            'es_pdf' => str_starts_with($pdf, '%PDF-')
-        ]);
 
         $resguardo = Resguardo::where('id', $id_resguardo)->first();
         $usuarios = User::where('id_status_delete', 1)->get();

@@ -8,7 +8,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
     <script src="{{ asset('js/siniestros/GraficaSiniestros.js') }}"></script>
     <script src="{{ asset('js/siniestros/Catalogosiniestro.js') }}"></script>
-    
+    <script>
+        $(".modal-pdf").on('click', function () {
+            var path = $(this).attr('rel-path');
+            var modal = $("#exampleModalSizeSm");
+            var object_pdf = $("#modal-body");
+            var content = `<object id="object_pdf" type="application/pdf" data="`+path+`" width="100%" height="500" style="height: 85vh;">No Support</object>`;
+            object_pdf.html(content);
+            modal.modal("show");
+        });
+    </script>
 @endpush
 
 @section('content')
@@ -217,6 +226,10 @@
                                             <td><a href="{{ route('siniestro.versiniestro', $siniestro->id) }}">{{ $siniestro->no_siniestro }}</a></td>
                                             <td>{{ $siniestro->serie }}</td>
                                             <td>
+                                                <button rel-path="{{ route('siniestro.versiniestrodinaPDF', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
+                                                        <i class="far fa-file-pdf"></i>
+                                                </button>
+
                                                 <a href="{{ route('siniestro.versiniestro', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Ver registro" data-theme="dark" data-toggle="tooltip" data-placement="top"> <i class="flaticon-eye"></i></a>
 
                                                 <a href="{{ route('siniestro.editasiniestro',$siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Editar registro" data-theme="dark" data-toggle="tooltip" data-placement="top"><i class="flaticon-edit"></i></a>
@@ -286,5 +299,29 @@
     <!--end::List-->
 </div>
 
+
+
+    <div class="modal fade" id="exampleModalSizeSm" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeSm"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Siniestro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div id="modal-body" class="modal-body">
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
+                            class="la la-times"></i>Cerrar</button>
+                     
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

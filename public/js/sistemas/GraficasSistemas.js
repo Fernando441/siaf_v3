@@ -6,6 +6,7 @@ $(document).ready(function () {
 				
 				graficaEquiposAsignados();
 				graficaTiposEquipos();
+				graficaMarcasEquipos();
 				graficasCreadas = true;
 			}
 		});
@@ -77,4 +78,42 @@ $(document).ready(function () {
 			}
 		});
 	}
+
+	function graficaMarcasEquipos() {
+		var datos = window.datosMarcasEquipos;
+
+	    // Generar un color aleatorio por cada dato
+	    var coloresAleatorios = Object.keys(datos).map(() => {
+	        return `rgb(
+	            ${Math.floor(Math.random() * 256)},
+	            ${Math.floor(Math.random() * 256)},
+	            ${Math.floor(Math.random() * 256)}
+	        )`;
+	    });
+
+		new Chart(document.getElementById('graficaMarcasEquipos'), {
+			type: 'bar',
+			data: {
+				labels: Object.keys(datos),
+				datasets: [{
+					data: Object.values(datos),
+					backgroundColor: coloresAleatorios,
+					hoverOffset: 4
+				}]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'TOTAL DE MARCAS'
+					},
+					legend: {
+						position: 'bottom'
+					}
+				}
+			}
+		});
+	}
+
 });

@@ -32,6 +32,9 @@ use App\Imports\SiniestrosDinaImport;
 use App\Models\Unidad\Unidad;
 use App\Models\Unidad\FotoUnidad;
 use App\Models\Unidad\UnidadFotografia;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
+use Illuminate\Support\Facades\File;
 
 
 class SiniestrosDinaController extends Controller
@@ -279,6 +282,45 @@ class SiniestrosDinaController extends Controller
         session()->flash('success', 'El siniestro se modifico correctamente');
         return redirect()->route('siniestro.catalogodina');
 
+    }
+
+    public function versiniestrodinaPDF($id_siniestro)
+    {
+        $siniestro_dina = SiniestroDina::where('id', $id_siniestro)->first(); 
+
+        $header = view('siniestro.dina.ver-siniestro-dina-pdf-header')->render();
+        $footer = view('siniestro.dina.ver-siniestro-dina-pdf-footer')->render();
+        $body = view('siniestro.dina.ver-siniestro-dina-pdf-body',compact('id_siniestro', 'siniestro_dina'))->render();
+
+        $path = public_path('theme/assets/media/logos/logojetvan-pdf.png');
+
+        $mpdf = new Mpdf([
+            'format' => [216, 340],
+            'mode' => 'utf-8',
+            'tempDir' => storage_path('app/mpdf_temp'),
+        ]);
+
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->setAutoTopMargin = 'stretch';
+        $mpdf->setAutoBottomMargin = 'stretch';
+
+        // Cargar logo antes de generar el PDF
+        if (File::exists($path)) {
+            $mpdf->imageVars['logo'] = File::get($path);
+        }
+
+        $mpdf->SetHTMLHeader($header);
+        $mpdf->SetHTMLFooter($footer);
+
+        $mpdf->WriteHTML($body);
+
+        // Mostrar PDF en navegador
+        $pdf = $mpdf->Output('', Destination::STRING_RETURN);
+
+        return response($pdf, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="Siniestro No.'.$siniestro_dina->no_siniestro.'.pdf"');
     }
 
 }
