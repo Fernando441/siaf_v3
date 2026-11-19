@@ -69,7 +69,7 @@ $(document).ready(function () {
 				plugins: {
 					title: {
 						display: true,
-						text: 'TOTAL DE INVENTARIO'
+						text: 'TOTAL DE EQUIPOS'
 					},
 					legend: {
 						position: 'bottom'

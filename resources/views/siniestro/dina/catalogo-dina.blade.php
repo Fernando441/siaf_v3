@@ -36,14 +36,14 @@
                     <div class="card card-custom">
                         <div class="card-header">
                             <div class="card-title">
-                      <span class="card-icon">
-                        <i class="flaticon2-file text-primary"></i>
-                      </span>
+                                <a class="grafica-tooltip">
+                                    <img alt="Logo" id="grafica" class="button-grafica brand-logo"
+                                            src="{{ asset('img/grafica.png') }} " title="Graficar" />
+                                    <span class="tooltip-text"></span>
+                                </a>
                                 <h3 class="card-label">Siniestros DINA </h3>
                             </div>
                             <div class="card-toolbar">
-
-                                    <img alt="Logo" id="grafica" class="h-55px brand-logo" src="{{ asset('img/grafica.png') }}" />
                                 <!--begin::Button-->
                                     <a href="{{ route('siniestro.crearsiniestro') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                     <i class="la la-plus"></i>Nuevo</a>

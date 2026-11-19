@@ -83,7 +83,7 @@ class ClientesImport implements ToCollection, WithHeadingRow
             $data_id = Municipio::insertGetId($data);
 
         }else{
-            $data_id = $data_municipio->id;
+            $data_id = $data_municipio->id_municipio;
         }
 
         return $data_id;

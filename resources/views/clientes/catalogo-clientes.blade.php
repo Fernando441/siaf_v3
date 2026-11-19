@@ -50,7 +50,7 @@
                                     </a>
 
                                     <!--begin::Button-->
-                                    @if (in_array("34", Session::get('permisos')))
+                                    {{-- @if (in_array("34", Session::get('permisos'))) --}}
                                         <a href="{{ route('cliente.agregarCliente') }}"
                                             class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                             <i class="la la-plus"></i>Nuevo</a>
@@ -58,7 +58,7 @@
                                         <a href="#" id="carga_masiva_cli"
                                             class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                             <i class="la la-plus"></i>carga masiva</a>
-                                    @endif
+                                    {{-- @endif --}}
                                     <input type="hidden" id="op_busqueda" value="1">
                                     <!--end::Button-->
 
@@ -231,7 +231,7 @@
                                                         <input type="hidden" id="morales" value="{{ $total_morales }}">
                                                     </div>
                                                     <!-- graficaRegistrosEstados -->
-                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                    <div class="col-lg-6 col-md-6 mb-4">
                                                         <canvas id="graficaRegistrosEstados"></canvas>
 
                                                         <script>
@@ -239,7 +239,7 @@
                                                         </script>
                                                     </div>
                                                     <!-- graficaClientesActivosNoActivos -->
-                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                    <div class="col-lg-2 col-md-6 mb-4">
                                                         <canvas id="graficaClientesActivosNoActivos"></canvas>
                                                         <input type="hidden" id="activos" value="{{ $total_clientes_activos }}">
                                                         <input type="hidden" id="noactivos" value="{{ $total_clientes_no_activos }}">
