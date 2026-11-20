@@ -152,7 +152,7 @@
                                             </div>
 
                                             <div class="stat-icon">
-                                                <i class="fas fa-file-contract"></i>
+                                                <i class="fas fa-user-check"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +171,7 @@
                                             </div>
 
                                             <div class="stat-icon">
-                                                <i class="fas fa-check-circle"></i>
+                                                <i class="fas fa-user-md"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                             </div>
 
                                             <div class="stat-icon">
-                                                <i class="fas fa-clock"></i>
+                                                <i class="fas fa-user"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@
                                             </div>
 
                                             <div class="stat-icon">
-                                                <i class="fas fa-sort-amount-down"></i>
+                                                <i class="fas fa-check"></i>
                                             </div>
                                         </div>
                                     </div>

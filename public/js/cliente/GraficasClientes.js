@@ -25,8 +25,8 @@ $(document).ready(function () {
                 datasets: [{
                     data: [p_fisicas, p_morales],
                     backgroundColor: [
-                        'rgb(84, 247, 9)',
-                        'rgb(255, 205, 100)'
+                        'rgb(190, 85, 55)',
+                        'rgb(105, 155, 95)'
                     ],
                     hoverOffset: 4
                 }]
@@ -58,10 +58,12 @@ $(document).ready(function () {
                     label: 'Total de clientes',
                     data: totales,
                     backgroundColor: [
-                        'rgb(54, 162, 235)',
                         'rgb(255, 159, 64)',
-                        'rgb(75, 192, 192)',
-                        'rgb(255, 99, 132)',
+                        'rgb(75, 145, 150)',
+                        'rgb(145, 175, 95)',
+                        'rgb(190, 85, 85)',
+                        'rgb(75, 145, 150)',
+                        'rgb(190, 115, 130)',
                         'rgb(153, 102, 255)',
                         'rgb(255, 159, 64)',
                         'rgb(75, 192, 192)',
@@ -90,14 +92,14 @@ $(document).ready(function () {
         var c_noactivos = document.getElementById("noactivos").value;
 
         new Chart(document.getElementById('graficaClientesActivosNoActivos'), {
-            type: 'doughnut',
+            type: 'pie',
             data: {
                 labels: ['ACTIVOS', 'NO ACTIVOS'],
                 datasets: [{
                     data: [c_activos, c_noactivos],
                     backgroundColor: [
-                        'rgb(247, 144, 9)',
-                        'rgb(74, 230, 13)'
+                        'rgb(5, 150, 170)',
+                        'rgb(180, 175, 0)'
                     ],
                     hoverOffset: 4
                 }]
