@@ -202,7 +202,7 @@
                                                     {{ count($estados) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    Total de estados
+                                                    {{-- Total de estados --}}
                                                 </div>
                                             </div>
 

@@ -56,6 +56,26 @@
         console.log("{{ $routeName }}");
         console.log("{{ $route }}");
     </script>
+{{--     <script>
+        let tiempoInactividad = 1 * 60 * 1000; // 15 minutos
+        let temporizador;
+
+        function reiniciarTemporizador() {
+            clearTimeout(temporizador);
+
+            temporizador = setTimeout(function () {
+                window.location.href = "{{ route('logout') }}";
+            }, tiempoInactividad);
+        }
+
+        ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart', 'click']
+            .forEach(evento => {
+                document.addEventListener(evento, reiniciarTemporizador);
+            });
+
+        reiniciarTemporizador();
+    </script> --}}
+
     <input type="hidden" name="routeName" id="routeName" value="{{ $routeName }}">
     <input type="hidden" name="routeUrl" id="routeUrl" value="{{ $route }}">
     <input type="hidden" id="notificacion_index" value="{{ route('notificacion.index') }}">
