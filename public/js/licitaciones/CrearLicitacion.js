@@ -413,3 +413,60 @@ $("#frp_dos").click(function(){
     }
 
 });
+
+
+function validFormLicitacion(event) {
+    var selectElement = event.target;
+    var value = selectElement.value;
+    var texto = selectElement.options[selectElement.selectedIndex].text;
+
+    if(texto == "ADJUDICACIÓN DIRECTA") {
+        $("#div_acto_fallo").hide();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").hide();
+        $("#div_fecha_junta_aclaraciones").hide();
+        $("#div_fecha_apertura_tecnica").hide();
+        $("#div_apertura_economica").hide();
+        $("#fecha_subasta_div").hide();
+    }
+
+    if(texto == "ADJUDICACIÓN DIRECTA POR ADHESIÓN") {
+        $("#div_acto_fallo").hide();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").hide();
+        $("#div_fecha_junta_aclaraciones").hide();
+        $("#div_fecha_apertura_tecnica").hide();
+        $("#div_apertura_economica").hide();
+        $("#fecha_subasta_div").hide();
+    }
+
+    if(texto == "ADJUDICACIÓN DIRECTA POR COMPRAS MX") {
+        $("#div_acto_fallo").hide();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#div_fecha_apertura_tecnica").hide();
+        $("#div_apertura_economica").hide();
+        $("#fecha_subasta_div").show();
+    }
+
+    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS") {
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").show();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+    }
+
+    if(texto == "LICITACIÓN PUBLICA NACIONAL") {
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").show();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+    }
+}

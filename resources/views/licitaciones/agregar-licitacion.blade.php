@@ -109,7 +109,7 @@
                                 <div class="row form-group">
                                     <div class="col-lg-6">
                                         <label>Tipo de contratación</label>
-                                        <select class="form-control" name="tipo_contratacion" id="tipo_contratacion"
+                                        <select class="form-control" name="tipo_contratacion" id="tipo_contratacion" onchange="validFormLicitacion(event)" 
                                             required>
                                             <option value="">Selecciona una opción</option>
                                             @foreach ($tipo_contratacion as $tp)
@@ -126,19 +126,18 @@
                                 </div>
 
                                 <div class="row form-group">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 oculto" id="div_acto_fallo">
                                         <label>Fecha de acto de fallo</label>
                                         <input type="text" class="form-control"  name="acto_fallo_info" id="acto_fallo_info" />
                                     </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 oculto" id="div_fecha_compra_bases">
                                         <label for="fecha_compra_bases">Fecha de compra de bases </label>
                                         <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" readonly class="form-control"
                                             value="">
                                     </div>
+                                </div>
 
+                                <div class="row form-group">
                                     <div class="col-lg-6">
                                         <label>¿Aplica la fecha de visita?</label>
                                         <div class="radio-inline">
@@ -154,17 +153,16 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row form-group" id="div_fecha_visita"> 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" id="div_fecha_visita">
                                         <label>Fecha y hora de visita</label>
                                         <input type="datetime-local" class="form-control" name="fecha_visita" 
                                             id="fecha_visita"  />
                                         <input type="hidden" name="op_fecha" id="op_fecha" value="1">
                                     </div>
+                                </div>
 
-                                    <div class="col-lg-6">
+                                <div class="row form-group" > 
+                                    <div class="col-lg-6 oculto" id="div_fecha_preguntas">
                                         <label for="fecha_solicitud"> Fecha y Hora de envío de preguntas</label>
                                         <input type="datetime-local" id="fecha_preguntas" name="fecha_preguntas" class="form-control"
                                             value="">
@@ -172,10 +170,10 @@
                                 </div>
 
                                 <div class="row form-group">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 oculto" id="div_fecha_junta_aclaraciones">
                                         <label>Fecha y hora de Junta de aclaración de bases de concurso</label>
                                         <input type="datetime-local" class="form-control" name="junta_aclaraciones"
-                                            id="junta_aclaraciones" required />
+                                            id="junta_aclaraciones" />
                                     </div>
                                     <div class="col-lg-6">
                                         <label for="fecha_entrega_propuestas"> Fecha y hora de entrega de propuestas </label>
@@ -186,12 +184,12 @@
 
 
                                 <div class="row form-group">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 oculto" id="div_fecha_apertura_tecnica">
                                         <label> Fecha de apertura de oferta técnica</label>
                                         <input type="text" class="form-control" name="fecha_apertura_tecnica"
                                             id="fecha_apertura_tecnica" readonly />
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 oculto" id="div_apertura_economica">
                                         <label> Fecha de apertura de oferta económica</label>
                                         <input type="text" class="form-control" readonly name="fecha_apertura_economica"
                                             id="fecha_apertura_economica" readonly/>
@@ -206,7 +204,7 @@
                                         <input type="text" class="form-control" readonly name="apertura_proposiciones"
                                             id="apertura_proposiciones" readonly/>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 oculto">
                                         <label>¿Aplica la fecha de subasta?</label>
                                         <div class="radio-inline">
                                             <label class="radio">
@@ -222,7 +220,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 mt-3" id="fecha_subasta_div">
+                                    <div class="col-lg-6 mt-3 oculto" id="fecha_subasta_div">
                                         <label>Fecha de subasta</label>
                                         <input type="text" class="form-control" readonly name="fecha_subasta"
                                             id="fecha_subasta" readonly/>
@@ -437,7 +435,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <label>Fecha de acto de fallo (Notificación)</label>
+                                                        <label>Fecha de Notificación</label>
                                                         <input type="text" class="form-control" readonly
                                                             name="acto_fallo" id="acto_fallo" />
                                                     </div>
