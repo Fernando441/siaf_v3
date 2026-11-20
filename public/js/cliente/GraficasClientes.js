@@ -6,12 +6,8 @@ $(document).ready(function () {
         $("#div_grafica_licitaciones").stop(true, true).slideToggle(300, function () {
             if ($(this).is(":visible") && !graficasCreadas) {
                 graficaEquipTipoPersonas();
-
                 graficaRegistrosEstados();
-
                 graficaClientesActivosNoActivos();
-
-                graficaMapaEstados();
                 graficasCreadas = true;
             }
 
@@ -19,6 +15,39 @@ $(document).ready(function () {
     });
 
     function graficaEquipTipoPersonas() {
+
+        var p_fisicas = document.getElementById("fisicas").value;
+        var p_morales = document.getElementById("morales").value;
+
+        new Chart(document.getElementById('graficaEquipTipoPersonas'), {
+            type: 'bar',
+            data: {
+                labels: ['FÍSICAS', 'MORALES'],
+                datasets: [{
+                    data: [p_fisicas, p_morales],
+                    backgroundColor: [
+                        'rgb(190, 85, 55)',
+                        'rgb(105, 155, 95)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'TIPOS DE PERSONAS'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+    function graficaRegistrosEstados() {
 
         // Variables globales
         var mapaClientesEstados = null;
@@ -37,8 +66,6 @@ $(document).ready(function () {
                 graficaMapaEstados();
             }
         });
-
-
         function graficaMapaEstados() {
 
             // Evitar errores si Google Charts aún no está listo
@@ -118,46 +145,7 @@ $(document).ready(function () {
             mapaClientesEstados.draw(data, opciones);
         }
     }
-    function graficaRegistrosEstados() {
 
-        var estados = totalclientesestado.map(item => item.estado_nombre);
-        var totales = totalclientesestado.map(item => item.total_registros);
-
-        // Generar un color aleatorio por cada dato
-        var coloresAleatorios = Object.keys(estados).map(() => {
-            return `rgb(
-                ${Math.floor(Math.random() * 256)},
-                ${Math.floor(Math.random() * 256)},
-                ${Math.floor(Math.random() * 256)}
-            )`;
-        });
-
-        new Chart(document.getElementById('graficaRegistrosEstados'), {
-            type: 'pie',
-            data: {
-                labels: estados,
-                datasets: [{
-                    label: 'Total de clientes',
-                    data: totales,
-
-                    backgroundColor: coloresAleatorios,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'CLIENTES POR ESTADOS'
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    }
     function graficaClientesActivosNoActivos() {
 
         var c_activos = document.getElementById("activos").value;
