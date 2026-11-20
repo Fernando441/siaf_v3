@@ -61,15 +61,15 @@
                     <div class="card card-custom">
                         <div class="card-header">
                             <div class="card-title">
-                      <span class="card-icon">
-                        <i class="flaticon2-file text-primary"></i>
-                      </span>
+                                <a class="grafica-tooltip">
+                                    <img alt="Logo" id="grafica" class="button-grafica brand-logo"
+                                            src="{{ asset('img/grafica.png') }} " title="Graficar" />
+                                    <span class="tooltip-text"></span>
+                                </a>
                                 <h3 class="card-label">Siniestros SICUREZZA </h3>
                             </div>
                             <div class="card-toolbar">
 
-                                    <img alt="Logo" id="grafica" class="h-55px brand-logo" src="{{ asset('img/grafica.png') }}" />
-                                <!--begin::Button-->
                                     <a href="{{ route('siniestro.crearsiniestrosic') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                     <i class="la la-plus"></i>Nuevo</a>
 
@@ -249,6 +249,9 @@
                                             <td>{{ $siniestro->siniestro_completo }}</td>
                                             <td>{{ $siniestro->serie }}</td>
                                             <td>
+                                                <button rel-path="" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
+                                                        <i class="far fa-file-pdf"></i>
+                                                </button>
                                                 <a href="{{ route('siniestro.versiniestrosic', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Ver registro" data-theme="dark" data-toggle="tooltip" data-placement="top"> <i class="flaticon-eye"></i></a>
 
                                                 <a href="{{ route('siniestro.editarsiniestrosic',$siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Editar registro" data-theme="dark" data-toggle="tooltip" data-placement="top"><i class="flaticon-edit"></i></a>
@@ -313,5 +316,28 @@
     <!--end::List-->
 </div>
 
+
+    <div class="modal fade" id="exampleModalSizeSm" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeSm"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Siniestro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div id="modal-body" class="modal-body">
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
+                            class="la la-times"></i>Cerrar</button>
+                     
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

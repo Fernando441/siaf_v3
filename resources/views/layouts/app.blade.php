@@ -1203,6 +1203,20 @@
                                                                 </li>
                                                                 {{-- @if (in_array("123", Session::get('permisos'))) --}}
                                                                     <li class="menu-item" aria-haspopup="true"
+                                                                        id="menuListadoHdi">
+                                                                        <a href="{{ route('siniestro.catalogohdi') }}"
+                                                                            class="menu-link">
+                                                                            <i class="menu-bullet menu-bullet-dot">
+                                                                                <span></span>
+                                                                            </i>
+                                                                            <span class="menu-text">HDI</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {{-- @endif --}}
+
+
+                                                                {{-- @if (in_array("123", Session::get('permisos'))) --}}
+                                                                    <li class="menu-item" aria-haspopup="true"
                                                                         id="menuListadoDina">
                                                                         <a href="{{ route('siniestro.catalogodina') }}"
                                                                             class="menu-link">
@@ -1213,6 +1227,7 @@
                                                                         </a>
                                                                     </li>
                                                                 {{-- @endif --}}
+
                                                                 {{-- @if (in_array("123", Session::get('permisos'))) --}}
                                                                     <li class="menu-item" aria-haspopup="true"
                                                                         id="menuListadoSicurezza">
@@ -1225,6 +1240,8 @@
                                                                         </a>
                                                                     </li>
                                                                 {{-- @endif --}}
+
+
                                                             </ul>
                                                         </div>
                                                     </li>

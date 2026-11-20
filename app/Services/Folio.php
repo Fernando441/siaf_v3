@@ -13,6 +13,7 @@ use App\Models\Sistemas\InventarioFolioComputo;
 use App\Models\Sistemas\ResguardoFolio;
 use App\Models\Siniestros\SiniestroFolioDina;
 use App\Models\Siniestros\SiniestroFolioSicurezza;
+use App\Models\Siniestros\SiniestroFolioHdi;
 
 class Folio
 {

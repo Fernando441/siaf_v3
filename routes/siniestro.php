@@ -9,10 +9,10 @@
     	Route::get('/ver-siniestro/{id}', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'versiniestro'])->name('siniestro.versiniestro');
     	Route::get('/editar-siniestro/{id}', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'editasiniestro'])->name('siniestro.editasiniestro');
     	Route::post('/edit-siniestro-dina', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'editsiniestrodina'])->name('siniestro.editsiniestrodina');
-    	Route::post('/delete-dina', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'deletedinaevidencia'])->name('siniestro.deletedinaevidencia');
+    	Route::post('/delete-dina', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'deletedinaevidencia'])->name('siniestro.deletedinaevidencia');
     	Route::get('/crear-registro-siniestro', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'crearsiniestro'])->name('siniestro.crearsiniestro');
     	Route::post('/guardar-dina', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'guardardina'])->name('siniestro.guardardina');
-    	
+    	Route::get('/ver-siniestro-dina-pdf/{id}', [App\Http\Controllers\Siniestros\SiniestrosDinaController::class, 'versiniestrodinaPDF'])->name('siniestro.versiniestrodinaPDF');
 
 
 
@@ -25,3 +25,7 @@
     	Route::post('/delete-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'deletesicurezzaevidencia'])->name('siniestro.deletesicurezzaevidencia');
     	Route::get('/crear-siniestro-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'crearsiniestrosic'])->name('siniestro.crearsiniestrosic');
     	Route::post('/add-siniestro-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'addsiniestrosic'])->name('siniestro.addsiniestrosic');
+
+    //Listado de Siniestros HDI
+    	Route::get('/catalogo-hdi', [App\Http\Controllers\Siniestros\SiniestrosHdiController::class, 'catalogohdi'])->name('siniestro.catalogohdi');
+    	Route::post('/cargamasiva-hdi', [App\Http\Controllers\Siniestros\SiniestrosHdiController::class, 'cargamasivhdi'])->name('siniestro.cargamasivhdi');

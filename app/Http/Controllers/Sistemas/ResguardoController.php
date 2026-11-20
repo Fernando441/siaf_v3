@@ -26,6 +26,7 @@ use App\Models\Sistemas\Resguardo;
 use App\Models\Sistemas\ResguardoEquipo;
 use App\Models\Sistemas\ResguardoEvidencia;
 use App\Models\Sistemas\ResguardoTipoEvidencia;
+use App\Models\Sistemas\InventarioComputoBitacora;
 use Mpdf\Mpdf;
 
 class ResguardoController extends Controller
@@ -77,6 +78,7 @@ class ResguardoController extends Controller
             'user_resguardo' => $request->id_user,
             'descripcion' => $request->descripcion,
             'id_status_delete' => 1,
+            'op_resguardo' => 0,
             'created_at' =>date('Y-m-d H:i:s'),
             'updated_at' =>date('Y-m-d H:i:s'),
             'iduserCreated' =>auth()->user()->id,
@@ -262,16 +264,6 @@ class ResguardoController extends Controller
 
     public function verResguardo($id_resguardo)
     {
-        $mpdf = new Mpdf();
-        $mpdf->WriteHTML();
-
-        $pdf = $mpdf->Output('', 'S');
-
-        dd([
-            'bytes' => strlen($pdf),
-            'firma_pdf' => substr($pdf, 0, 5),
-            'es_pdf' => str_starts_with($pdf, '%PDF-')
-        ]);
 
         $resguardo = Resguardo::where('id', $id_resguardo)->first();
         $usuarios = User::where('id_status_delete', 1)->get();

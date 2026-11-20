@@ -50,6 +50,15 @@ $(document).ready(function () {
         var estados = totalclientesestado.map(item => item.estado_nombre);
         var totales = totalclientesestado.map(item => item.total_registros);
 
+        // Generar un color aleatorio por cada dato
+        var coloresAleatorios = Object.keys(estados).map(() => {
+            return `rgb(
+                ${Math.floor(Math.random() * 256)},
+                ${Math.floor(Math.random() * 256)},
+                ${Math.floor(Math.random() * 256)}
+            )`;
+        });
+
         new Chart(document.getElementById('graficaRegistrosEstados'), {
             type: 'pie',
             data: {
@@ -57,18 +66,7 @@ $(document).ready(function () {
                 datasets: [{
                     label: 'Total de clientes',
                     data: totales,
-                    backgroundColor: [
-                        'rgb(255, 159, 64)',
-                        'rgb(75, 145, 150)',
-                        'rgb(145, 175, 95)',
-                        'rgb(190, 85, 85)',
-                        'rgb(75, 145, 150)',
-                        'rgb(190, 115, 130)',
-                        'rgb(153, 102, 255)',
-                        'rgb(255, 159, 64)',
-                        'rgb(75, 192, 192)',
-                        'rgb(255, 99, 132)'
-                    ],
+                    backgroundColor: coloresAleatorios,
                     hoverOffset: 4
                 }]
             },

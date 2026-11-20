@@ -23,6 +23,7 @@ use App\Models\Sistemas\InventarioComputo;
 use App\Models\Sistemas\InventarioTipoComputo;
 use App\Models\Sistemas\InventarioEvidenciaComputo;
 use App\Models\Sistemas\InventarioTipoEvidenciaComputo;
+use App\Models\Sistemas\InventarioComputoBitacora;
 use App\Models\Licitacion\ComprasRequisicion;
 
 
@@ -40,8 +41,9 @@ class InventarioComputoController extends Controller
     {
 
     	$inventario = InventarioComputo::where('id_status_delete', 1)->get();
-
-        return view('sistemas.inventario.catalogo-inv-computo', compact('inventario'));
+        $inventario_inactivo = InventarioComputo::where('id_status_delete', 2)->get();
+        
+        return view('sistemas.inventario.catalogo-inv-computo', compact('inventario', 'inventario_inactivo'));
     }
 
     public function agregarRegistro()

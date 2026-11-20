@@ -31,7 +31,7 @@ class Resguardo extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_resguardo', 'no_folio', 'fecha_asignacion', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated', 'id_status_delete', 'descripcion'];
+    protected $fillable = ['user_resguardo', 'no_folio', 'fecha_asignacion', 'created_at', 'updated_at', 'iduserCreated', 'iduserUpdated', 'id_status_delete', 'descripcion', 'op_resguardo'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -6,6 +6,7 @@ $(document).ready(function () {
 				
 				graficaEquiposAsignados();
 				graficaTiposEquipos();
+				graficaMarcasEquipos();
 				graficasCreadas = true;
 			}
 		});
@@ -18,14 +19,12 @@ $(document).ready(function () {
 		new Chart(document.getElementById('graficaEquiposAsignados'), {
 			type: 'doughnut',
 			data: {
-				labels: ['Equipos Asignados', 'Equipos no Asignados'],
+				labels: ['Equipos Asignados: '+asignados+' ', 'Equipos no Asignados:  '+noasignados+' '],
 				datasets: [{
 					data: [asignados, noasignados],
 					backgroundColor: [
-						'rgb(84, 247, 9)',
-						'rgb(230, 29, 2)',
-						// 'rgb(255, 205, 86)',
-						// 'rgb(102, 205, 170)'
+						'rgb(91, 255, 86)',
+						'rgb(255, 168, 0)',
 					],
 					hoverOffset: 4
 				}]
@@ -44,10 +43,9 @@ $(document).ready(function () {
 			}
 		});
 	}
+
 	function graficaTiposEquipos() {
-
 		var datos = window.datosTiposEquipos;
-
 		new Chart(document.getElementById('graficaTiposEquipos'), {
 			type: 'bar',
 			data: {
@@ -71,7 +69,7 @@ $(document).ready(function () {
 				plugins: {
 					title: {
 						display: true,
-						text: 'TOTAL DE INVENTARIO'
+						text: 'TOTAL DE EQUIPOS'
 					},
 					legend: {
 						position: 'bottom'
@@ -80,4 +78,42 @@ $(document).ready(function () {
 			}
 		});
 	}
+
+	function graficaMarcasEquipos() {
+		var datos = window.datosMarcasEquipos;
+
+	    // Generar un color aleatorio por cada dato
+	    var coloresAleatorios = Object.keys(datos).map(() => {
+	        return `rgb(
+	            ${Math.floor(Math.random() * 256)},
+	            ${Math.floor(Math.random() * 256)},
+	            ${Math.floor(Math.random() * 256)}
+	        )`;
+	    });
+
+		new Chart(document.getElementById('graficaMarcasEquipos'), {
+			type: 'bar',
+			data: {
+				labels: Object.keys(datos),
+				datasets: [{
+					data: Object.values(datos),
+					backgroundColor: coloresAleatorios,
+					hoverOffset: 4
+				}]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'TOTAL DE MARCAS'
+					},
+					legend: {
+						position: 'bottom'
+					}
+				}
+			}
+		});
+	}
+
 });

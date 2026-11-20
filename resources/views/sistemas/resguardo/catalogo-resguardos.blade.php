@@ -80,7 +80,11 @@
                                               <td>{{ $unid->user_resguardo }}</td>
                                               <td>{{ $unid->fecha_asignacion }}</td>
                                               <td>{{ $unid->descripcion }}</td>
-                                              <td></td>
+                                              <td>
+                                                    @if($unid->op_resguardo == 0)
+                                                        <span class="label font-weight-bold label-outline-danger label-inline" style="width: 120px; font-size: 10px; font-weight: bold;">Pendiente</span>
+                                                  @endif
+                                              </td>
                                               
                                               <td class="text-center">
                                                 <button rel-path="{{ route('resguardo.verPDF', $unid->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
