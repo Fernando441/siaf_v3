@@ -101,8 +101,8 @@ $(document).ready(function () {
 				datasets: [{
 					data: Object.values(datos),
 					backgroundColor: [
-						'rgb(125, 235, 85)',
-						'rgb(255, 105, 95)',
+						'rgb(235, 140, 85)',
+						'rgb(85, 210, 175)',
 						'rgb(255, 195, 65)',
 						'rgb(85, 210, 175)',
 						'rgb(125, 235, 85)',
