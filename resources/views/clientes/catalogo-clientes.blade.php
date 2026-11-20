@@ -4,6 +4,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('js/cliente/GraficasClientes.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
 @endpush
 
 @section('title')
@@ -51,13 +52,13 @@
 
                                     <!--begin::Button-->
                                     {{-- @if (in_array("34", Session::get('permisos'))) --}}
-                                        <a href="{{ route('cliente.agregarCliente') }}"
-                                            class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                            <i class="la la-plus"></i>Nuevo</a>
+                                    <a href="{{ route('cliente.agregarCliente') }}"
+                                        class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
+                                        <i class="la la-plus"></i>Nuevo</a>
 
-                                        <a href="#" id="carga_masiva_cli"
-                                            class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
-                                            <i class="la la-plus"></i>carga masiva</a>
+                                    <a href="#" id="carga_masiva_cli"
+                                        class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
+                                        <i class="la la-plus"></i>carga masiva</a>
                                     {{-- @endif --}}
                                     <input type="hidden" id="op_busqueda" value="1">
                                     <!--end::Button-->
@@ -214,9 +215,9 @@
 
                                 </div>
                                 <!-- FIN ESTADISTICAS -->
+
                                 {{-- PANEL DE GRAFICAS --}}
                                 <div class="row oculto" id="div_grafica_licitaciones">
-
                                     <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-header">
@@ -230,25 +231,26 @@
                                                         <input type="hidden" id="fisicas" value="{{ $total_fisicas }}">
                                                         <input type="hidden" id="morales" value="{{ $total_morales }}">
                                                     </div>
+                                                    <!-- graficaClientesActivosNoActivos -->
+                                                    <div class="col-lg-2 col-md-6 mb-4">
+                                                        <canvas id="graficaClientesActivosNoActivos"></canvas>
+                                                        <input type="hidden" id="activos"
+                                                            value="{{ $total_clientes_activos }}">
+                                                        <input type="hidden" id="noactivos"
+                                                            value="{{ $total_clientes_no_activos }}">
+                                                    </div>
                                                     <!-- graficaRegistrosEstados -->
-                                                    <div class="col-lg-6 col-md-6 mb-4">
-                                                        <canvas id="graficaRegistrosEstados"></canvas>
+                                                    <div class="col-lg-12 col-md-12 mb-4">
+                                                        <div id="regions_div" style="width: 100%; height: 500px;"></div>
 
                                                         <script>
                                                             var totalclientesestado = @json($total_clientes_estados);
                                                         </script>
                                                     </div>
-                                                    <!-- graficaClientesActivosNoActivos -->
-                                                    <div class="col-lg-2 col-md-6 mb-4">
-                                                        <canvas id="graficaClientesActivosNoActivos"></canvas>
-                                                        <input type="hidden" id="activos" value="{{ $total_clientes_activos }}">
-                                                        <input type="hidden" id="noactivos" value="{{ $total_clientes_no_activos }}">
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 {{-- FIN PANEL --}}
                                 <div class="collapse" id="collapseExample">

@@ -44,6 +44,44 @@ class ClienteController extends Controller
         //conteo morales
         $total_morales = Cliente::where('tipo_cliente', '2')->count();
         // Clientes por estados
+        $clavesEstados = [
+            'AGUASCALIENTES' => 'MX-AGU',
+            'BAJA CALIFORNIA' => 'MX-BCN',
+            'BAJA CALIFORNIA SUR' => 'MX-BCS',
+            'CAMPECHE' => 'MX-CAM',
+            'CHOAHUILA DE ZARAGOZ' => 'MX-COA',
+            'COAHUILA' => 'MX-COA',
+            'COLIMA' => 'MX-COL',
+            'CHIAPAS' => 'MX-CHP',
+            'CHIHUAHUA' => 'MX-CHH',
+            'CIUDAD DE MEXICO' => 'MX-DIF',
+            'DURANGO' => 'MX-DUR',
+            'GUANAJUATO' => 'MX-GUA',
+            'GUERRERO' => 'MX-GRO',
+            'HIDALGO' => 'MX-HID',
+            'JALISCO' => 'MX-JAL',
+            'MEXICO' => 'MX-MEX',
+            'Estado de México' => 'MX-MEX',
+            'MICHOACAN DE OCAMPO' => 'MX-MIC',
+            'Michoacán' => 'MX-MIC',
+            'MORELOS' => 'MX-MOR',
+            'NAYARIT' => 'MX-NAY',
+            'NUEVO LEON' => 'MX-NLE',
+            'OAXACA' => 'MX-OAX',
+            'PUEBLA' => 'MX-PUE',
+            'QUERETARO' => 'MX-QUE',
+            'QUINTANA ROO' => 'MX-ROO',
+            'SAN LUIS POTOSI' => 'MX-SLP',
+            'SINALOA' => 'MX-SIN',
+            'SONORA' => 'MX-SON',
+            'TABASCO' => 'MX-TAB',
+            'TAMAULIPAS' => 'MX-TAM',
+            'TLAXCALA' => 'MX-TLA',
+            'VERACRUZ' => 'MX-VER',
+            'YUCATAN' => 'MX-YUC',
+            'ZACATECAS' => 'MX-ZAC',
+        ];
+
         $total_clientes_estados = DB::table('client as c')
             ->join('estado as e', 'c.id_estado', '=', 'e.id_estado')
             ->select(
@@ -53,11 +91,19 @@ class ClienteController extends Controller
             )
             ->groupBy('e.id_estado', 'e.estado_nombre')
             ->orderByDesc('total_registros')
-            ->get();
+            ->get()
+            ->map(function ($item) use ($clavesEstados) {
+                $item->clave = $clavesEstados[$item->estado_nombre] ?? null;
+                return $item;
+            })
+            ->filter(function ($item) {
+                return $item->clave !== null;
+            })
+            ->values();
         //clientes activos
-        $total_clientes_activos = Cliente::where('id_status_delete','1')->count();
+        $total_clientes_activos = Cliente::where('id_status_delete', '1')->count();
         //clientes no activos
-        $total_clientes_no_activos = Cliente::where('id_status_delete','2')->count();
+        $total_clientes_no_activos = Cliente::where('id_status_delete', '2')->count();
 
         $estados = Estado::orderBy('id_estado', 'asc')->where('id_status_delete', 1)->get();
         $municipios = DB::table('municipio')
@@ -65,7 +111,7 @@ class ClienteController extends Controller
             ->where('municipio.id_status_delete', 1)
             ->get();
 
-        return view('clientes.catalogo-clientes', compact('total_clientes_activos','total_clientes_no_activos','total_clientes_estados','total_morales', 'total_fisicas', 'total_clientes', 'estados', 'municipios'));
+        return view('clientes.catalogo-clientes', compact('total_clientes_activos', 'total_clientes_no_activos', 'total_clientes_estados', 'total_morales', 'total_fisicas', 'total_clientes', 'estados', 'municipios'));
     }
 
     public function clientedatatable(Request $request)
