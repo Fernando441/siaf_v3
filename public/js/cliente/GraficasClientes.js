@@ -104,7 +104,7 @@ $(document).ready(function () {
 
                 colorAxis: {
                     colors: [
-                        '#a4f8ae',
+                        '#cfffdb',
                         '#43f858',
                         '#00ff1e'
                     ]
