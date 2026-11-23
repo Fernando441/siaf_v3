@@ -69,6 +69,7 @@ use App\Models\Sistemas\InventarioEvidenciaComputo;
 use App\Models\Sistemas\ResguardoEvidencia;
 use App\Models\Siniestros\SiniestroSicurezzaEvidencia;
 use App\Models\Siniestros\SiniestroDinaEvidencia;
+use App\Models\Siniestros\SiniestroHdiEvidencia;
 
 class ArchivoController extends Controller
 {
@@ -786,5 +787,18 @@ class ArchivoController extends Controller
         }else{
             return abort('403');
         }         
+    }
+
+    public function evidenciahdi(Request $request)
+    {
+        $user = auth()->user();
+        $id = $request->id;
+        $documento = SiniestroHdiEvidencia::findOrFail($id);
+        $existeArchivo = Storage::exists('Siniestrohdi/'.$documento->siniestro_hdi_id.'/'.$documento->documento);
+        if($user && $documento && $existeArchivo) {
+            return Storage::download('Siniestrohdi/'.$documento->siniestro_hdi_id.'/'.$documento->documento, $documento->documento, ['Content-Disposition'=>'inline; filename="'.$documento->documento.'"']);
+        }else{
+            return abort('403');
+        }        
     }
 }

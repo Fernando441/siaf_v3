@@ -49,7 +49,7 @@
 
                                     
                                 <!--begin::Button-->
-                                    <a href="{{ route('siniestro.crearsiniestro') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
+                                    <a href="{{ route('siniestro.crearsiniestrohdi') }}" class="btn btn-light-primary font-weight-bolder mr-3 ml-3">
                                     <i class="la la-plus"></i>Nuevo</a>
 
 
@@ -181,8 +181,6 @@
                                       <div class="col-lg-10">
                                         <form class="form" action="{{ route('siniestro.cargamasivhdi') }}" method="post" id="submit_carga" enctype="multipart/form-data" content="text/html; charset=utf-8">
                                           @csrf
-
-
                                           <div class="row">
                                               <div class="col-lg-12  form-group">
                                                   <div class='custom-file mt-2'>
@@ -226,7 +224,7 @@
                                     @foreach($siniestro_hdi as $siniestro)
                                         <tr>
                                             <td>{{ $siniestro->no_folio }}</td>
-                                            <td><a href="{{ route('siniestro.versiniestro', $siniestro->id) }}">{{ $siniestro->numero_siniestro }}</a></td>
+                                            <td><a href="{{ route('siniestro.versiniestrohdi', $siniestro->id) }}">{{ $siniestro->numero_siniestro }}</a></td>
                                             <td>{{ $siniestro->serie }}</td>
                                             <td>
                                                 <button rel-path="{{ route('siniestro.versiniestrodinaPDF', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
@@ -235,11 +233,13 @@
 
                                                 <a href="{{ route('siniestro.versiniestro', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Ver registro" data-theme="dark" data-toggle="tooltip" data-placement="top"> <i class="flaticon-eye"></i></a>
 
-                                                <a href="{{ route('siniestro.editasiniestro',$siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Editar registro" data-theme="dark" data-toggle="tooltip" data-placement="top"><i class="flaticon-edit"></i></a>
+                                                <a href="{{ route('siniestro.editarsiniestrohdi',$siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Editar registro" data-theme="dark" data-toggle="tooltip" data-placement="top"><i class="flaticon-edit"></i></a>
                                             </td>
                                             <td>{{ $siniestro->reporte_cabina }}</td>
                                             <td>{{ $siniestro->fecha_ocurrido }}</td>
                                             <td>{{ $siniestro->proyecto }}</td>
+                                            <td>{{ $siniestro->year }}</td>
+                                            <td>{{ $siniestro->numero_poliza }}</td>
                                             <td>{{ $siniestro->estatus_poliza }}</td>
                                             <td>{{ $siniestro->inicio_vigencia }}</td>
                                             <td>{{ $siniestro->termino_vigencia }}</td>

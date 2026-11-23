@@ -136,4 +136,17 @@ class Folio
         return "S-".str_pad($folio,5,"0", STR_PAD_LEFT);
     }
 
+
+    public function getFolioSiniestroHdi(){
+
+        $folio = SiniestroFolioHdi::with('folio')->max('folio');
+        $folio = $folio ? ++$folio : 1;
+        $folioModel = new SiniestroFolioHdi();
+        $folioModel->folio = $folio;
+        $folioModel->anio = date('Y');
+        $folioModel->save();
+
+        return "H-".str_pad($folio,5,"0", STR_PAD_LEFT);
+    }
+
 }
