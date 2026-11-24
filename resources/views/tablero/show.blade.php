@@ -156,7 +156,7 @@
 
 		/* ICONOS */
 		.menu-graficas-link i:first-child {
-			color: #59a532;
+			color: #000000;
 			font-size: 17px;
 			width: 22px;
 			text-align: center;
@@ -198,19 +198,34 @@
 				min-height: auto;
 			}
 		}
+
+		/* OCULTA LAS GRAFICAS */
+		.contenido-grafica {
+			display: none;
+		}
+
+		.contenido-grafica.activo {
+			display: block;
+		}
+
+		/* Estilo de opción activa */
+		.menu-graficas-link.activo {
+			background-color: #fd6721;
+			color: #319214;
+		}
 	</style>
 
 	<!-- @if (Session::has('permisos'))
-					@if (in_array("109", Session::get('permisos')))
-						<div class="row">
-							@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
-								<div class="card-body">
-									<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-								</div>
-							@endif
-						</div>
-					@endif
-				@endif -->
+															@if (in_array("109", Session::get('permisos')))
+																<div class="row">
+																	@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
+																		<div class="card-body">
+																			<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+																		</div>
+																	@endif
+																</div>
+															@endif
+														@endif -->
 
 	<!-- ESTADISTICAS -->
 	<div class="row dashboard-stats">
@@ -290,62 +305,109 @@
 
 	</div>
 	<!-- FIN ESTADISTICAS -->
+
 	{{-- PANEL DE GRAFICAS --}}
-	<div class="" id="div_grafica_tablero">
+	<div id="div_grafica_tablero">
 		<div class="col-lg-12">
 			<div class="card">
-				<div class="card-header" style="height: 62px">
-					<h3 class="card-title">
-						PRESENCIA DE JETVAN NACIONALMENTE
-						<img src="https://flagcdn.com/w40/mx.png" alt="México" style="width: 25px; vertical-align: middle;">
-					</h3>
-				</div>
-
 				<div class="card-body">
 					<div class="row">
 
-						<!-- MAPA -->
+						{{-- CONTENEDOR DE GRÁFICAS --}}
 						<div class="col-lg-9 col-md-12 mb-4 cont-Graficas">
-							<div id="regions_div" style="width: 100%; height: 500px;">
+
+							{{-- MAPA --}}
+							<div id="grafica-mapa" class="contenido-grafica activo">
+								<h3 class="card-title mb-3">
+									PRESENCIA DE JETVAN NACIONALMENTE
+									<img src="https://flagcdn.com/w40/mx.png" alt="México"
+										style="width: 25px; vertical-align: middle;">
+								</h3>
+								<div id="regions_div" style="width: 100%; height: 500px;">
+									<script>
+										var totalclientesestado = @json($total_clientes_estados);
+									</script>
+								</div>
 							</div>
 
-							<script>
-								var totalclientesestado =
-									@json($total_clientes_estados);
-							</script>
-						</div>
+							{{-- CLIENTES --}}
+							<div id="grafica-clientes" class="contenido-grafica">
+								<h3 class="card-title mb-3">GRÁFICAS DE CLIENTES</h3>
 
-						<!-- MENU LATERAL -->
+								<img src="imagenes/clientes.png" class="img-fluid">
+							</div>
+
+							{{-- CONCURSOS --}}
+							<div id="grafica-concursos" class="contenido-grafica">
+								<h3 class="card-title mb-3">GRÁFICAS DE CONCURSOS</h3>
+
+								<img src="imagenes/concursos.png" class="img-fluid">
+							</div>
+
+							{{-- REQUISICIONES --}}
+							<div id="grafica-requisiciones" class="contenido-grafica">
+								<h3 class="card-title mb-3">GRÁFICAS DE REQUISICIONES</h3>
+
+								<img src="imagenes/requisiciones.png" class="img-fluid">
+							</div>
+
+							{{-- SEGMENTOS --}}
+							<div id="grafica-segmentos" class="contenido-grafica">
+								<h3 class="card-title mb-3">GRÁFICAS DE SEGMENTOS</h3>
+
+								<img src="imagenes/segmentos.png" class="img-fluid">
+							</div>
+
+						</div>
+						{{-- FIN CONTENEDOR DE GRÁFICAS --}}
+
+
+						{{-- MENU LATERAL --}}
 						<div class="col-lg-3 col-md-12 menu-Graficas">
+
 							<div class="menu-graficas-contenedor">
+
 								<div class="menu-graficas-titulo">
-									<span>GRAFICAS</span>
+									<span>GRÁFICAS</span>
 								</div>
-								<a href="#" class="menu-graficas-link activo">
+
+								<a href="#" class="menu-graficas-link activo" data-target="grafica-mapa">
+									<i class="fas fa-map-marked-alt"></i>
+									<span>Mapa</span>
+								</a>
+
+								<a href="#" class="menu-graficas-link" data-target="grafica-clientes">
 									<i class="fas fa-users"></i>
 									<span>Clientes</span>
 								</a>
-								<a href="#" class="menu-graficas-link">
+
+								<a href="#" class="menu-graficas-link" data-target="grafica-concursos">
 									<i class="fas fa-building"></i>
 									<span>Concursos</span>
 								</a>
-								<a href="#" class="menu-graficas-link">
-									<i class="fas fa-users"></i>
+
+								<a href="#" class="menu-graficas-link" data-target="grafica-requisiciones">
+									<i class="fas fa-file-alt"></i>
 									<span>Requisiciones</span>
 								</a>
-								<a href="#" class="menu-graficas-link">
+
+								<a href="#" class="menu-graficas-link" data-target="grafica-segmentos">
 									<i class="fas fa-truck"></i>
 									<span>Segmentos</span>
 								</a>
+
 							</div>
+
 						</div>
-						<!-- FIN MENU -->
+						{{-- FIN MENU LATERAL --}}
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	{{-- FIN PANEL --}}
+	{{-- FIN PANEL DE GRAFICAS --}}
+
 
 	<div class="row mt-3">
 		<div class="col-lg-8">
@@ -554,63 +616,9 @@
 					</div>
 				</div>
 			</div>
-			//Claendario
-
-
-			<div class="card mt-2">
-
-				<div class="card card-custom">
-					<div class="card-header">
-						<div class="card-title">
-
-							<h3 class="card-label">Prioridad</h3>
-						</div>
-
-					</div>
-
-					<div class="card-body">
-						<div>
-							<span>Alta = {{ count($pendiente_pri_alta) }}</span><br>
-							<span>Media = {{ count($pendiente_pri_media) }}</span><br>
-							<span>Baja = {{ count($pendiente_pri_baja) }}</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="card mt-2">
-
-				<div class="card card-custom">
-					<div class="card-header">
-						<div class="card-title">
-							<h3 class="card-label">Estatus</h3>
-						</div>
-
-					</div>
-
-					<div class="card-body">
-						<div>
-							<span>Pendientes = {{ count($pendiente_no_finalizado) }}</span><br>
-							<span>Finalizadas = {{ count($pendiente_finalizado) }}</span><br>
-						</div>
-
-						<div>
-							<canvas id="grafica_pendiente" style="width: 100px;"></canvas>
-							<input type="hidden" id="pendiente_no" value="{{ count($pendiente_no_finalizado) }}">
-							<input type="hidden" id="pendiente_si" value="{{ count($pendiente_finalizado) }}">
-						</div>
-
-					</div>
-				</div>
-			</div>
 
 		</div>
-
-
 	</div>
-
-
-
 	{{-- END Direccion Comercial
 
 
