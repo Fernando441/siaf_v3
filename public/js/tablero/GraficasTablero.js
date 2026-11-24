@@ -2,6 +2,8 @@
 $(document).ready(function () {
     $("#div_grafica_tablero").show();
     graficaRegistrosEstados();
+    graficaClientesActivosNoActivos();
+    graficaEquipTipoPersonas();
 
     function graficaRegistrosEstados() {
 
@@ -100,5 +102,69 @@ $(document).ready(function () {
             // Dibujar mapa
             mapaClientesEstados.draw(data, opciones);
         }
+    }
+    function graficaClientesActivosNoActivos() {
+
+        var c_activos = document.getElementById("activos").value;
+        var c_noactivos = document.getElementById("noactivos").value;
+
+        new Chart(document.getElementById('graficaClientesActivosNoActivos'), {
+            type: 'bar',
+            data: {
+                labels: ['ACTIVOS', 'NO ACTIVOS'],
+                datasets: [{
+                    data: [c_activos, c_noactivos],
+                    backgroundColor: [
+                        'rgb(5, 150, 170)',
+                        'rgb(180, 175, 0)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'CLIENTES ACTIVOS Y NO ACTIVOS'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+    function graficaEquipTipoPersonas() {
+
+        var p_fisicas = document.getElementById("fisicas").value;
+        var p_morales = document.getElementById("morales").value;
+
+        new Chart(document.getElementById('graficaEquipTipoPersonas'), {
+            type: 'bar',
+            data: {
+                labels: ['FÍSICAS', 'MORALES'],
+                datasets: [{
+                    data: [p_fisicas, p_morales],
+                    backgroundColor: [
+                        'rgb(190, 85, 55)',
+                        'rgb(105, 155, 95)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'TIPOS DE PERSONAS'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
     }
 });

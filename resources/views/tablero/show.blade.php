@@ -216,36 +216,38 @@
 	</style>
 
 	<!-- @if (Session::has('permisos'))
-															@if (in_array("109", Session::get('permisos')))
-																<div class="row">
-																	@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
-																		<div class="card-body">
-																			<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-																		</div>
-																	@endif
-																</div>
-															@endif
-														@endif -->
+																				@if (in_array("109", Session::get('permisos')))
+																					<div class="row">
+																						@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
+																							<div class="card-body">
+																								<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+																							</div>
+																						@endif
+																					</div>
+																				@endif
+																			@endif -->
 
 	<!-- ESTADISTICAS -->
 	<div class="row dashboard-stats">
 
 		<!-- TOTAL DE CLIENTES -->
 		<div class="col-xl-3 col-lg-6 col-md-6">
-			<div class="stat-card stat-blue">
-				<div class="stat-content">
-					<div class="stat-value">
-						{{$total_clientes}}
+			<a href="{{ route('cliente.catalogoCliente') }}" style="text-decoration: none; color: inherit;">
+				<div class="stat-card stat-blue" style="cursor: pointer;">
+					<div class="stat-content">
+						<div class="stat-value">
+							{{$total_clientes}}
+						</div>
+						<div class="stat-label">
+							TOTAL DE CLIENTES
+						</div>
 					</div>
-					<div class="stat-label">
-						TOTAL DE CLIENTES
+					<div class="stat-icon">
+						<i class="fas fa-laptop"></i>
 					</div>
 				</div>
 
-				<div class="stat-icon">
-					<i class="fas fa-laptop"></i>
-				</div>
-			</div>
+			</a>
 		</div>
 
 		<!-- EQUIPOS CONCURSOS -->
@@ -334,7 +336,21 @@
 							<div id="grafica-clientes" class="contenido-grafica">
 								<h3 class="card-title mb-3">GRÁFICAS DE CLIENTES</h3>
 
-								<img src="imagenes/clientes.png" class="img-fluid">
+								<div class="row">
+									<div class="col-lg-6 col-md-6 mb-4">
+										<!-- graficaTipoPersonas -->
+										<canvas id="graficaEquipTipoPersonas"></canvas>
+										<input type="hidden" id="fisicas" value="{{ $total_fisicas }}">
+										<input type="hidden" id="morales" value="{{ $total_morales }}">
+									</div>
+
+									<div class="col-lg-6 col-md-6 mb-4">
+										<!-- graficaClientesActivosNoActivos -->
+										<canvas id="graficaClientesActivosNoActivos"></canvas>
+										<input type="hidden" id="activos" value="{{ $total_clientes_activos }}">
+										<input type="hidden" id="noactivos" value="{{ $total_clientes_no_activos }}">
+									</div>
+								</div>
 							</div>
 
 							{{-- CONCURSOS --}}
