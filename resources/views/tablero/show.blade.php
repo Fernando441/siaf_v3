@@ -6,115 +6,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 	<script src="{{ asset('js/tablero/Notificaciones.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-	{{--
-	<script src="{{ asset('js/tablero/Notificaciones.js') }}"></script> --}}
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
-	<script type="text/javascript">
-		var concursos_prioridad = document.getElementById('concursos_prioridad').getContext('2d');
-		var concursos_pri_alta = document.getElementById("concursos_pri_alta").value;
-		var concursos_pri_media = document.getElementById("concursos_pri_media").value;
-		var concursos_pri_baja = document.getElementById("concursos_pri_baja").value;
-		var myChartsemanados = new Chart(concursos_prioridad, {
-			type: 'doughnut',
-			data: {
-				labels: ['Alta', 'Media', 'Baja'],
-				datasets: [{
-					label: 'Visitas',
-					data: [concursos_pri_alta, concursos_pri_media, concursos_pri_baja],
-					backgroundColor: [
-						'rgba(237, 36, 0, 0.4)',
-						'rgba(246, 250, 0, 0.4)',
-						'rgba(85, 255, 46, 0.4)'
-					],
-					borderColor: [
-						'rgba(237, 36, 0, 1)',
-						'rgba(246, 250, 0, 1)',
-						'rgba(85, 255, 46, 1)'
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-			}
-		});
-
-
-
-		var concursos_contrato = document.getElementById('concursos_contrato').getContext('2d');
-		var concurso_contrato = document.getElementById("concurso_contrato").value;
-		var concurso_sin_contrato = document.getElementById("concurso_sin_contrato").value;
-		var myChartsemanados = new Chart(concursos_contrato, {
-			type: 'bar',
-			data: {
-				labels: ['Con Contrato', 'Sin Contrato'],
-				datasets: [{
-					label: 'Visitas',
-					data: [concurso_contrato, concurso_sin_contrato],
-					backgroundColor: [
-						'rgba(46, 130, 255, 0.4)',
-						'rgba(255, 46, 46, 0.4)',
-					],
-					borderColor: [
-						'rgba(46, 130, 255, 1)',
-						'rgba(255, 46, 46, 1)',
-
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-			}
-		});
-
-
-		var grafica_pendiente = document.getElementById('grafica_pendiente').getContext('2d');
-		var pendiente_si = document.getElementById("pendiente_si").value;
-		var pendiente_no = document.getElementById("pendiente_no").value;
-		var myChartsemanados = new Chart(grafica_pendiente, {
-			type: 'line',
-			data: {
-				labels: ['Pendientes', 'Finalizados'],
-				datasets: [{
-					label: '',
-					data: [pendiente_no, pendiente_si],
-					backgroundColor: [
-						'rgba(46, 130, 255, 0.4)',
-						'rgba(255, 46, 46, 0.4)',
-					],
-					borderColor: [
-						'rgba(46, 130, 255, 1)',
-						'rgba(255, 46, 46, 1)',
-
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-			}
-		});
-	</script>
-
+	<script src="{{ asset('js/tablero/GraficasTablero.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
 @endpush
 
 @section('content')
@@ -231,15 +125,117 @@
 		@if (in_array("109", Session::get('permisos')))
 			<div class="row">
 				@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
-					<iframe id="zohoAnalitycs" class="col-12 col-lg-12 col-md-12" frameborder=0 width="900" height="2300"
-						src="https://analytics.zoho.com/open-view/2452363000000006828"></iframe>
+					<div class="card-body">
+						<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+					</div>
 				@endif
 			</div>
 		@endif
 	@endif
 
-	{{-- Direccion Comercial --}}
-	@include('tablero.direccion-comercial')
+	<!-- ESTADISTICAS -->
+	<div class="row dashboard-stats">
+
+		<!-- TOTAL DE CLIENTES -->
+		<div class="col-xl-3 col-lg-6 col-md-6">
+			<div class="stat-card stat-blue">
+				<div class="stat-content">
+					<div class="stat-value">
+						{{$total_clientes}}
+					</div>
+					<div class="stat-label">
+						TOTAL DE CLIENTES
+					</div>
+				</div>
+
+				<div class="stat-icon">
+					<i class="fas fa-laptop"></i>
+				</div>
+			</div>
+		</div>
+
+		<!-- EQUIPOS CONCURSOS -->
+		<div class="col-xl-3 col-lg-6 col-md-6">
+			<div class="stat-card stat-cyan">
+				<div class="stat-content">
+					<div class="stat-value">
+						{{$total_licitaciones}}
+					</div>
+					<div class="stat-label">
+						TOTAL DE CONCURSOS
+					</div>
+
+				</div>
+
+				<div class="stat-icon">
+					<i class="fas fa-check-circle"></i>
+				</div>
+			</div>
+		</div>
+
+		<!-- TOTAL DE REQUISICIONES -->
+		<div class="col-xl-3 col-lg-6 col-md-6">
+			<div class="stat-card stat-gold">
+				<div class="stat-content">
+					<div class="stat-value">
+						{{$total_requisiciones}}
+					</div>
+					<div class="stat-label">
+						TOTAL DE REQUISICIONES
+					</div>
+				</div>
+
+				<div class="stat-icon">
+					<i class="fas fa-clock"></i>
+				</div>
+			</div>
+		</div>
+
+		<!-- TOTAL DE PARQUE VAHICULAR -->
+		<div class="col-xl-3 col-lg-6 col-md-6">
+			<div class="stat-card stat-red">
+				<div class="stat-content">
+					<div class="stat-value">
+						VARIABLE$
+					</div>
+					<div class="stat-label">
+						TOTAL PARQUE VEHICULAR
+					</div>
+				</div>
+
+				<div class="stat-icon">
+					<i class="far fa-trash-alt"></i>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- FIN ESTADISTICAS -->
+	{{-- PANEL DE GRAFICAS --}}
+	<div class="" id="div_grafica_tablero">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">
+						PRESENCIA DE JETVAN NACIONALMENTE
+						<img src="https://flagcdn.com/w40/mx.png" alt="México" style="width: 25px; vertical-align: middle;">
+					</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<!-- graficaRegistrosEstados -->
+						<div class="col-lg-12 col-md-12 mb-4">
+							<div id="regions_div" style="width: 100%; height: 500px;"></div>
+							<script>
+								var totalclientesestado = @json($total_clientes_estados);
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{-- FIN PANEL --}}
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="card">
@@ -247,21 +243,12 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<span class="tittle-graficas">Concursos / Prioridad</span>
+
 						</div>
 					</div>
-
-					<canvas id="concursos_prioridad" style="width: 100px;"></canvas>
-					<input type="hidden" name="concursos_pri_alta" id="concursos_pri_alta"
-						value="{{ count($concursos_pri_alta) }}">
-					<input type="hidden" name="concursos_pri_media" id="concursos_pri_media"
-						value="{{ count($concursos_pri_media) }}">
-					<input type="hidden" name="concursos_pri_baja" id="concursos_pri_baja"
-						value="{{ count($concursos_pri_baja) }}">
 				</div>
 			</div>
-
 		</div>
-
 
 		<div class="col-lg-6">
 			<div class="card">
@@ -272,11 +259,6 @@
 						</div>
 					</div>
 
-					<canvas id="concursos_contrato" style="width: 100px;"></canvas>
-					<input type="hidden" name="concurso_contrato" id="concurso_contrato"
-						value="{{ count($concurso_contrato) }}">
-					<input type="hidden" name="concurso_sin_contrato" id="concurso_sin_contrato"
-						value="{{ count($concurso_sin_contrato) }}">
 				</div>
 			</div>
 
@@ -389,250 +371,249 @@
 						<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
 					</div>
 				</div>
-			</div>		
+			</div>
+		</div>
+
+
+		<div class="col-lg-4">
+			<div class="card">
+
+				<div id="calendario">
+					<div id="anterior" onclick="mesantes()"></div>
+					<div id="posterior" onclick="mesdespues()"></div>
+					<h2 id="titulos"></h2>
+					<table id="diasc">
+						<tr id="fila0">
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+						<tr id="fila1">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr id="fila2">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr id="fila3">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr id="fila4">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr id="fila5">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr id="fila6">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+					<div id="fechaactual"><i onclick="actualizar()">HOY: </i></div>
+					<div id="buscafecha">
+						<form action="#" name="buscar">
+							<p>Buscar ... MES
+								<select name="buscames">
+									<option value="0">Enero</option>
+									<option value="1">Febrero</option>
+									<option value="2">Marzo</option>
+									<option value="3">Abril</option>
+									<option value="4">Mayo</option>
+									<option value="5">Junio</option>
+									<option value="6">Julio</option>
+									<option value="7">Agosto</option>
+									<option value="8">Septiembre</option>
+									<option value="9">Octubre</option>
+									<option value="10">Noviembre</option>
+									<option value="11">Diciembre</option>
+								</select>
+								... AÑO ...
+								<input type="text" name="buscaanno" maxlength="4" size="4" />
+								...
+								<input type="button" value="BUSCAR" onclick="mifecha()" />
+							</p>
+						</form>
+					</div>
+				</div>
+			</div>
+			//Claendario
+
+
+			<div class="card mt-2">
+
+				<div class="card card-custom">
+					<div class="card-header">
+						<div class="card-title">
+
+							<h3 class="card-label">Prioridad</h3>
+						</div>
+
+					</div>
+
+					<div class="card-body">
+						<div>
+							<span>Alta = {{ count($pendiente_pri_alta) }}</span><br>
+							<span>Media = {{ count($pendiente_pri_media) }}</span><br>
+							<span>Baja = {{ count($pendiente_pri_baja) }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card mt-2">
+
+				<div class="card card-custom">
+					<div class="card-header">
+						<div class="card-title">
+							<h3 class="card-label">Estatus</h3>
+						</div>
+
+					</div>
+
+					<div class="card-body">
+						<div>
+							<span>Pendientes = {{ count($pendiente_no_finalizado) }}</span><br>
+							<span>Finalizadas = {{ count($pendiente_finalizado) }}</span><br>
+						</div>
+
+						<div>
+							<canvas id="grafica_pendiente" style="width: 100px;"></canvas>
+							<input type="hidden" id="pendiente_no" value="{{ count($pendiente_no_finalizado) }}">
+							<input type="hidden" id="pendiente_si" value="{{ count($pendiente_finalizado) }}">
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
 	</div>
 
 
-			<div class="col-lg-4">
-				<div class="card">
 
-					<div id="calendario">
-						<div id="anterior" onclick="mesantes()"></div>
-						<div id="posterior" onclick="mesdespues()"></div>
-						<h2 id="titulos"></h2>
-						<table id="diasc">
-							<tr id="fila0">
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-							</tr>
-							<tr id="fila1">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr id="fila2">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr id="fila3">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr id="fila4">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr id="fila5">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr id="fila6">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</table>
-						<div id="fechaactual"><i onclick="actualizar()">HOY: </i></div>
-						<div id="buscafecha">
-							<form action="#" name="buscar">
-								<p>Buscar ... MES
-									<select name="buscames">
-										<option value="0">Enero</option>
-										<option value="1">Febrero</option>
-										<option value="2">Marzo</option>
-										<option value="3">Abril</option>
-										<option value="4">Mayo</option>
-										<option value="5">Junio</option>
-										<option value="6">Julio</option>
-										<option value="7">Agosto</option>
-										<option value="8">Septiembre</option>
-										<option value="9">Octubre</option>
-										<option value="10">Noviembre</option>
-										<option value="11">Diciembre</option>
-									</select>
-									... AÑO ...
-									<input type="text" name="buscaanno" maxlength="4" size="4" />
-									...
-									<input type="button" value="BUSCAR" onclick="mifecha()" />
-								</p>
-							</form>
-						</div>
-					</div>
-				</div>
-				//Claendario
+	{{-- END Direccion Comercial
 
 
-				<div class="card mt-2">
+	{{-- Modal Pendientes --}}
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+		id="kt_modal_1">
+		<div class="modal-dialog">
+			<div class="modal-content max-w-[600px] top-[10%]">
+				<div class="modal-header">
+					<h5 class="modal-title">Agregar Pendiente</h5>
 
-					<div class="card card-custom">
-						<div class="card-header">
-							<div class="card-title">
-
-								<h3 class="card-label">Prioridad</h3>
-							</div>
-
-						</div>
-
-						<div class="card-body">
-							<div>
-								<span>Alta = {{ count($pendiente_pri_alta) }}</span><br>
-								<span>Media = {{ count($pendiente_pri_media) }}</span><br>
-								<span>Baja = {{ count($pendiente_pri_baja) }}</span>
-							</div>
-						</div>
+					<div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+						aria-label="Close">
+						<span class="svg-icon svg-icon-2x"></span>
 					</div>
 				</div>
 
-				<div class="card mt-2">
+				<div class="modal-body">
+					<form action="{{ route('taller.guardarpendiente') }}" method="post" id="submit_pendiente">
+						@csrf
+						<input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+						<div class="row form-group">
+							<div class="col-lg-12">
+								<label>Prioridad</label>
+								<div class="radio-inline">
+									<label class="radio">
+										<input type="radio" checked name="prioridad" value="0" required />
+										<span></span>
+										Alta
+									</label>
 
-					<div class="card card-custom">
-						<div class="card-header">
-							<div class="card-title">
-								<h3 class="card-label">Estatus</h3>
-							</div>
+									<label class="radio">
+										<input type="radio" name="prioridad" value="1" required />
+										<span></span>
+										Media
+									</label>
 
-						</div>
-
-						<div class="card-body">
-							<div>
-								<span>Pendientes = {{ count($pendiente_no_finalizado) }}</span><br>
-								<span>Finalizadas = {{ count($pendiente_finalizado) }}</span><br>
-							</div>
-
-							<div>
-								<canvas id="grafica_pendiente" style="width: 100px;"></canvas>
-								<input type="hidden" id="pendiente_no" value="{{ count($pendiente_no_finalizado) }}">
-								<input type="hidden" id="pendiente_si" value="{{ count($pendiente_finalizado) }}">
-							</div>
-
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-	
-</div>
-
-
-
-			{{-- END Direccion Comercial
-
-
-			{{-- Modal Pendientes --}}
-			<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-				id="kt_modal_1">
-				<div class="modal-dialog">
-					<div class="modal-content max-w-[600px] top-[10%]">
-						<div class="modal-header">
-							<h5 class="modal-title">Agregar Pendiente</h5>
-
-							<div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-								aria-label="Close">
-								<span class="svg-icon svg-icon-2x"></span>
-							</div>
-						</div>
-
-						<div class="modal-body">
-							<form action="{{ route('taller.guardarpendiente') }}" method="post" id="submit_pendiente">
-								@csrf
-								<input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-								<div class="row form-group">
-									<div class="col-lg-12">
-										<label>Prioridad</label>
-										<div class="radio-inline">
-											<label class="radio">
-												<input type="radio" checked name="prioridad" value="0" required />
-												<span></span>
-												Alta
-											</label>
-
-											<label class="radio">
-												<input type="radio" name="prioridad" value="1" required />
-												<span></span>
-												Media
-											</label>
-
-											<label class="radio">
-												<input type="radio" name="prioridad" value="2" required />
-												<span></span>
-												Baja
-											</label>
-
-										</div>
-									</div>
-								</div>
-
-
-								<div class="row form-group">
-									<div class="col-lg-12 mt-2">
-										<label>Título</label>
-										<input type="text" class="form-control" name="titulo" id="titulo" />
-									</div>
-
-									<div class="col-lg-12 mt-2">
-										<label>Descripción</label>
-										<textarea class="form-control specialCharts" name="descripcion"
-											id="descripcion"></textarea>
-									</div>
-
-									<div class="col-lg-6 mt-2">
-										<label>Fecha y hora de inicio</label>
-										<input type="datetime-local" class="form-control" name="fecha_hora_inicio"
-											id="fecha_inicio" />
-									</div>
-									<div class="col-lg-6 mt-2">
-										<label>Fecha y hora final</label>
-										<input type="datetime-local" class="form-control" name="fecha_hora_final"
-											id="fecha_final" />
-									</div>
+									<label class="radio">
+										<input type="radio" name="prioridad" value="2" required />
+										<span></span>
+										Baja
+									</label>
 
 								</div>
-							</form>
+							</div>
 						</div>
 
-						<div class="modal-footer">
-							<button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
-									class="la la-times"></i>Cancelar</button>
-							<button type="button" id="send_pendiente" class="btn btn-success"><i
-									class="la la-plus"></i>Guardar</button>
+
+						<div class="row form-group">
+							<div class="col-lg-12 mt-2">
+								<label>Título</label>
+								<input type="text" class="form-control" name="titulo" id="titulo" />
+							</div>
+
+							<div class="col-lg-12 mt-2">
+								<label>Descripción</label>
+								<textarea class="form-control specialCharts" name="descripcion" id="descripcion"></textarea>
+							</div>
+
+							<div class="col-lg-6 mt-2">
+								<label>Fecha y hora de inicio</label>
+								<input type="datetime-local" class="form-control" name="fecha_hora_inicio"
+									id="fecha_inicio" />
+							</div>
+							<div class="col-lg-6 mt-2">
+								<label>Fecha y hora final</label>
+								<input type="datetime-local" class="form-control" name="fecha_hora_final"
+									id="fecha_final" />
+							</div>
+
 						</div>
-					</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
+							class="la la-times"></i>Cancelar</button>
+					<button type="button" id="send_pendiente" class="btn btn-success"><i
+							class="la la-plus"></i>Guardar</button>
 				</div>
 			</div>
+		</div>
+	</div>
 
 
 
