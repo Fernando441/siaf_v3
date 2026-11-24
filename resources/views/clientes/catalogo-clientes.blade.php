@@ -203,7 +203,7 @@
                                                     {{ count($estados) }}
                                                 </div>
                                                 <div class="stat-label">
-                                                    {{-- Total de estados --}}
+                                                    Total de estados
                                                 </div>
                                             </div>
 
@@ -226,27 +226,31 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <!-- graficaTipoPersonas -->
-                                                    <div class="col-lg-4 col-md-6 mb-4">
-                                                        <canvas id="graficaEquipTipoPersonas"></canvas>
-                                                        <input type="hidden" id="fisicas" value="{{ $total_fisicas }}">
-                                                        <input type="hidden" id="morales" value="{{ $total_morales }}">
-                                                    </div>
-                                                    <!-- graficaClientesActivosNoActivos -->
-                                                    <div class="col-lg-2 col-md-6 mb-4">
-                                                        <canvas id="graficaClientesActivosNoActivos"></canvas>
-                                                        <input type="hidden" id="activos"
-                                                            value="{{ $total_clientes_activos }}">
-                                                        <input type="hidden" id="noactivos"
-                                                            value="{{ $total_clientes_no_activos }}">
-                                                    </div>
+
                                                     <!-- graficaRegistrosEstados -->
-                                                    <div class="col-lg-12 col-md-12 mb-4">
+                                                    <div class="col-lg-9 col-md-12 mb-4">
                                                         <div id="regions_div" style="width: 100%; height: 500px;"></div>
 
                                                         <script>
                                                             var totalclientesestado = @json($total_clientes_estados);
                                                         </script>
                                                     </div>
+                                                    <div class="col-lg-3 col-md-12 mb-4">
+                                                        <div class="row">
+                                                            <canvas id="graficaEquipTipoPersonas"></canvas>
+                                                            <input type="hidden" id="fisicas" value="{{ $total_fisicas }}">
+                                                            <input type="hidden" id="morales" value="{{ $total_morales }}">
+                                                        </div>
+                                                        <!-- graficaClientesActivosNoActivos -->
+                                                        <div class="row">
+                                                            <canvas id="graficaClientesActivosNoActivos"></canvas>
+                                                            <input type="hidden" id="activos"
+                                                                value="{{ $total_clientes_activos }}">
+                                                            <input type="hidden" id="noactivos"
+                                                                value="{{ $total_clientes_no_activos }}">
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

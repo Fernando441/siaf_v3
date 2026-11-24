@@ -1,6 +1,6 @@
 <?php
 
-namespace AppModelsSiniestros;
+namespace App\Models\Siniestros;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +23,5 @@ class SiniestroFolioHdi extends Model
     /**
      * @var array
      */
-    protected $fillable = ['folio', 'anio', 'createda_at', 'updated_at'];
+    protected $fillable = ['folio', 'anio', 'created_at', 'updated_at'];
 }

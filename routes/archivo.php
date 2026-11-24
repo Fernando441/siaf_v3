@@ -143,3 +143,6 @@
 
     //EvidenciaSiniestroDina
     Route::get('/evidencia-dina/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'evidenciadina'])->name('archivo.evidenciadina');
+
+    //EvidenciaSiniestroHDI
+    Route::get('/evidencia-hdi/{id}', [App\Http\Controllers\Archivo\ArchivoController::class, 'evidenciahdi'])->name('archivo.evidenciahdi');
