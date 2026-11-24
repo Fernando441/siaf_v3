@@ -43,6 +43,11 @@ class ClienteController extends Controller
         $total_fisicas = Cliente::where('tipo_cliente', '1')->count();
         //conteo morales
         $total_morales = Cliente::where('tipo_cliente', '2')->count();
+        //clientes activos
+        $total_clientes_activos = Cliente::where('id_status_delete', '1')->count();
+        //clientes no activos
+        $total_clientes_no_activos = Cliente::where('id_status_delete', '2')->count();
+        
         // Clientes por estados
         $clavesEstados = [
             'AGUASCALIENTES' => 'MX-AGU',
@@ -100,10 +105,7 @@ class ClienteController extends Controller
                 return $item->clave !== null;
             })
             ->values();
-        //clientes activos
-        $total_clientes_activos = Cliente::where('id_status_delete', '1')->count();
-        //clientes no activos
-        $total_clientes_no_activos = Cliente::where('id_status_delete', '2')->count();
+        
 
         $estados = Estado::orderBy('id_estado', 'asc')->where('id_status_delete', 1)->get();
         $municipios = DB::table('municipio')

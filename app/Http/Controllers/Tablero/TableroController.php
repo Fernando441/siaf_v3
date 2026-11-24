@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Tablero;
 
 use App\Http\Controllers\Controller;
+use App\Models\Requisicion\Requisicion;
+use App\Models\Segmento\Segmento;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Notificaciones\Notificaciones;
 use App\Models\Notificaciones\NotificacionesUsuario;
@@ -12,6 +15,8 @@ use App\Models\Notificaciones\NotificacionesUsuario;
 
 
 use App\Models\Cliente\Cliente;
+use App\Models\Cliente\Estado;
+use App\Models\Cliente\Municipio;
 
 use App\Models\Licitacion\LicitacionSegmento;
 use App\Models\Licitacion\ProposicionEconomica;
@@ -49,8 +54,79 @@ class TableroController extends Controller
         $pendiente_pri_alta = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 0)->orderBy('id', 'ASC')->get(); //Prioridad_Alta
         $pendiente_pri_media = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 1)->orderBy('id', 'ASC')->get(); //Prioridad_Media
         $pendiente_pri_baja = Pendientes::where('iduserCreated', auth()->user()->id)->where('prioridad', 2)->orderBy('id', 'ASC')->get(); //Prioridad_Media
-        
-        return view('tablero.show', compact('not','concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
+
+        //conteo total clientes
+        $total_clientes = Cliente::count();
+        //conteo total licitaciones
+        $total_licitaciones = Licitacion::count();
+        //conteo total requisiciones
+        $total_requisiciones = Requisicion::whereNotNull('licitaciones_id')->count();
+        //conteo total segmentos
+        $total_segmentos = Segmento::count();
+
+        // Clientes por estados
+        $clavesEstados = [
+            'AGUASCALIENTES' => 'MX-AGU',
+            'BAJA CALIFORNIA' => 'MX-BCN',
+            'BAJA CALIFORNIA SUR' => 'MX-BCS',
+            'CAMPECHE' => 'MX-CAM',
+            'CHOAHUILA DE ZARAGOZ' => 'MX-COA',
+            'COAHUILA' => 'MX-COA',
+            'COLIMA' => 'MX-COL',
+            'CHIAPAS' => 'MX-CHP',
+            'CHIHUAHUA' => 'MX-CHH',
+            'CIUDAD DE MEXICO' => 'MX-DIF',
+            'DURANGO' => 'MX-DUR',
+            'GUANAJUATO' => 'MX-GUA',
+            'GUERRERO' => 'MX-GRO',
+            'HIDALGO' => 'MX-HID',
+            'JALISCO' => 'MX-JAL',
+            'MEXICO' => 'MX-MEX',
+            'Estado de México' => 'MX-MEX',
+            'MICHOACAN DE OCAMPO' => 'MX-MIC',
+            'Michoacán' => 'MX-MIC',
+            'MORELOS' => 'MX-MOR',
+            'NAYARIT' => 'MX-NAY',
+            'NUEVO LEON' => 'MX-NLE',
+            'OAXACA' => 'MX-OAX',
+            'PUEBLA' => 'MX-PUE',
+            'QUERETARO' => 'MX-QUE',
+            'QUINTANA ROO' => 'MX-ROO',
+            'SAN LUIS POTOSI' => 'MX-SLP',
+            'SINALOA' => 'MX-SIN',
+            'SONORA' => 'MX-SON',
+            'TABASCO' => 'MX-TAB',
+            'TAMAULIPAS' => 'MX-TAM',
+            'TLAXCALA' => 'MX-TLA',
+            'VERACRUZ' => 'MX-VER',
+            'YUCATAN' => 'MX-YUC',
+            'ZACATECAS' => 'MX-ZAC',
+        ];
+        $total_clientes_estados = DB::table('client as c')
+            ->join('estado as e', 'c.id_estado', '=', 'e.id_estado')
+            ->select(
+                'e.id_estado',
+                'e.estado_nombre',
+                DB::raw('COUNT(c.id_estado) AS total_registros')
+            )
+            ->groupBy('e.id_estado', 'e.estado_nombre')
+            ->orderByDesc('total_registros')
+            ->get()
+            ->map(function ($item) use ($clavesEstados) {
+                $item->clave = $clavesEstados[$item->estado_nombre] ?? null;
+                return $item;
+            })
+            ->filter(function ($item) {
+                return $item->clave !== null;
+            })
+            ->values();
+        $estados = Estado::orderBy('id_estado', 'asc')->where('id_status_delete', 1)->get();
+        $municipios = DB::table('municipio')
+            ->join('estado', 'estado.id_estado', '=', 'municipio.id_estado')
+            ->where('municipio.id_status_delete', 1)
+            ->get();
+
+        return view('tablero.show', compact('not','total_segmentos', 'total_clientes_estados','estados','municipios','total_requisiciones', 'total_licitaciones', 'total_clientes', 'concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
     }
 
     public function vernotconcurso($licitacion)
@@ -151,6 +227,6 @@ class TableroController extends Controller
         return redirect()->route('taller.verpendiente', $request->id_evidencia);
 
     }
-    
+
 
 }
