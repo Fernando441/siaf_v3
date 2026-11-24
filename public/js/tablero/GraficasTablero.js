@@ -60,9 +60,9 @@ $(document).ready(function () {
 
                 colorAxis: {
                     colors: [
-                        '#66BB6A',
-                        '#529656',
-                        '#B71C1C'
+                        '#cfffdb',
+                        '#43f858',
+                        '#00ff1e'
                     ]
                 },
 

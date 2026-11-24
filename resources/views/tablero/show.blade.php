@@ -119,19 +119,98 @@
 			font: normal 11pt "arial black";
 			padding: 0.2em;
 		}
+
+		/* CONTENEDOR DEL MENU */
+		.menu-graficas-contenedor {
+			background: #ffffff;
+			padding: 15px;
+			border-radius: 10px;
+			height: 100%;
+			min-height: 350px;
+		}
+
+		/* TITULOS */
+		.menu-graficas-titulo {
+			font-size: 11px;
+			font-weight: 700;
+			color: #98a2b3;
+			letter-spacing: 1px;
+			padding: 10px 12px;
+			margin-bottom: 8px;
+		}
+
+		/* OPCIONES */
+		.menu-graficas-link {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 13px 12px;
+			margin-bottom: 5px;
+			border-radius: 8px;
+			color: #34445b;
+			font-size: 14px;
+			font-weight: 500;
+			text-decoration: none !important;
+			transition: all .25s ease;
+		}
+
+		/* ICONOS */
+		.menu-graficas-link i:first-child {
+			color: #59a532;
+			font-size: 17px;
+			width: 22px;
+			text-align: center;
+		}
+
+		/* FLECHAS */
+		.menu-graficas-link .flecha {
+			margin-left: auto;
+			color: #aab3bf;
+			font-size: 11px;
+		}
+
+		/* HOVER */
+		.menu-graficas-link:hover {
+			background: #f2f8ef;
+			color: #45952f;
+			transform: translateX(3px);
+		}
+
+		/* OPCION ACTIVA */
+		.menu-graficas-link.activo {
+			background: #edf7e9;
+			color: #398c2d;
+			font-weight: 600;
+			border-left: 3px solid #59a532;
+		}
+
+		/* SEPARADOR */
+		.menu-graficas-separador {
+			height: 1px;
+			background: #edf0f3;
+			margin: 15px 0;
+		}
+
+		/* RESPONSIVE */
+		@media (max-width: 991px) {
+			.menu-graficas-contenedor {
+				margin-top: 15px;
+				min-height: auto;
+			}
+		}
 	</style>
 
-	@if (Session::has('permisos'))
-		@if (in_array("109", Session::get('permisos')))
-			<div class="row">
-				@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
-					<div class="card-body">
-						<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-					</div>
-				@endif
-			</div>
-		@endif
-	@endif
+	<!-- @if (Session::has('permisos'))
+					@if (in_array("109", Session::get('permisos')))
+						<div class="row">
+							@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
+								<div class="card-body">
+									<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+								</div>
+							@endif
+						</div>
+					@endif
+				@endif -->
 
 	<!-- ESTADISTICAS -->
 	<div class="row dashboard-stats">
@@ -196,10 +275,10 @@
 			<div class="stat-card stat-red">
 				<div class="stat-content">
 					<div class="stat-value">
-						VARIABLE$
+						{{$total_segmentos}}
 					</div>
 					<div class="stat-label">
-						TOTAL PARQUE VEHICULAR
+						TOTAL DE SEGMENTOS
 					</div>
 				</div>
 
@@ -215,57 +294,58 @@
 	<div class="" id="div_grafica_tablero">
 		<div class="col-lg-12">
 			<div class="card">
-				<div class="card-header">
+				<div class="card-header" style="height: 62px">
 					<h3 class="card-title">
 						PRESENCIA DE JETVAN NACIONALMENTE
 						<img src="https://flagcdn.com/w40/mx.png" alt="México" style="width: 25px; vertical-align: middle;">
 					</h3>
 				</div>
+
 				<div class="card-body">
 					<div class="row">
-						<!-- graficaRegistrosEstados -->
-						<div class="col-lg-12 col-md-12 mb-4">
-							<div id="regions_div" style="width: 100%; height: 500px;"></div>
+
+						<!-- MAPA -->
+						<div class="col-lg-9 col-md-12 mb-4 cont-Graficas">
+							<div id="regions_div" style="width: 100%; height: 500px;">
+							</div>
+
 							<script>
-								var totalclientesestado = @json($total_clientes_estados);
+								var totalclientesestado =
+									@json($total_clientes_estados);
 							</script>
 						</div>
+
+						<!-- MENU LATERAL -->
+						<div class="col-lg-3 col-md-12 menu-Graficas">
+							<div class="menu-graficas-contenedor">
+								<div class="menu-graficas-titulo">
+									<span>GRAFICAS</span>
+								</div>
+								<a href="#" class="menu-graficas-link activo">
+									<i class="fas fa-users"></i>
+									<span>Clientes</span>
+								</a>
+								<a href="#" class="menu-graficas-link">
+									<i class="fas fa-building"></i>
+									<span>Concursos</span>
+								</a>
+								<a href="#" class="menu-graficas-link">
+									<i class="fas fa-users"></i>
+									<span>Requisiciones</span>
+								</a>
+								<a href="#" class="menu-graficas-link">
+									<i class="fas fa-truck"></i>
+									<span>Segmentos</span>
+								</a>
+							</div>
+						</div>
+						<!-- FIN MENU -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	{{-- FIN PANEL --}}
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-lg-6">
-							<span class="tittle-graficas">Concursos / Prioridad</span>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-6">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-lg-6">
-							<span class="tittle-graficas">Concursos / Contrato</span>
-						</div>
-					</div>
-
-				</div>
-			</div>
-
-		</div>
-
-	</div>
-
 
 	<div class="row mt-3">
 		<div class="col-lg-8">

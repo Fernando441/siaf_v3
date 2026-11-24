@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tablero;
 
 use App\Http\Controllers\Controller;
 use App\Models\Requisicion\Requisicion;
+use App\Models\Segmento\Segmento;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,6 +61,8 @@ class TableroController extends Controller
         $total_licitaciones = Licitacion::count();
         //conteo total requisiciones
         $total_requisiciones = Requisicion::whereNotNull('licitaciones_id')->count();
+        //conteo total segmentos
+        $total_segmentos = Segmento::count();
 
         // Clientes por estados
         $clavesEstados = [
@@ -123,7 +126,7 @@ class TableroController extends Controller
             ->where('municipio.id_status_delete', 1)
             ->get();
 
-        return view('tablero.show', compact('not', 'total_clientes_estados','estados','municipios','total_requisiciones', 'total_licitaciones', 'total_clientes', 'concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
+        return view('tablero.show', compact('not','total_segmentos', 'total_clientes_estados','estados','municipios','total_requisiciones', 'total_licitaciones', 'total_clientes', 'concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
     }
 
     public function vernotconcurso($licitacion)
