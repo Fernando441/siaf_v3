@@ -167,7 +167,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                             <div class="row form-group">
                                 <div class="col-lg-6">
                                     <label>Tipo de contratación</label>
-                                    <select class="form-control" name="tipo_contratacion" id="tipo_contratacion" required>
+                                    <select class="form-control" name="tipo_contratacion" id="tipo_contratacion" onchange="validFormLicitacion(event)" required >
                                         <option value="">Selecciona una opción</option>
                                         @foreach($tipo_contratacion as $tp)
                                             <option value="{{ $tp->id }}" @selected($info->contratacion == $tp->id) >{{ strtoupper($tp->tipo_contratacion) }}</option>
@@ -180,25 +180,139 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                 </div>
                             </div>
 
-                                <div class="row form-group">
-                                    <div class="col-lg-6">
-                                        <label>Fecha de acto de fallo</label>
-                                        @if($info->acto_fallo_info != null || $info->acto_fallo_info != "")
-                                            <input type="text" id="acto_fallo_info" name="acto_fallo_info" class="form-control" value="{{ date('d/m/Y', strtotime($info->acto_fallo_info))}}" readonly>
-                                        @else
-                                            <input type="text" id="acto_fallo_info" name="acto_fallo_info" class="form-control"  readonly>
-                                        @endif
+                                {{-- TIPO DE CONTRATACION DIV --}}
+                                <div class="row form-group" id="div_fechas_show">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title" id="title_fechas_show">
+                                                    Tipo de  contratación - 
+                                                        @switch($info->contratacion)
+
+                                                            @case(1)
+                                                                ADJUDICACIÓN DIRECTA
+                                                                @break
+
+                                                            @case(2)
+                                                                ADJUDICACIÓN DIRECTA POR ADHESIÓN
+                                                                @break
+
+                                                            @case(3)
+                                                                ADJUDICACIÓN DIRECTA POR COMPRAS MX
+                                                                @break
+
+                                                            @case(4)
+                                                                INVITACIÓN A CUANDO MENOS TRES PERSONAS FEDERAL
+                                                                @break
+
+                                                            @case(5)
+                                                                LICITACIÓN PUBLICA NACIONAL FEDERAL
+                                                                @break
+
+                                                            @case(6)
+                                                                INVITACIÓN A CUANDO MENOS TRES PERSONAS ESTATAL
+                                                                @break
+
+                                                            @case(7)
+                                                                LICITACIÓN PUBLICA NACIONAL ESTATAL
+                                                                @break
+
+                                                        @endswitch
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2|| $info->contratacion == 3) oculto @endif" id="div_acto_fallo">
+                                                        <label>Fecha de acto de fallo</label>
+                                                        @if($info->acto_fallo_info != null || $info->acto_fallo_info != "")
+                                                            <input type="text" id="acto_fallo_info" name="acto_fallo_info" class="form-control" value="{{ date('d/m/Y', strtotime($info->acto_fallo_info))}}" readonly>
+                                                        @else
+                                                            <input type="text" id="acto_fallo_info" name="acto_fallo_info" class="form-control"  readonly>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2|| $info->contratacion == 3 || $info->contratacion == 4 || $info->contratacion == 5) oculto @endif " id="div_fecha_compra_bases">
+                                                        <label for="fecha_compra_bases">Fecha de compra de bases </label>
+                                                        @if($info->fecha_compra_bases != null || $info->fecha_compra_bases != "")
+                                                            <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" class="form-control" value="{{ date('d/m/Y', strtotime($info->fecha_compra_bases))}}" readonly>
+                                                        @else
+                                                            <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" class="form-control"  readonly>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="div_fecha_preguntas">
+                                                        <label for="fecha_solicitud"> Fecha y Hora de envío de preguntas</label>
+                                                        @if($info->fecha_preguntas != null || $info->fecha_preguntas != "")
+                                                            <input type="datetime-local" id="fecha_preguntas" name="fecha_preguntas" class="form-control"
+                                                                value="{{ $info->fecha_preguntas }}">
+                                                        @else
+                                                            <input type="datetime-local" id="fecha_preguntas" name="fecha_preguntas" class="form-control"
+                                                                value="">
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="div_fecha_junta_aclaraciones">
+                                                        @if($info->junta_aclaraciones != null || $info->junta_aclaraciones != "")
+                                                            <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="{{ $info->junta_aclaraciones }}" required/>
+                                                        @else
+                                                            <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="" required/>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-4 form-group" id="fecha_entrega_propuestas_div">
+                                                        <label for="fecha_entrega_propuestas"> Fecha y hora de entrega de propuestas </label>
+                                                        @if($info->fecha_entrega_propuestas != null || $info->fecha_entrega_propuestas != "")
+                                                            <input type="datetime-local" id="fecha_entrega_propuestas" name="fecha_entrega_propuestas" class="form-control" value="{{ $info->fecha_entrega_propuestas }}">
+                                                        @else
+                                                            <input type="datetime-local" id="fecha_entrega_propuestas" name="fecha_entrega_propuestas" class="form-control" value="">
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="div_fecha_apertura_tecnica">
+                                                        <label> Fecha de apertura de oferta técnica</label>
+                                                        @if($info->fecha_apertura_tecnica != null || $info->fecha_apertura_tecnica != "")
+                                                            <input type="text" class="form-control" name="fecha_apertura_tecnica" id="fecha_apertura_tecnica" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_apertura_tecnica))}}" />
+                                                        @else
+                                                            <input type="text" class="form-control" name="fecha_apertura_tecnica" id="fecha_apertura_tecnica" readonly  value="" />
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-4 form-group" id="div_apertura_economica">
+                                                        <label> Fecha de apertura de oferta económica</label>
+                                                        @if($info->fecha_apertura_economica != null || $info->fecha_apertura_economica != "")
+                                                            <input type="text" class="form-control" name="fecha_apertura_economica" id="fecha_apertura_economica" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_apertura_economica))}}" />
+                                                        @else
+                                                            <input type="text" class="form-control" name="fecha_apertura_economica" id="fecha_apertura_economica" readonly  value="" />
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="inicio_vigencia_serv_div">
+                                                        <label>Fecha de inicio de vigencia de los servicios</label>
+                                                        @if($info->fecha_entrega != null || $info->fecha_entrega!="")
+                                                            <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" readonly value="{{ date('d/m/Y', strtotime($info->fecha_entrega))}}"/>
+                                                        @else
+                                                            <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" readonly value=""/>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="final_vigencia_serv_div">
+                                                        <label>Fecha final de vigencia de los servicios</label>
+                                                        @if($info->fecha_final_servicios != null || $info->fecha_final_servicios!="")
+                                                            <input type="text" class="form-control" name="fecha_final_servicios" id="fecha_final_servicios" readonly value="{{ date('d/m/Y', strtotime($info->fecha_final_servicios))}}"/>
+                                                        @else
+                                                            <input type="text" class="form-control" name="fecha_final_servicios" id="fecha_final_servicios" readonly value=""/>
+                                                        @endif
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                {{-- END TIPO DE CONTRATACION DIV --}}                            
+
 
                             <div class="row form-group">
                                 <div class="col-lg-6">
-                                    <label for="fecha_compra_bases">Fecha de compra de bases </label>
-                                    @if($info->fecha_compra_bases != null || $info->fecha_compra_bases != "")
-                                        <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" class="form-control" value="{{ date('d/m/Y', strtotime($info->fecha_compra_bases))}}" readonly>
-                                    @else
-                                        <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" class="form-control"  readonly>
-                                    @endif
+
                                 </div>
 
 
@@ -232,74 +346,9 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                     @endif
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="fecha_solicitud"> Fecha y Hora de envío de preguntas</label>
-                                    <input type="datetime-local" id="fecha_preguntas" name="fecha_preguntas" class="form-control"
-                                            value="{{ $info->fecha_preguntas }}">
+
                                 </div>
                             </div>
-
-                            <div class="row form-group">
-                                <div class="col-lg-6">
-                                    <label>Fecha y hora de Junta de aclaración de bases de concurso</label>
-                                    @if($info->junta_aclaraciones != null || $info->junta_aclaraciones != "")
-                                        <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="{{ $info->junta_aclaraciones }}" required/>
-                                    @else
-                                        <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="" required/>
-                                    @endif
-                                </div>
-
-
-                                <div class="col-lg-6">
-                                    <label for="fecha_entrega_propuestas"> Fecha y hora de entrega de propuestas </label>
-                                    @if($info->fecha_entrega_propuestas != null || $info->fecha_entrega_propuestas != "")
-                                        <input type="datetime-local" id="fecha_entrega_propuestas" name="fecha_entrega_propuestas" class="form-control" value="{{ $info->fecha_entrega_propuestas }}">
-                                    @else
-                                        <input type="datetime-local" id="fecha_entrega_propuestas" name="fecha_entrega_propuestas" class="form-control" value="">
-                                    @endif
-                                </div>
-
-{{--                                 <div class="col-lg-6">
-                                    <label>Fecha de firma de contrato</label>
-                                    @if($info->firma_entrega != null || $info->firma_entrega != "")
-                                        <input type="text" class="form-control" name="firma_entrega" id="firma_entrega" value="{{ date('d/m/Y', strtotime($info->firma_entrega))}}"/>
-                                    @else
-                                        <input type="text" class="form-control" name="firma_entrega" id="firma_entrega" value=""/>
-                                    @endif
-                                </div> --}}
-{{--                                 <div class="col-lg-6">
-                                    <label>Nombre de empresa o participación conjunta</label>
-                                    <input type="text" class="form-control" name="participacion_conjunta" id="participacion_conjunta" value="{{ $info->participacion_conjunta }}" />
-                                </div> --}}
-{{--                                 <div class="col-lg-6">
-                                    <label>Monto ofertado</label>
-                                    <input type="text" class="form-control" name="monto_ofertado" id="monto_ofertado" required value="{{ $info->monto_ofertado }}"/>
-                                </div> --}}
-                            </div>
-
-
-
-                                <div class="row form-group">
-                                
-                                    <div class="col-lg-6">
-                                        <label> Fecha de apertura de oferta técnica</label>
-                                        @if($info->fecha_apertura_tecnica != null || $info->fecha_apertura_tecnica != "")
-                                            <input type="text" class="form-control" name="fecha_apertura_tecnica" id="fecha_apertura_tecnica" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_apertura_tecnica))}}" />
-                                        @else
-                                            <input type="text" class="form-control" name="fecha_apertura_tecnica" id="fecha_apertura_tecnica" readonly  value="" />
-                                        @endif
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <label> Fecha de apertura de oferta económica</label>
-                                        @if($info->fecha_apertura_economica != null || $info->fecha_apertura_economica != "")
-                                            <input type="text" class="form-control" name="fecha_apertura_economica" id="fecha_apertura_economica" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_apertura_economica))}}" />
-                                        @else
-                                            <input type="text" class="form-control" name="fecha_apertura_economica" id="fecha_apertura_economica" readonly  value="" />
-                                        @endif
-                                    </div>
-
-                                </div>
-
 
 
                                 <div class="row form-group">
@@ -370,34 +419,6 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                 </div>
                             </div>
  --}}
-                            <div class="row form-group">
-{{--                                 <div class="col-lg-6">
-                                    <label>Monto de fianza liberada</label>
-                                    <input type="text" class="form-control" name="monto_fianza_liberada" id="monto_fianza_liberada" value="{{ $info->monto_fianza_liberada }}"/>
-                                </div> --}}
-
-                                <div class="col-lg-6">
-                                    <label>Fecha de inicio de vigencia de los servicios</label>
-                                    @if($info->fecha_entrega != null || $info->fecha_entrega!="")
-                                        <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" readonly value="{{ date('d/m/Y', strtotime($info->fecha_entrega))}}"/>
-                                    @else
-                                        <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" readonly value=""/>
-                                    @endif
-                                </div>
-
-                                    <div class="col-lg-6">
-                                        <label>Fecha final de vigencia de los servicios</label>
-                                        @if($info->fecha_final_servicios != null || $info->fecha_final_servicios!="")
-                                            <input type="text" class="form-control" name="fecha_final_servicios" id="fecha_final_servicios" readonly value="{{ date('d/m/Y', strtotime($info->fecha_final_servicios))}}"/>
-                                        @else
-                                            <input type="text" class="form-control" name="fecha_final_servicios" id="fecha_final_servicios" readonly value=""/>
-                                        @endif
-
-
-                                    </div>
-
-                            </div>
-
                             <div class="row form-group">
                                     <div class="col-lg-6">
                                         <label>¿Aplica la fecha de repreguntas?</label>

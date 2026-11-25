@@ -440,3 +440,121 @@ $("#frp_dos").click(function(){
     }
 
 });
+
+function validFormLicitacion(event) {
+    var selectElement = event.target;
+    var value = selectElement.value;
+    var texto = selectElement.options[selectElement.selectedIndex].text;
+
+    if(texto == "ADJUDICACIÓN DIRECTA") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").hide();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").hide();
+        $("#div_fecha_junta_aclaraciones").hide();
+        $("#fecha_entrega_propuestas_div").hide();
+        $("#div_fecha_apertura_tecnica").hide();
+        $("#div_apertura_economica").hide();
+        $("#fecha_subasta_div").hide();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
+    }
+
+    if(texto == "ADJUDICACIÓN DIRECTA POR ADHESIÓN") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").hide();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").hide();
+        $("#div_fecha_junta_aclaraciones").hide();
+        $("#fecha_entrega_propuestas_div").hide();
+        $("#div_fecha_apertura_tecnica").hide();
+        $("#div_apertura_economica").hide();
+        $("#fecha_subasta_div").hide();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
+    }
+
+    if(texto == "ADJUDICACIÓN DIRECTA POR COMPRAS MX") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").hide();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
+        $("#div_fecha_apertura_tecnica").hide();
+        $("#div_apertura_economica").hide();
+        $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
+    }
+
+    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS FEDERAL") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
+    }
+
+    if(texto == " LICITACIÓN PUBLICA NACIONAL FEDERAL") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
+    }
+
+    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS ESTATAL") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").show();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();        
+    }
+
+    if(texto == "LICITACIÓN PUBLICA NACIONAL ESTATAL")
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").show();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();        
+    }
+}

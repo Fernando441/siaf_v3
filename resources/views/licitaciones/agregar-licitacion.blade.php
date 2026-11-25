@@ -45,7 +45,7 @@
                                     <div class="col-lg-6">
                                         <label>Publicación del concurso</label>
                                         <select class="form-control" name="publicacion_licitacion"
-                                            id="publicacion_licitacion">
+                                            id="publicacion_licitacion" required>
                                             <option value="">Selecciona una opción</option>
                                             @foreach ($publicacion as $ub)
                                                 <option value="{{ $ub->id }}">{{ $ub->publicacion_licitacion }}
@@ -124,20 +124,20 @@
                                             onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" />
                                     </div>
                                 </div>
-
+                                
+                                {{-- TIPO DE CONTRATACION DIV --}}
                                 <div class="row form-group oculto" id="div_fechas_show">
                                     <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title" id="title_fechas_show">
-                                                    Tipo de  contratación - 
                                                 </h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-lg-4 form-group" id="div_acto_fallo">
                                                         <label>Fecha de acto de fallo</label>
-                                                        <input type="text" class="form-control"  name="acto_fallo_info" id="acto_fallo_info" />
+                                                        <input type="text" class="form-control" name="acto_fallo_info" id="acto_fallo_info" />
                                                     </div>
 
                                                     <div class="col-lg-4 form-group" id="div_fecha_compra_bases">
@@ -191,6 +191,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- END TIPO DE CONTRATACION DIV --}}
 
                                 <div class="row form-group">
                                     <div class="col-lg-6">

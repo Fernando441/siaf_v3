@@ -420,7 +420,9 @@ function validFormLicitacion(event) {
     var value = selectElement.value;
     var texto = selectElement.options[selectElement.selectedIndex].text;
 
-    if(texto == "ADJUDICACIÓN DIRECTA") {
+    if(texto == "ADJUDICACIÓN DIRECTA") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
         $("#div_fechas_show").show();
         $("#div_acto_fallo").hide();
         $("#div_fecha_compra_bases").hide();
@@ -434,7 +436,9 @@ function validFormLicitacion(event) {
         $("#fecha_final_servicios").show();
     }
 
-    if(texto == "ADJUDICACIÓN DIRECTA POR ADHESIÓN") {
+    if(texto == "ADJUDICACIÓN DIRECTA POR ADHESIÓN") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
         $("#div_fechas_show").show();
         $("#div_acto_fallo").hide();
         $("#div_fecha_compra_bases").hide();
@@ -448,7 +452,9 @@ function validFormLicitacion(event) {
         $("#fecha_final_servicios").show();
     }
 
-    if(texto == "ADJUDICACIÓN DIRECTA POR COMPRAS MX") {
+    if(texto == "ADJUDICACIÓN DIRECTA POR COMPRAS MX") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
         $("#div_fechas_show").show();
         $("#div_acto_fallo").hide();
         $("#div_fecha_compra_bases").hide();
@@ -462,7 +468,9 @@ function validFormLicitacion(event) {
         $("#fecha_final_servicios").show();
     }
 
-    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS FEDERAL") {
+    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS FEDERAL") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
         $("#div_fechas_show").show();
         $("#div_acto_fallo").show();
         $("#div_fecha_compra_bases").hide();
@@ -476,7 +484,9 @@ function validFormLicitacion(event) {
         $("#fecha_final_servicios").show();
     }
 
-    if(texto == " LICITACIÓN PUBLICA NACIONAL FEDERAL") {
+    if(texto == " LICITACIÓN PUBLICA NACIONAL FEDERAL") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
         $("#div_fechas_show").show();
         $("#div_acto_fallo").show();
         $("#div_fecha_compra_bases").hide();
@@ -490,7 +500,9 @@ function validFormLicitacion(event) {
         $("#fecha_final_servicios").show();
     }
 
-    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS ESTATAL") {
+    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS ESTATAL") 
+    {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
         $("#div_fechas_show").show();
         $("#div_acto_fallo").show();
         $("#div_fecha_compra_bases").show();
@@ -506,6 +518,7 @@ function validFormLicitacion(event) {
 
     if(texto == "LICITACIÓN PUBLICA NACIONAL ESTATAL")
     {
+        document.getElementById('title_fechas_show').textContent = 'Tipo de  contratación -'+texto;
         $("#div_fechas_show").show();
         $("#div_acto_fallo").show();
         $("#div_fecha_compra_bases").show();
