@@ -1,20 +1,46 @@
-<table width="100%" style="vertical-align: top; border: 1px;">
+
+<table width="100%" border="0" cellpadding="5" cellspacing="0">
     <tr>
-        <td   rowspan="2" ><img id="img"  align="left" style="" src="var:logo"/></td>
-        <td   align="right" style="text-align: center;font-weight: bold;">
-            <p style="font-size: 10px;" >&nbsp;</p><br>
-            <p  style="font-size: 13px;" >JET VAN CAR RENTAL S.A. DE C.V.</p><br>
-        </td>
-    </tr>
-    <tr>
-        <td align="right" >
-             @php \Carbon\Carbon::setLocale('es');  echo Str::upper(\Carbon\Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY')); @endphp
+        <td width="60%" align="center" valign="top">
+
+            <strong style="font-size: 21px;" >JET VAN CAR RENTAL, S.A. DE C.V.</strong>
             <br>
+            <p style="font-size: 15px;" >JEFATURA DE SEGUROS Y SINIESTROS</p>
+
+            <br><br><br>
+
+            <strong style="font-size: 17px;" >ORDEN DE EXPEDICIÓN</strong>
+            <br>
+            <p style="font-size: 15px;" >PAGO POR DEDUCIBLE Y/O DEMÉRITO</p>
+
+        </td>
+
+        <td width="40%" align="center" valign="top">
+            <img id="img"  align="left" style="" src="var:logo" width="220" />
         </td>
     </tr>
+</table>
+
+<br>
+
+<table width="100%" border="0" cellpadding="3" cellspacing="0">
     <tr>
-        <td align="right" >
-            &nbsp;
+        <td width="75%"></td>
+        <td width="9%" align="center" border="1">
+            <strong>FECHA:</strong>
+        </td>
+        <td width="16%" align="center" border="1">
+            25-nov-2026
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td align="center" border="1">
+            <strong>FOLIO:</strong>
+        </td>
+        <td align="center" border="1">
+            M144
         </td>
     </tr>
 </table>
