@@ -210,22 +210,22 @@
 
 		/* Estilo de opción activa */
 		.menu-graficas-link.activo {
-			background-color: #fd6721;
-			color: #319214;
+			background-color: #2c681d;
+			color: #ffffff;
 		}
 	</style>
 
 	<!-- @if (Session::has('permisos'))
-																				@if (in_array("109", Session::get('permisos')))
-																					<div class="row">
-																						@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
-																							<div class="card-body">
-																								<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-																							</div>
-																						@endif
-																					</div>
-																				@endif
-																			@endif -->
+																							@if (in_array("109", Session::get('permisos')))
+																								<div class="row">
+																									@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
+																										<div class="card-body">
+																											<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+																										</div>
+																									@endif
+																								</div>
+																							@endif
+																						@endif -->
 
 	<!-- ESTADISTICAS -->
 	<div class="row dashboard-stats">
@@ -252,21 +252,23 @@
 
 		<!-- EQUIPOS CONCURSOS -->
 		<div class="col-xl-3 col-lg-6 col-md-6">
-			<div class="stat-card stat-cyan">
-				<div class="stat-content">
-					<div class="stat-value">
-						{{$total_licitaciones}}
-					</div>
-					<div class="stat-label">
-						TOTAL DE CONCURSOS
+			<a href="{{ route('licitacion.listadolicitaciones') }}" style="text-decoration: none; color: inherit;">
+				<div class="stat-card stat-cyan" style="cursor: pointer;">
+					<div class="stat-content">
+						<div class="stat-value">
+							{{$total_licitaciones}}
+						</div>
+						<div class="stat-label">
+							TOTAL DE CONCURSOS
+						</div>
+
 					</div>
 
+					<div class="stat-icon">
+						<i class="fas fa-check-circle"></i>
+					</div>
 				</div>
-
-				<div class="stat-icon">
-					<i class="fas fa-check-circle"></i>
-				</div>
-			</div>
+			</a>
 		</div>
 
 		<!-- TOTAL DE REQUISICIONES -->
@@ -356,8 +358,40 @@
 							{{-- CONCURSOS --}}
 							<div id="grafica-concursos" class="contenido-grafica">
 								<h3 class="card-title mb-3">GRÁFICAS DE CONCURSOS</h3>
+								<div class="row">
+									<!-- graficaPrioridades -->
+									<div class="col-lg-4 col-md-6 col-12 mb-4">
+										<canvas id="graficaPrioridades"></canvas>
+										<input type="hidden" id="p_alta" value="{{ $total_concursos_alta }}">
+										<input type="hidden" id="p_media" value="{{ $total_concursos_media }}">
+										<input type="hidden" id="p_baja" value="{{ $total_concursos_baja }}">
+									</div>
+									<!-- graficaTipodeContratacion -->
+									<div class="col-lg-4 col-md-6 col-12 mb-4">
+										<canvas id="graficaTipodeContratacion"></canvas>
+										@php
+											$tipo_contrataciones = $total_tipo_contratacion
+												->groupBy(fn($unid) => $unid->tipo_contratacion)
+												->map(fn($contra) => $contra->count());
+										@endphp
+										<script>
+											window.tipo_contrataciones = @json($tipo_contrataciones);
+										</script>
+									</div>
+									<!-- graficaPublicacionConcurso -->
+									<div class="col-lg-4 col-md-6 col-12 mb-4">
+										<canvas id="graficaPublicacionConcurso"></canvas>
+										@php
+											$tipo_publicaciones = $total_tipo_contratacion
+												->groupBy(fn($unid) => $unid->publ)
+												->map(fn($contra) => $contra->count());
+										@endphp
+										<script>
+											window.tipo_publicaciones = @json($tipo_publicaciones);
+										</script>
+									</div>
 
-								<img src="imagenes/concursos.png" class="img-fluid">
+								</div>
 							</div>
 
 							{{-- REQUISICIONES --}}

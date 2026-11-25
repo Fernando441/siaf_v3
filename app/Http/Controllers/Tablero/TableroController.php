@@ -134,7 +134,41 @@ class TableroController extends Controller
             ->where('municipio.id_status_delete', 1)
             ->get();
 
-        return view('tablero.show', compact('not','total_clientes_activos','total_fisicas','total_morales','total_clientes_no_activos','total_segmentos', 'total_clientes_estados','estados','municipios','total_requisiciones', 'total_licitaciones', 'total_clientes', 'concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
+        //conteo baja
+        $total_concursos_baja = Licitacion::where('id_licitacion_prioridad', 3)->count();
+        //conteo media
+        $total_concursos_media = Licitacion::where('id_licitacion_prioridad', 2)->count();
+        //conteo alta
+        $total_concursos_alta = Licitacion::where('id_licitacion_prioridad', 1)->count();
+        //id licitacion tipo de contratacion
+        $total_tipo_contratacion = Licitacion::select(
+            'licitaciones.id',
+            'licitaciones.folio',
+            'licitaciones.titulo_servicio',
+            'licitaciones.empresa_dependencia',
+            'licitaciones.no_licitacion',
+            'licitaciones.fecha_visita',
+            'licitaciones.junta_aclaraciones',
+            'licitaciones.apertura_proposiciones',
+            'licitaciones.acto_fallo',
+            'licitaciones.participacion_conjunta',
+            'licitaciones.publicacion_licitacion',
+            'pl.publicacion_licitacion as publ',
+            'licitaciones.cliente',
+            'cli.razon_social',
+            'licitaciones.id_licitacion_prioridad',
+            'tc.tipo_contratacion',
+            'licitaciones.contratacion',
+            'licitaciones.tipo_contrato'
+        )
+            ->leftjoin("publicacion_licitacion as pl", "pl.id", "licitaciones.publicacion_licitacion")
+            ->leftjoin("client as cli", "cli.id_cliente", "licitaciones.cliente")
+            ->leftjoin("tipo_contratacion as tc", "tc.id", "licitaciones.contratacion")
+            ->where("licitaciones.id_status_delete", 1)
+
+            ->get();
+
+        return view('tablero.show', compact('not', 'total_tipo_contratacion','total_concursos_alta','total_concursos_media','total_concursos_baja','total_clientes_activos', 'total_fisicas', 'total_morales', 'total_clientes_no_activos', 'total_segmentos', 'total_clientes_estados', 'estados', 'municipios', 'total_requisiciones', 'total_licitaciones', 'total_clientes', 'concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
     }
 
     public function vernotconcurso($licitacion)
