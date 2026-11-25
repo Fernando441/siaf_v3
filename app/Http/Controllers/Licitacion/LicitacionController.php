@@ -543,7 +543,7 @@ class LicitacionController extends Controller
 
     public function guardarlicitacion(Request $request)
     {
-
+        // dd($request);
         $data = [
             'id_licitacion_estatus' => 1,
             'folio' => $this->folio->getFolioLicitacion(),
