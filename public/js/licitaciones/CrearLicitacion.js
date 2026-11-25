@@ -421,52 +421,101 @@ function validFormLicitacion(event) {
     var texto = selectElement.options[selectElement.selectedIndex].text;
 
     if(texto == "ADJUDICACIÓN DIRECTA") {
+        $("#div_fechas_show").show();
         $("#div_acto_fallo").hide();
         $("#div_fecha_compra_bases").hide();
         $("#div_fecha_preguntas").hide();
         $("#div_fecha_junta_aclaraciones").hide();
+        $("#fecha_entrega_propuestas_div").hide();
         $("#div_fecha_apertura_tecnica").hide();
         $("#div_apertura_economica").hide();
         $("#fecha_subasta_div").hide();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
     }
 
     if(texto == "ADJUDICACIÓN DIRECTA POR ADHESIÓN") {
+        $("#div_fechas_show").show();
         $("#div_acto_fallo").hide();
         $("#div_fecha_compra_bases").hide();
         $("#div_fecha_preguntas").hide();
         $("#div_fecha_junta_aclaraciones").hide();
+        $("#fecha_entrega_propuestas_div").hide();
         $("#div_fecha_apertura_tecnica").hide();
         $("#div_apertura_economica").hide();
         $("#fecha_subasta_div").hide();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
     }
 
     if(texto == "ADJUDICACIÓN DIRECTA POR COMPRAS MX") {
+        $("#div_fechas_show").show();
         $("#div_acto_fallo").hide();
         $("#div_fecha_compra_bases").hide();
         $("#div_fecha_preguntas").show();
         $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
         $("#div_fecha_apertura_tecnica").hide();
         $("#div_apertura_economica").hide();
         $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
     }
 
-    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS") {
+    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS FEDERAL") {
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
+    }
+
+    if(texto == " LICITACIÓN PUBLICA NACIONAL FEDERAL") {
+        $("#div_fechas_show").show();
+        $("#div_acto_fallo").show();
+        $("#div_fecha_compra_bases").hide();
+        $("#div_fecha_preguntas").show();
+        $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
+        $("#div_fecha_apertura_tecnica").show();
+        $("#div_apertura_economica").show();
+        $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();
+    }
+
+    if(texto == "INVITACIÓN A CUANDO MENOS TRES PERSONAS ESTATAL") {
+        $("#div_fechas_show").show();
         $("#div_acto_fallo").show();
         $("#div_fecha_compra_bases").show();
         $("#div_fecha_preguntas").show();
         $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
         $("#div_fecha_apertura_tecnica").show();
         $("#div_apertura_economica").show();
         $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();        
     }
 
-    if(texto == "LICITACIÓN PUBLICA NACIONAL") {
+    if(texto == "LICITACIÓN PUBLICA NACIONAL ESTATAL")
+    {
+        $("#div_fechas_show").show();
         $("#div_acto_fallo").show();
         $("#div_fecha_compra_bases").show();
         $("#div_fecha_preguntas").show();
         $("#div_fecha_junta_aclaraciones").show();
+        $("#fecha_entrega_propuestas_div").show();
         $("#div_fecha_apertura_tecnica").show();
         $("#div_apertura_economica").show();
         $("#fecha_subasta_div").show();
+        $("#inicio_vigencia_serv_div").show();
+        $("#fecha_final_servicios").show();        
     }
 }

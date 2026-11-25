@@ -125,15 +125,70 @@
                                     </div>
                                 </div>
 
-                                <div class="row form-group">
-                                    <div class="col-lg-6 oculto" id="div_acto_fallo">
-                                        <label>Fecha de acto de fallo</label>
-                                        <input type="text" class="form-control"  name="acto_fallo_info" id="acto_fallo_info" />
-                                    </div>
-                                    <div class="col-lg-6 oculto" id="div_fecha_compra_bases">
-                                        <label for="fecha_compra_bases">Fecha de compra de bases </label>
-                                        <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" readonly class="form-control"
-                                            value="">
+                                <div class="row form-group oculto" id="div_fechas_show">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title" id="title_fechas_show">
+                                                    Tipo de  contratación - 
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 form-group" id="div_acto_fallo">
+                                                        <label>Fecha de acto de fallo</label>
+                                                        <input type="text" class="form-control"  name="acto_fallo_info" id="acto_fallo_info" />
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="div_fecha_compra_bases">
+                                                        <label for="fecha_compra_bases">Fecha de compra de bases </label>
+                                                        <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" readonly class="form-control"
+                                                            value="">
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="div_fecha_preguntas">
+                                                        <label for="fecha_solicitud"> Fecha y Hora de envío de preguntas</label>
+                                                        <input type="datetime-local" id="fecha_preguntas" name="fecha_preguntas" class="form-control"
+                                                            value="">
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="div_fecha_junta_aclaraciones">
+                                                        <label>Fecha y hora de Junta de aclaración de bases de concurso</label>
+                                                        <input type="datetime-local" class="form-control" name="junta_aclaraciones"
+                                                            id="junta_aclaraciones" />
+                                                    </div>
+                                                    <div class="col-lg-4 form-group" id="fecha_entrega_propuestas_div">
+                                                        <label for="fecha_entrega_propuestas"> Fecha y hora de entrega de propuestas </label>
+                                                        <input type="datetime-local" id="fecha_entrega_propuestas" name="fecha_entrega_propuestas" class="form-control"
+                                                            value="">
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="div_fecha_apertura_tecnica">
+                                                        <label> Fecha de apertura de oferta técnica</label>
+                                                        <input type="text" class="form-control" name="fecha_apertura_tecnica"
+                                                            id="fecha_apertura_tecnica" readonly />
+                                                    </div>
+                                                    <div class="col-lg-4 form-group" id="div_apertura_economica">
+                                                        <label> Fecha de apertura de oferta económica</label>
+                                                        <input type="text" class="form-control" readonly name="fecha_apertura_economica"
+                                                            id="fecha_apertura_economica" readonly/>
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="inicio_vigencia_serv_div">
+                                                        <label>Fecha de inicio de vigencia de los servicios</label>
+                                                        <input type="text" class="form-control" name="fecha_entrega"
+                                                            id="fecha_entrega" readonly />
+                                                    </div>
+
+                                                    <div class="col-lg-4 form-group" id="final_vigencia_serv_div">
+                                                        <label>Fecha final de vigencia de los servicios</label>
+                                                        <input type="text" class="form-control" name="fecha_final_servicios"
+                                                            id="fecha_final_servicios" readonly />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -160,43 +215,6 @@
                                         <input type="hidden" name="op_fecha" id="op_fecha" value="1">
                                     </div>
                                 </div>
-
-                                <div class="row form-group" > 
-                                    <div class="col-lg-6 oculto" id="div_fecha_preguntas">
-                                        <label for="fecha_solicitud"> Fecha y Hora de envío de preguntas</label>
-                                        <input type="datetime-local" id="fecha_preguntas" name="fecha_preguntas" class="form-control"
-                                            value="">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col-lg-6 oculto" id="div_fecha_junta_aclaraciones">
-                                        <label>Fecha y hora de Junta de aclaración de bases de concurso</label>
-                                        <input type="datetime-local" class="form-control" name="junta_aclaraciones"
-                                            id="junta_aclaraciones" />
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label for="fecha_entrega_propuestas"> Fecha y hora de entrega de propuestas </label>
-                                        <input type="datetime-local" id="fecha_entrega_propuestas" name="fecha_entrega_propuestas" class="form-control"
-                                            value="">
-                                    </div>
-                                </div>
-
-
-                                <div class="row form-group">
-                                    <div class="col-lg-6 oculto" id="div_fecha_apertura_tecnica">
-                                        <label> Fecha de apertura de oferta técnica</label>
-                                        <input type="text" class="form-control" name="fecha_apertura_tecnica"
-                                            id="fecha_apertura_tecnica" readonly />
-                                    </div>
-                                    <div class="col-lg-6 oculto" id="div_apertura_economica">
-                                        <label> Fecha de apertura de oferta económica</label>
-                                        <input type="text" class="form-control" readonly name="fecha_apertura_economica"
-                                            id="fecha_apertura_economica" readonly/>
-                                    </div>
-
-                                </div>
-
 
                                 <div class="row form-group">
                                     <div class="col-lg-6">
@@ -274,19 +292,6 @@
 							    		<label>Monto de fianza liberada</label>
 										<input type="text" class="form-control" name="monto_fianza_liberada" id="monto_fianza_liberada"/>
 							    	</div> --}}
-
-                                    <div class="col-lg-6">
-                                        <label>Fecha de inicio de vigencia de los servicios</label>
-                                        <input type="text" class="form-control" name="fecha_entrega"
-                                            id="fecha_entrega" readonly />
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <label>Fecha final de vigencia de los servicios</label>
-                                        <input type="text" class="form-control" name="fecha_final_servicios"
-                                            id="fecha_final_servicios" readonly />
-                                    </div>
-
 
                                 </div>
 
