@@ -36,6 +36,7 @@
         Route::post('/desactivar-municipio', [App\Http\Controllers\Cliente\MunicipioController::class, 'eliminarMunicipio'])->name('cliente.eliminarMunicipio');
         Route::get('/catalogo-municipios-inactivos', [App\Http\Controllers\Cliente\MunicipioController::class, 'catalogoemunicipiosinactivos'])->name('cliente.municipiosinactivos');
         Route::post('/activar-municipio', [App\Http\Controllers\Cliente\MunicipioController::class, 'activarmunicipio'])->name('cliente.activarmunicipio');
+        Route::post('/cargamasiva-municipios', [App\Http\Controllers\Cliente\MunicipioController::class, 'cargamasivamunicipio'])->name('cliente.cargamasivamunicipio'); 
 
     //Listado de Tipo de Documentos
         Route::get('/catalogo-documentos', [App\Http\Controllers\Cliente\DocumentosClienteController::class, 'catalogoDocumentos'])->name('doccliente.catalogoDocumentos');

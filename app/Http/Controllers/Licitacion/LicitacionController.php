@@ -893,7 +893,7 @@ class LicitacionController extends Controller
             ->leftjoin("segmento_transmision as st", "st.id", "sg.transmision_id")
             ->where("licitacion_proposicion_economica.licitacion_id", $licitacion)
             ->get();
-
+        // dd($segmento);
 
         return view('licitaciones.ver-licitaciones', compact('licitacion', 'info', 'tipo_documento', 'documentos', 'publicacion', 'cliente', 'tipo_contratacion', 'contrato', 'op_contrato', 'proposicioneconomica', 'segmento', 'permiso_array'));
     }

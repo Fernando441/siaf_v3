@@ -161,6 +161,8 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                             </div>
 
                 {{-- Propuesta economica abierta --}}
+                        @if($segmento->isEmpty())
+                        @else
                         <div class="row form-group">
 
                             @foreach($proposicioneconomica as $pro)
@@ -557,7 +559,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                             <h4>Iva</h4> 
                                         </td>
                                         <td>
-                                            <{{ number_format($iva,2,'.',',') }}
+                                            {{ number_format($iva,2,'.',',') }}
                                         </td>
                                         <td>
                                             {{ number_format($iva_calculo,2,'.',',') }}
@@ -583,6 +585,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
 
                             </tbody>
                         </table>
+                        @endif
                         @endif
                 {{-- END propuesta economica abierta --}}
 

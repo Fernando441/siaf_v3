@@ -87,66 +87,79 @@
 </head>
 <body>
 
-        <div class="izquierdab borde_gris" style="text-align:justify; text-justify:inter-word; margin-top: 100px;">
-            <strong>NO. FOLIO: </strong>  <BR>
-            <strong>FECHA DEL RESGUARDO: </strong>  <BR>
-            <BR>
-        </div>
 
         <br>
 
         <table class="table" cellpadding="8" style="page-break-inside: avoid;">
             <thead>
                 <tr>
-                    <th class="table_header" width="33%" colspan="2" style="text-align: center;" ><strong>DATOS DEL USUARIO</strong></th>
+                    <th class="table_header" width="33%" colspan="2" style="text-align: center;" ><strong>INFORMACIÓN GENERAL</strong></th>
                 </tr>
             </thead>
             <tbody>
 
 
                 <tr>
-                    <td ><strong>NOMBRE: </strong></td>
-                    <td ><strong>EXT:</strong>
+                    <td ><strong>PROVEEDOR: </strong></td>
+                    <td ><strong>ECO.:</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td ><strong>PUESTO: </strong> </td>
-                    <td ><strong>TEL: </strong>
+                    <td ><strong>TIPO DE SINIESTRO: </strong> </td>
+                    <td ><strong>VEHICULO: </strong>
                     </td>
                 </tr>
                 <tr>
-                    <td ><strong>AREA: </strong> 
+                    <td ><strong>No. SIN y/o REP.: </strong> 
                     </td>
-                    <td ><strong>CORREO: </strong> 
+                    <td ><strong>MODELO: </strong> 
                     </td>
                 </tr>
                 <tr>
-                    <td ><strong>JEFE INMEDIATO:</strong> 
+                    <td ><strong>FECHA SINIESTRO: </strong> 
                     </td>
-
-                </tr>    
-
+                    <td ><strong>SERIE: </strong> 
+                    </td>
+                </tr>   
+                <tr>
+                    <td ><strong>PROYECTO: </strong> 
+                    </td>
+                    <td ><strong>PLACA: </strong> 
+                    </td>
+                </tr>   
  
 
             </tbody>
         </table>
 
         
-        <table class="table" cellpadding="8" style="overflow:wrap" >
+        <table class="table" cellpadding="8" style="page-break-inside: avoid;" >
             <thead>
                 <tr>
-                    <th class="table_header" width="33%" colspan="8" style="text-align: center;" ><strong>DATOS DEL EQUIPO DE COMPUTO</strong></th>
+                    <th class="table_header" width="33%" colspan="2" style="text-align: center;" ><strong>MONTO A PAGAR</strong></th>
                 </tr>
                 
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>No. Folio</strong></td>
-                    <td><strong>No. Serie</strong></td>
-                    <td><strong>Tipo de equipo</strong></td>
-                    <td><strong>Marca</strong></td>
-                    <td><strong>Modelo</strong></td>
+                    <td ><strong>FUENTE DEL VALOR: </strong></td>
+                    <td ><strong>SE RECUPERA DEDUCIBLE:</strong>
+                    </td>
                 </tr>
+                <tr>
+                    <td ><strong>SUMA ASEGURADA: </strong> </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td ><strong>PORCENTAJE: </strong> </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td ><strong>DEDUCIBLE A PAGAR: </strong> </td>
+                    <td></td>
+                </tr>   
+ 
+ 
 
                
             </tbody>
@@ -156,7 +169,7 @@
         <table class="table" cellpadding="8" style="overflow:wrap" >
             <thead>
                 <tr>
-                    <th class="table_header" width="33%" colspan="8" style="text-align: center;" ><strong>Nota</strong></th>
+                    <th class="table_header" width="33%" colspan="8" style="text-align: center;" ><strong>COMENTARIOS</strong></th>
                 </tr>
                 
             </thead>
@@ -168,13 +181,6 @@
                             AL FIRMAR ESTE DOCUMENTO ESTOY DE ACUERDO QUE SE ME HACE RESPONSABLE DEL EQUIPO DE COMPUTO ASIGNADO, COMO DE LOS ACCESORIOS, SERE EL RESPONSABLE POR MOTIVOS DE DESCUIDO O DAÑO FISICO QUE SE PRESENTE.
                         </span>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td width="33%" colspan="8" style="text-align: justify;">
-                        <span >
-                            ESTOY DE ACUERDO EN DARLE USO CORRECTO PARA MIS ACTIVIDADES DIARIAS Y ASI MISMO ESTOY INFORMADO QUE LA RESPONSABILIDAD DE LA INFORMACION QUE TENGA EN MI EQUIPO ES MIA Y TENGO QUE REALIZAR RESPALDO DE LA INFORMACION POR MOTIVOS DE DAÑO AL EQUIPO O POR FORMATEO DEL EQUIPO POR REPARACION.
-                        </span>
                     </td>
                 </tr>
 

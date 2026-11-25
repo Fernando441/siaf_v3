@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Config;
 
 use App\Models\Cliente\Estado;
 use App\Models\Cliente\Municipio;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MunicipiosImport;
 
 class MunicipioController extends Controller
 {
@@ -183,6 +185,15 @@ class MunicipioController extends Controller
 
         session()->flash('success', 'El municipio se activo correctamente');
         return redirect()->route('cliente.municipiosinactivos');
+    }
+
+    public function cargamasivamunicipio(Request $request)
+    {
+
+        Excel::import(new MunicipiosImport(), $request->file('file_carga'));
+
+        session()->flash('success', 'Se importó correctamente el archivo.');
+        return redirect()->route('cliente.catalogoMunicipio');
     }
 
 }
