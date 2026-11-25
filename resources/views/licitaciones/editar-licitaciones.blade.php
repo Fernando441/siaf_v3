@@ -240,7 +240,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                         @endif
                                                     </div>
 
-                                                    <div class="col-lg-4 form-group" id="div_fecha_preguntas">
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2) oculto @endif " id="div_fecha_preguntas">
                                                         <label for="fecha_solicitud"> Fecha y Hora de envío de preguntas</label>
                                                         @if($info->fecha_preguntas != null || $info->fecha_preguntas != "")
                                                             <input type="datetime-local" id="fecha_preguntas" name="fecha_preguntas" class="form-control"
@@ -251,14 +251,15 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                         @endif
                                                     </div>
 
-                                                    <div class="col-lg-4 form-group" id="div_fecha_junta_aclaraciones">
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2) oculto @endif " id="div_fecha_junta_aclaraciones">
+                                                        <label>Fecha y hora de Junta de aclaración de bases de concurso</label>
                                                         @if($info->junta_aclaraciones != null || $info->junta_aclaraciones != "")
                                                             <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="{{ $info->junta_aclaraciones }}" required/>
                                                         @else
                                                             <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="" required/>
                                                         @endif
                                                     </div>
-                                                    <div class="col-lg-4 form-group" id="fecha_entrega_propuestas_div">
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2) oculto @endif " id="fecha_entrega_propuestas_div">
                                                         <label for="fecha_entrega_propuestas"> Fecha y hora de entrega de propuestas </label>
                                                         @if($info->fecha_entrega_propuestas != null || $info->fecha_entrega_propuestas != "")
                                                             <input type="datetime-local" id="fecha_entrega_propuestas" name="fecha_entrega_propuestas" class="form-control" value="{{ $info->fecha_entrega_propuestas }}">
@@ -267,7 +268,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                         @endif
                                                     </div>
 
-                                                    <div class="col-lg-4 form-group" id="div_fecha_apertura_tecnica">
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2|| $info->contratacion == 3) oculto @endif " id="div_fecha_apertura_tecnica">
                                                         <label> Fecha de apertura de oferta técnica</label>
                                                         @if($info->fecha_apertura_tecnica != null || $info->fecha_apertura_tecnica != "")
                                                             <input type="text" class="form-control" name="fecha_apertura_tecnica" id="fecha_apertura_tecnica" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_apertura_tecnica))}}" />
@@ -275,7 +276,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                             <input type="text" class="form-control" name="fecha_apertura_tecnica" id="fecha_apertura_tecnica" readonly  value="" />
                                                         @endif
                                                     </div>
-                                                    <div class="col-lg-4 form-group" id="div_apertura_economica">
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2|| $info->contratacion == 3) oculto @endif "  id="div_apertura_economica">
                                                         <label> Fecha de apertura de oferta económica</label>
                                                         @if($info->fecha_apertura_economica != null || $info->fecha_apertura_economica != "")
                                                             <input type="text" class="form-control" name="fecha_apertura_economica" id="fecha_apertura_economica" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_apertura_economica))}}" />
@@ -284,7 +285,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                         @endif
                                                     </div>
 
-                                                    <div class="col-lg-4 form-group" id="inicio_vigencia_serv_div">
+                                                    <div class="col-lg-4 form-group " id="inicio_vigencia_serv_div">
                                                         <label>Fecha de inicio de vigencia de los servicios</label>
                                                         @if($info->fecha_entrega != null || $info->fecha_entrega!="")
                                                             <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" readonly value="{{ date('d/m/Y', strtotime($info->fecha_entrega))}}"/>
