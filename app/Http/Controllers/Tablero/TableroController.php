@@ -168,7 +168,26 @@ class TableroController extends Controller
 
             ->get();
 
-        return view('tablero.show', compact('not', 'total_tipo_contratacion','total_concursos_alta','total_concursos_media','total_concursos_baja','total_clientes_activos', 'total_fisicas', 'total_morales', 'total_clientes_no_activos', 'total_segmentos', 'total_clientes_estados', 'estados', 'municipios', 'total_requisiciones', 'total_licitaciones', 'total_clientes', 'concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
+        //Obtener id de estatus
+        $estatus = Requisicion::join(
+            'requisicion_estatus',
+            'requisicion.requisicion_estatus_id',
+            '=',
+            'requisicion_estatus.id'
+        )
+            ->select(
+                'requisicion_estatus.estatus',
+                'requisicion.requisicion_estatus_id'
+            )
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy(
+                'requisicion_estatus.id',
+                'requisicion_estatus.estatus',
+                'requisicion.requisicion_estatus_id'
+            )
+            ->get();
+
+        return view('tablero.show', compact('not', 'total_tipo_contratacion', 'estatus','total_concursos_alta', 'total_concursos_media', 'total_concursos_baja', 'total_clientes_activos', 'total_fisicas', 'total_morales', 'total_clientes_no_activos', 'total_segmentos', 'total_clientes_estados', 'estados', 'municipios', 'total_requisiciones', 'total_licitaciones', 'total_clientes', 'concursos', 'concursos_pri_alta', 'concursos_pri_media', 'concursos_pri_baja', 'concurso_contrato', 'concurso_sin_contrato', 'pendientes', 'pendiente_no_finalizado', 'pendiente_pri_alta', 'pendiente_pri_media', 'pendiente_pri_baja', 'pendiente_finalizado'));
     }
 
     public function vernotconcurso($licitacion)
