@@ -105,30 +105,29 @@
                     </td>
                 </tr>
                 <tr>
-                    <td ><strong>TIPO DE SINIESTRO: </strong> </td>
+                    <td ><strong>TIPO DE SINIESTRO: {{ $siniestro_dina->tipo_siniestro_inicial }}</strong> </td>
                     <td ><strong>VEHICULO: </strong>
                     </td>
                 </tr>
                 <tr>
                     <td ><strong>No. SIN y/o REP.: </strong> 
                     </td>
-                    <td ><strong>MODELO: </strong> 
+                    <td ><strong>MODELO: {{ $siniestro_dina->serie }}</strong> 
                     </td>
                 </tr>
                 <tr>
                     <td ><strong>FECHA SINIESTRO: </strong> 
                     </td>
-                    <td ><strong>SERIE: </strong> 
+                    <td ><strong>SERIE: {{ $siniestro_dina->modelo }} </strong> 
                     </td>
                 </tr>   
                 <tr>
-                    <td ><strong>PROYECTO: </strong> 
+                    <td ><strong>PROYECTO: {{ $siniestro_dina->nombre_proyecto }}</strong> 
                     </td>
                     <td ><strong>PLACA: </strong> 
                     </td>
                 </tr>   
  
-
             </tbody>
         </table>
 
@@ -159,9 +158,6 @@
                     <td></td>
                 </tr>   
  
- 
-
-               
             </tbody>
         </table>
 
@@ -189,22 +185,61 @@
         </table>
 
 
-        <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 110px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 80px;">
             <tr>
                 <td style="width: 50%; padding: 15px;">
-
+                    <h2>ELABORÓ</h2> <br><br><br><br><br><br>
                     <p>_____________________________________________________</p>
                     <h3>NOMBRE Y FIRMA DEL USUARIO</h3>
                 </td>
 
                 <td style="width: 50%; padding: 15px;">
+                    <h2>AUTORIZÓ</h2> <br><br><br><br><br><br>
+                    <p>_____________________________________________________</p>
+                    <h3>NOMBRE Y FIRMA DEL AREA DE SISTEMAS</h3>
+                    
+                </td>
 
+                <td style="width: 50%; padding: 15px;">
+                    <h2>RECIBIÓ</h2> <br><br><br><br><br><br>
                     <p>_____________________________________________________</p>
                     <h3>NOMBRE Y FIRMA DEL AREA DE SISTEMAS</h3>
                     
                 </td>
             </tr>
         </table>
+
+
+
+        <table width="100%" cellpadding="5" style="margin-top: 80px;">
+            <thead>
+                <tr>
+                    <th class="table_header" width="33%" colspan="8" style="text-align: center;" ><strong>DATOS DESPUÉS DEL PAGO</strong></th>
+                </tr>
+                
+            </thead>
+            <tbody> 
+
+                <tr>
+                    <td width="40%" height="40">
+                        <strong>FECHA DE PAGO:</strong>
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                    </td>
+
+                    <td width="28%">
+                        <strong>BANCO:</strong>
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                    </td>
+
+                    <td width="32%">
+                        <strong>FOLIO O REF.:</strong>
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
 
 
 </body>

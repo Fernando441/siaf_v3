@@ -16,7 +16,7 @@
         </td>
 
         <td width="40%" align="center" valign="top">
-            <img id="img"  align="left" style="" src="var:logo" width="220" />
+            <img id="img"  align="left" style="" src="var:logo" width="200" />
         </td>
     </tr>
 </table>
@@ -40,7 +40,7 @@
             <strong>FOLIO:</strong>
         </td>
         <td align="center" border="1">
-            M144
+            {{ $siniestro_dina->no_folio }}
         </td>
     </tr>
 </table>

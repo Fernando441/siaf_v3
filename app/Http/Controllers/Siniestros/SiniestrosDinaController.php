@@ -288,7 +288,7 @@ class SiniestrosDinaController extends Controller
     {
         $siniestro_dina = SiniestroDina::where('id', $id_siniestro)->first(); 
 
-        $header = view('siniestro.dina.ver-siniestro-dina-pdf-header')->render();
+        $header = view('siniestro.dina.ver-siniestro-dina-pdf-header',compact('id_siniestro', 'siniestro_dina'))->render();
         $footer = view('siniestro.dina.ver-siniestro-dina-pdf-footer')->render();
         $body = view('siniestro.dina.ver-siniestro-dina-pdf-body',compact('id_siniestro', 'siniestro_dina'))->render();
 
