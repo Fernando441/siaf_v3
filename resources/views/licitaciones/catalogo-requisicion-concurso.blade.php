@@ -5,15 +5,26 @@
 @push('scripts')
     <script src="{{ asset('js/licitaciones/requisicion/ListadoRequisicionesConcurso.js') }}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <script src="{{ asset('js/licitaciones/requisicion/GraficasRequisiciones.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush
 @section('content')
+    <style>
+        .oculto {
+            display: none;
+        }
+    </style>
     <!--begin::Card-->
     <div class="row">
         <div class="col-lg-12">
             <!--begin::Card-->
             <div class="card card-custom gutter-b">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="flaticon2-file mr-4 text-primary"></i> Listado de requisiciones</h3>
+                    <h3 class="card-title"><a class="grafica-tooltip">
+                            <img alt="Logo" id="grafica" class="button-grafica brand-logo"
+                                src="{{ asset('img/grafica.png') }} " title="Graficar" />
+                            <span class="tooltip-text"></span>
+                        </a> Listado de requisiciones</h3>
                     <div class="card-toolbar">
                         <a class="btn btn-link-primary font-weight-bold mr-2 busqueda" data-toggle="collapse"
                             href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -66,14 +77,14 @@
                                             <span class="navi-text">Excel</span>
                                         </a>
                                     </li>
-                                    {{--                                 <li class="navi-item">
-                                    <a href="#" class="navi-link" id="export-pdf">
-                                                    <span class="navi-icon">
-                                                        <i class="la la-file-pdf-o"></i>
-                                                    </span>
-                                        <span class="navi-text">PDF</span>
-                                    </a>
-                                </li> --}}
+                                    {{-- <li class="navi-item">
+                                        <a href="#" class="navi-link" id="export-pdf">
+                                            <span class="navi-icon">
+                                                <i class="la la-file-pdf-o"></i>
+                                            </span>
+                                            <span class="navi-text">PDF</span>
+                                        </a>
+                                    </li> --}}
                                     <li class="navi-item">
                                         <a href="#" class="navi-link" id="export-csv">
                                             <span class="navi-icon">
@@ -98,12 +109,126 @@
                         </div>
                         <!--end::Dropdown-->
                     </div>
+
                 </div>
+
                 <!--begin::Form-->
-                <form action="{{ route('concurso.requisiciones.guardarrequisicion') }}" method="post" id="submit_requisicion"
-                    enctype="multipart/form-data">
+                <form action="{{ route('concurso.requisiciones.guardarrequisicion') }}" method="post"
+                    id="submit_requisicion" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
+                        <!-- ESTADISTICAS -->
+                        <div class="row dashboard-stats">
+
+                            <!-- Total de requisiciones -->
+                            <div class="col-xl-3 col-lg-6 col-md-6">
+                                <div class="stat-card stat-blue">
+                                    <div class="stat-content">
+                                        <div class="stat-value">
+                                            {{ $total_requisiciones }}
+                                        </div>
+                                        <div class="stat-label">
+                                            Total de requisiciones
+                                        </div>
+                                    </div>
+
+                                    <div class="stat-icon">
+                                        <i class="fas fa-file-contract"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Enviado a finanzas -->
+                            <div class="col-xl-3 col-lg-6 col-md-6">
+                                <div class="stat-card stat-cyan">
+                                    <div class="stat-content">
+                                        <div class="stat-value">
+                                            {{ $total_enviado_finanzas }}
+                                        </div>
+                                        <div class="stat-label">
+                                            Enviado a finanzas
+                                        </div>
+
+                                    </div>
+
+                                    <div class="stat-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Orden de compra -->
+                            <div class="col-xl-3 col-lg-6 col-md-6">
+                                <div class="stat-card stat-gold">
+                                    <div class="stat-content">
+                                        <div class="stat-value">
+                                            {{ $total_orden_compra }}
+                                        </div>
+                                        <div class="stat-label">
+                                            Orden de compra
+                                        </div>
+                                    </div>
+
+                                    <div class="stat-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Finalizados -->
+                            <div class="col-xl-3 col-lg-6 col-md-6">
+                                <div class="stat-card stat-red">
+                                    <div class="stat-content">
+                                        <div class="stat-value">
+                                            {{ $total_finalizados }}
+                                        </div>
+                                        <div class="stat-label">
+                                            Finalizados
+                                        </div>
+                                    </div>
+
+                                    <div class="stat-icon">
+                                        <i class="fas fa-sort-amount-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- FIN ESTADISTICAS -->
+                        {{-- PANEL DE GRAFICAS --}}
+                        <div class="row oculto" id="div_grafica_requisiciones">
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Dashboard KPI's</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- graficaEstatus -->
+                                            <div class="col-lg-4 col-md-6 mb-4">
+                                                <canvas id="graficaEstatus"></canvas>
+                                                <script>
+                                                    window.obtener_estatus = @json($estatus);
+                                                </script>
+                                            </div>
+                                            <!-- graficaTipodeContratacion -->
+                                            <div class="col-lg-4 col-md-6 mb-4">
+                                                <canvas id="graficaTipodeContratacion"></canvas>
+
+                                            </div>
+                                            <!-- graficaPublicacionConcurso -->
+                                            <div class="col-lg-4 col-md-6 mb-4">
+                                                <canvas id="graficaPublicacionConcurso"></canvas>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {{-- FIN PANEL --}}
 
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
@@ -166,7 +291,8 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-lg-6">
-                                {{-- {{link_to('tablero', $title = 'Regresar', $attributes = ['class'=>'btn btn-secondary btn-lg'])}} --}}
+                                {{-- {{link_to('tablero', $title = 'Regresar', $attributes = ['class'=>'btn btn-secondary
+                                btn-lg'])}} --}}
                             </div>
                         </div>
                     </div>
@@ -219,9 +345,10 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn btn-secondary font-weight-bold"
-                        data-dismiss="modal"><i class="la la-times"></i>Cancelar</button>
-                    <button type="button" id="send_desactivar" class="btn btn-success"><i class="la la-plus"></i>Guardar</button>
+                    <button type="button" class="btn btn btn-secondary font-weight-bold" data-dismiss="modal"><i
+                            class="la la-times"></i>Cancelar</button>
+                    <button type="button" id="send_desactivar" class="btn btn-success"><i
+                            class="la la-plus"></i>Guardar</button>
                 </div>
             </div>
         </div>

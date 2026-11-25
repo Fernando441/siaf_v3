@@ -216,16 +216,16 @@
 	</style>
 
 	<!-- @if (Session::has('permisos'))
-																							@if (in_array("109", Session::get('permisos')))
-																								<div class="row">
-																									@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
-																										<div class="card-body">
-																											<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
-																										</div>
-																									@endif
-																								</div>
-																							@endif
-																						@endif -->
+																								@if (in_array("109", Session::get('permisos')))
+																									<div class="row">
+																										@if(Auth::user()->tipo_usuario_id != 1 && Auth::user()->tipo_usuario_id != 2)
+																											<div class="card-body">
+																												<input type="hidden" id="datatable_i18n" value="{{ asset('/js/datatables/i18n/es-mx.json') }}">
+																											</div>
+																										@endif
+																									</div>
+																								@endif
+																							@endif -->
 
 	<!-- ESTADISTICAS -->
 	<div class="row dashboard-stats">
@@ -273,20 +273,22 @@
 
 		<!-- TOTAL DE REQUISICIONES -->
 		<div class="col-xl-3 col-lg-6 col-md-6">
-			<div class="stat-card stat-gold">
-				<div class="stat-content">
-					<div class="stat-value">
-						{{$total_requisiciones}}
+			<a href="{{ route('concurso.requisiciones.catalogorequisicion') }}" style="text-decoration: none; color: inherit;">
+				<div class="stat-card stat-gold" style="cursor: pointer;">
+					<div class="stat-content">
+						<div class="stat-value">
+							{{$total_requisiciones}}
+						</div>
+						<div class="stat-label">
+							TOTAL DE REQUISICIONES
+						</div>
 					</div>
-					<div class="stat-label">
-						TOTAL DE REQUISICIONES
-					</div>
-				</div>
 
-				<div class="stat-icon">
-					<i class="fas fa-clock"></i>
+					<div class="stat-icon">
+						<i class="fas fa-clock"></i>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
 
 		<!-- TOTAL DE PARQUE VAHICULAR -->
