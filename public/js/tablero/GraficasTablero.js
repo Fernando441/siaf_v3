@@ -140,7 +140,7 @@ $(document).ready(function () {
         var baja = document.getElementById("p_baja").value;
 
         new Chart(document.getElementById('graficaPrioridades'), {
-            type: 'bar',
+            type: 'pie',
             data: {
                 labels: ['ALTA', 'MEDIA', 'BAJA'],
                 datasets: [{

@@ -75,7 +75,34 @@ class RequisicionContratoController extends Controller
 
     public function catalogoRequisicion()
     {
-        return view('licitaciones.catalogo-requisicion-concurso');
+        //Obtener id de estatus
+        $estatus = Requisicion::join(
+            'requisicion_estatus',
+            'requisicion.requisicion_estatus_id',
+            '=',
+            'requisicion_estatus.id'
+        )
+            ->select(
+                'requisicion_estatus.estatus',
+                'requisicion.requisicion_estatus_id'
+            )
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy(
+                'requisicion_estatus.id',
+                'requisicion_estatus.estatus',
+                'requisicion.requisicion_estatus_id'
+            )
+            ->get();
+        //Total requisiciones
+        $total_requisiciones = Requisicion::whereNotNull('licitaciones_id')->count();
+        //Total enviado a finanzas
+        $total_enviado_finanzas = Requisicion::where('requisicion_estatus_id', 2)->count();
+        //Total orden de compra
+        $total_orden_compra = Requisicion::where('requisicion_estatus_id', 4)->count();
+        //Total finalizados
+        $total_finalizados = Requisicion::where('requisicion_estatus_id', 5)->count();
+
+        return view('licitaciones.catalogo-requisicion-concurso', compact('total_requisiciones', 'estatus', 'total_finalizados', 'total_orden_compra', 'total_enviado_finanzas'));
     }
 
     public function verRequisicion($id)
@@ -88,7 +115,7 @@ class RequisicionContratoController extends Controller
         $cadenatipovehiculo = "";
         foreach ($segmento as $av) {
 
-            $cadenatipovehiculo .= '"' . $av->id . '":"' . $av->segmentoTipoVehiculo->tipo_vehiculo . ", " . $av->segmentoNoCilindro->no_cilindro . " cilindros, " .  $av->segmentoTransmision->transmision . ", " . $av->segmentoMotor->motor  . '",';
+            $cadenatipovehiculo .= '"' . $av->id . '":"' . $av->segmentoTipoVehiculo->tipo_vehiculo . ", " . $av->segmentoNoCilindro->no_cilindro . " cilindros, " . $av->segmentoTransmision->transmision . ", " . $av->segmentoMotor->motor . '",';
         }
         $cadenatipovehiculo = '{' . rtrim($cadenatipovehiculo, ',') . '}';
 
@@ -115,7 +142,7 @@ class RequisicionContratoController extends Controller
         $cadenatipovehiculo = "";
         foreach ($segmento as $av) {
 
-            $cadenatipovehiculo .= '"' . $av->id . '":"' . $av->segmentoTipoVehiculo->tipo_vehiculo . ", " . $av->segmentoNoCilindro->no_cilindro . " cilindros, " .  $av->segmentoTransmision->transmision . ", " . $av->segmentoMotor->motor  . '",';
+            $cadenatipovehiculo .= '"' . $av->id . '":"' . $av->segmentoTipoVehiculo->tipo_vehiculo . ", " . $av->segmentoNoCilindro->no_cilindro . " cilindros, " . $av->segmentoTransmision->transmision . ", " . $av->segmentoMotor->motor . '",';
         }
         $cadenatipovehiculo = '{' . rtrim($cadenatipovehiculo, ',') . '}';
 
@@ -318,7 +345,7 @@ class RequisicionContratoController extends Controller
     public function editarPartida(Request $request)
     {
         $idRequisicion = $request->idRequisicion;
-        
+
         $data = [
             'solicitante' => $request->solicitante ? $request->solicitante : null,
             'id_area' => $request->area ? $request->area : null,
@@ -349,7 +376,7 @@ class RequisicionContratoController extends Controller
             }
         }
 
-        
+
         return redirect()->route('concurso.requisiciones.editarrequisicion', $idRequisicion)->with('success', 'La requisición se actualizo correctamente');
     }
 
@@ -391,7 +418,7 @@ class RequisicionContratoController extends Controller
         $segmento = Segmento::where('id_status_delete', 1)->get();
         $cadenatipovehiculo = "";
         foreach ($segmento as $av) {
-            $cadenatipovehiculo .= '"' . $av->id . '":"' . $av->segmentoTipoVehiculo->tipo_vehiculo . ", " . $av->segmentoNoCilindro->no_cilindro . " cilindros, " .  $av->segmentoTransmision->transmision . ", " . $av->segmentoMotor->motor  . '",';
+            $cadenatipovehiculo .= '"' . $av->id . '":"' . $av->segmentoTipoVehiculo->tipo_vehiculo . ", " . $av->segmentoNoCilindro->no_cilindro . " cilindros, " . $av->segmentoTransmision->transmision . ", " . $av->segmentoMotor->motor . '",';
         }
         $cadenatipovehiculo = '{' . rtrim($cadenatipovehiculo, ',') . '}';
 
@@ -453,7 +480,8 @@ class RequisicionContratoController extends Controller
         return view('licitaciones.requisicion.agregar-informacion-partida-ind-concurso', compact('requisicion', 'partida', 'info_partida', 'equipamento_grupos', 'cadena_grupo', 'equipamientos', 'cadena_tipo_transporte', 'aseguramientos', 'cadena_entidad_federativa', 'cadena_tipo_placas', 'cadena_combustible', 'emplacamientos', 'lugares_entrega'));
     }
 
-    public function verPartida($partida, $requisicion){
+    public function verPartida($partida, $requisicion)
+    {
 
         $info_partida = RequisicionPartida::where('id', $partida)->where('id_status_delete', 1)->first();
         $equipamientos = RequisicionPartidaEquipamiento::where('id_status_delete', 1)->where('requisicion_partida_id', $partida)->get();
@@ -481,18 +509,17 @@ class RequisicionContratoController extends Controller
     public function guardarinfopartida(Request $request)
     {
         $info_licitacion = Requisicion::where('id', $request->requisicion_id)->first();
-        $info_folio= Licitacion::where('id', $info_licitacion->licitaciones_id)->first();
+        $info_folio = Licitacion::where('id', $info_licitacion->licitaciones_id)->first();
 
         //Equipamiento
         if ($request->cantidad) {
             $inputs_cantidades = $request->cantidad;
             $select_subgrupo = $request->select_grupo;
             $observaciones = $request->observaciones;
-        
-            if($request->hasfile('select_subgrupo')){
+
+            if ($request->hasfile('select_subgrupo')) {
                 $archivos = $request->file('select_subgrupo');
-                foreach($archivos as $indice => $archivo)
-                {
+                foreach ($archivos as $indice => $archivo) {
                     $archivoNombre = $archivo->hashName();
                     $mimeType = $archivo->getMimeType();
                     Storage::putFileAs('licitacion/' . $info_folio->folio, $archivo, $archivoNombre);
@@ -520,11 +547,10 @@ class RequisicionContratoController extends Controller
             $vigencia = $request->vigencia;
             $observaciones_aseguramiento = $request->observaciones_aseguramiento;
 
-            if($request->hasfile('select_cobertura')){
+            if ($request->hasfile('select_cobertura')) {
                 $archivos = $request->file('select_cobertura');
-                foreach($archivos as $indice => $archivo)
-                {
-                   
+                foreach ($archivos as $indice => $archivo) {
+
                     $archivoNombre = $archivo->hashName();
                     $mimeType = $archivo->getMimeType();
                     Storage::putFileAs('licitacion/' . $info_folio->folio, $archivo, $archivoNombre);
@@ -570,32 +596,32 @@ class RequisicionContratoController extends Controller
         }
 
         //Lugar de entrega
-        if ($request->cantidad_entrega){
-                    
-                $inputs_cantidades_entrega = $request->cantidad_entrega;
-                $fecha_entrega = $request->fecha_entrega;
-                $entrega_entidad_federativa = $request->entrega_entidad_federativa;
-                $entrega_municipio = $request->entrega_municipio;
-                $entrega_localidad = $request->entrega_localidad;
-                $select_combustible = $request->select_combustible;
-                $entrega_observaciones = $request->entrega_observaciones;
+        if ($request->cantidad_entrega) {
 
-                foreach ($inputs_cantidades_entrega as $indice => $cantidad_entrega) {
-                    $lugar_entrega = new RequisicionPartidaLugarEntrega();
+            $inputs_cantidades_entrega = $request->cantidad_entrega;
+            $fecha_entrega = $request->fecha_entrega;
+            $entrega_entidad_federativa = $request->entrega_entidad_federativa;
+            $entrega_municipio = $request->entrega_municipio;
+            $entrega_localidad = $request->entrega_localidad;
+            $select_combustible = $request->select_combustible;
+            $entrega_observaciones = $request->entrega_observaciones;
 
-                    $lugar_entrega->requisicion_partida_id = $request->partida_id;
-                    $lugar_entrega->cantidad = $cantidad_entrega;
-                    $lugar_entrega->fecha_entrega = $fecha_entrega[$indice];
-                    $lugar_entrega->requisicion_entidad_federativa_id = $entrega_entidad_federativa[$indice];
-                    $lugar_entrega->municipio = $entrega_municipio[$indice];
-                    $lugar_entrega->localidad = $entrega_localidad[$indice];
-                    $lugar_entrega->requisicion_combustible_id = $select_combustible[$indice];
-                    $lugar_entrega->observaciones = $entrega_observaciones[$indice];
-                    $lugar_entrega->id_status_delete = 1;
-                    $lugar_entrega->iduserCreated = auth()->user()->id;
-                    $lugar_entrega->iduserUpdated = auth()->user()->id;
-                    $lugar_entrega->save();
-                }
+            foreach ($inputs_cantidades_entrega as $indice => $cantidad_entrega) {
+                $lugar_entrega = new RequisicionPartidaLugarEntrega();
+
+                $lugar_entrega->requisicion_partida_id = $request->partida_id;
+                $lugar_entrega->cantidad = $cantidad_entrega;
+                $lugar_entrega->fecha_entrega = $fecha_entrega[$indice];
+                $lugar_entrega->requisicion_entidad_federativa_id = $entrega_entidad_federativa[$indice];
+                $lugar_entrega->municipio = $entrega_municipio[$indice];
+                $lugar_entrega->localidad = $entrega_localidad[$indice];
+                $lugar_entrega->requisicion_combustible_id = $select_combustible[$indice];
+                $lugar_entrega->observaciones = $entrega_observaciones[$indice];
+                $lugar_entrega->id_status_delete = 1;
+                $lugar_entrega->iduserCreated = auth()->user()->id;
+                $lugar_entrega->iduserUpdated = auth()->user()->id;
+                $lugar_entrega->save();
+            }
         }
 
         session()->flash('success', 'Información de partida agregada correctamente');

@@ -31,10 +31,10 @@
                                 <div class="card-title">
                                     <span class="card-icon">
                                         <a class="grafica-tooltip">
-                                        <img alt="Logo" id="grafica" class="button-grafica brand-logo"
-                                            src="{{ asset('img/grafica.png') }} " title="Graficar" />
-                                        <span class="tooltip-text"></span>
-                                    </a>
+                                            <img alt="Logo" id="grafica" class="button-grafica brand-logo"
+                                                src="{{ asset('img/grafica.png') }} " title="Graficar" />
+                                            <span class="tooltip-text"></span>
+                                        </a>
                                     </span>
                                     <h3 class="card-label">Listado de concursos</h3>
                                 </div>
@@ -232,7 +232,7 @@
                                                     <div class="col-lg-4 col-md-6 mb-4">
                                                         <canvas id="graficaTipodeContratacion"></canvas>
                                                         @php
-                                                            
+
                                                             $tipo_contrataciones = $total_tipo_contratacion->groupBy(fn($unid) => $unid->tipo_contratacion)->map(fn($contra) => $contra->count());
                                                         @endphp
                                                         <script>
