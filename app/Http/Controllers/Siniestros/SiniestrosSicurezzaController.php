@@ -33,6 +33,10 @@ use App\Models\Unidad\Unidad;
 use App\Models\Unidad\FotoUnidad;
 use App\Models\Unidad\UnidadFotografia;
 
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
+use Illuminate\Support\Facades\File;
+
 class SiniestrosSicurezzaController extends Controller
 {
     protected $folio;
@@ -264,6 +268,44 @@ class SiniestrosSicurezzaController extends Controller
 
         session()->flash('success', 'El siniestro se creo correctamente');
         return redirect()->route('siniestro.catalogosicurezza');
+    }
 
+    public function versiniestrosicurezzaPDF($id_siniestro)
+    {
+        $siniestro_sicurezza = SiniestroSicurezza::where('id', $id_siniestro)->first(); 
+        
+        $header = view('siniestro.sicurezza.ver-siniestro-sicurezza-pdf-header',compact('id_siniestro', 'siniestro_sicurezza'))->render();
+        $footer = view('siniestro.sicurezza.ver-siniestro-sicurezza-pdf-footer')->render();
+        $body = view('siniestro.sicurezza.ver-siniestro-sicurezza-pdf-body',compact('id_siniestro', 'siniestro_sicurezza'))->render();
+
+        $path = public_path('theme/assets/media/logos/logojetvan-pdf.png');
+
+        $mpdf = new Mpdf([
+            'format' => [216, 340],
+            'mode' => 'utf-8',
+            'tempDir' => storage_path('app/mpdf_temp'),
+        ]);
+
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->setAutoTopMargin = 'stretch';
+        $mpdf->setAutoBottomMargin = 'stretch';
+
+        // Cargar logo antes de generar el PDF
+        if (File::exists($path)) {
+            $mpdf->imageVars['logo'] = File::get($path);
+        }
+
+        $mpdf->SetHTMLHeader($header);
+        $mpdf->SetHTMLFooter($footer);
+
+        $mpdf->WriteHTML($body);
+
+        // Mostrar PDF en navegador
+        $pdf = $mpdf->Output('', Destination::STRING_RETURN);
+
+        return response($pdf, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="Siniestro No.'.$siniestro_sicurezza->siniestro_completo.'.pdf"');
     }
 }

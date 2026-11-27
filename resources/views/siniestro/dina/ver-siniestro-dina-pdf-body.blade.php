@@ -93,7 +93,7 @@
         <table class="table" cellpadding="8" style="page-break-inside: avoid;">
             <thead>
                 <tr>
-                    <th class="table_header" width="33%" colspan="2" style="text-align: center;" ><strong>INFORMACIÓN GENERAL</strong></th>
+                    <th class="table_header" width="33%" colspan="2" style="text-align: center;" ><strong style="font-size: 16px;">INFORMACIÓN GENERAL</strong></th>
                 </tr>
             </thead>
             <tbody>
@@ -165,18 +165,17 @@
         <table class="table" cellpadding="8" style="overflow:wrap" >
             <thead>
                 <tr>
-                    <th class="table_header" width="33%" colspan="8" style="text-align: center;" ><strong>COMENTARIOS</strong></th>
+                    <th class="table_header" width="100%" colspan="8" style="text-align: center;" ><strong>COMENTARIOS</strong></th>
                 </tr>
                 
             </thead>
             <tbody>
 
                 <tr>
-                    <td width="33%" colspan="8" style="text-align: justify;">
+                    <td width="100%" colspan="8" style="text-align: justify;">
                         <span>
-                            AL FIRMAR ESTE DOCUMENTO ESTOY DE ACUERDO QUE SE ME HACE RESPONSABLE DEL EQUIPO DE COMPUTO ASIGNADO, COMO DE LOS ACCESORIOS, SERE EL RESPONSABLE POR MOTIVOS DE DESCUIDO O DAÑO FISICO QUE SE PRESENTE.
+                            
                         </span>
-
                     </td>
                 </tr>
 
@@ -190,21 +189,22 @@
                 <td style="width: 50%; padding: 15px;">
                     <h2>ELABORÓ</h2> <br><br><br><br><br><br>
                     <p>_____________________________________________________</p>
-                    <h3>NOMBRE Y FIRMA DEL USUARIO</h3>
+                    <h2></h2>
+                    <span style="font-size: 15px;">ANALISTA DE SINIESTROS</span>
                 </td>
 
                 <td style="width: 50%; padding: 15px;">
                     <h2>AUTORIZÓ</h2> <br><br><br><br><br><br>
                     <p>_____________________________________________________</p>
-                    <h3>NOMBRE Y FIRMA DEL AREA DE SISTEMAS</h3>
-                    
+                    <h2>VERÓNICA ROMERO ANAYA</h2>
+                    <span style="font-size: 15px;">JEFATURA DE SEGUROS Y SINIESTROS</span>
                 </td>
 
                 <td style="width: 50%; padding: 15px;">
                     <h2>RECIBIÓ</h2> <br><br><br><br><br><br>
                     <p>_____________________________________________________</p>
-                    <h3>NOMBRE Y FIRMA DEL AREA DE SISTEMAS</h3>
-                    
+                    <h2>ROSA GALLEGOS</h2>
+                    <span style="font-size: 15px;">TESORERIA</span>
                 </td>
             </tr>
         </table>
@@ -216,7 +216,6 @@
                 <tr>
                     <th class="table_header" width="33%" colspan="8" style="text-align: center;" ><strong>DATOS DESPUÉS DEL PAGO</strong></th>
                 </tr>
-                
             </thead>
             <tbody> 
 

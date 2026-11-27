@@ -227,7 +227,7 @@
                                             <td><a href="{{ route('siniestro.versiniestrohdi', $siniestro->id) }}">{{ $siniestro->numero_siniestro }}</a></td>
                                             <td>{{ $siniestro->serie }}</td>
                                             <td>
-                                                <button rel-path="{{ route('siniestro.versiniestrodinaPDF', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
+                                                <button rel-path="{{ route('siniestro.versiniestroshdiPDF', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
                                                         <i class="far fa-file-pdf"></i>
                                                 </button>
 

@@ -13,9 +13,9 @@
         display: none;
     }
     .op_select{
-box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
--webkit-box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
--moz-box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);  
+        box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
+        -webkit-box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
+        -moz-box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);  
     }
 </style>
 
@@ -187,37 +187,35 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                             <div class="card-header">
                                                 <h3 class="card-title" id="title_fechas_show">
                                                     Tipo de  contratación - 
-                                                        @switch($info->contratacion)
+                                                    @switch($info->contratacion)
+                                                        @case(1)
+                                                            ADJUDICACIÓN DIRECTA
+                                                            @break
 
-                                                            @case(1)
-                                                                ADJUDICACIÓN DIRECTA
-                                                                @break
+                                                        @case(2)
+                                                            ADJUDICACIÓN DIRECTA POR ADHESIÓN
+                                                            @break
 
-                                                            @case(2)
-                                                                ADJUDICACIÓN DIRECTA POR ADHESIÓN
-                                                                @break
+                                                        @case(3)
+                                                            ADJUDICACIÓN DIRECTA POR COMPRAS MX
+                                                            @break
 
-                                                            @case(3)
-                                                                ADJUDICACIÓN DIRECTA POR COMPRAS MX
-                                                                @break
+                                                        @case(4)
+                                                            INVITACIÓN A CUANDO MENOS TRES PERSONAS FEDERAL
+                                                            @break
 
-                                                            @case(4)
-                                                                INVITACIÓN A CUANDO MENOS TRES PERSONAS FEDERAL
-                                                                @break
+                                                        @case(5)
+                                                            LICITACIÓN PUBLICA NACIONAL FEDERAL
+                                                            @break
 
-                                                            @case(5)
-                                                                LICITACIÓN PUBLICA NACIONAL FEDERAL
-                                                                @break
+                                                        @case(6)
+                                                            INVITACIÓN A CUANDO MENOS TRES PERSONAS ESTATAL
+                                                            @break
 
-                                                            @case(6)
-                                                                INVITACIÓN A CUANDO MENOS TRES PERSONAS ESTATAL
-                                                                @break
-
-                                                            @case(7)
-                                                                LICITACIÓN PUBLICA NACIONAL ESTATAL
-                                                                @break
-
-                                                        @endswitch
+                                                        @case(7)
+                                                            LICITACIÓN PUBLICA NACIONAL ESTATAL
+                                                            @break
+                                                    @endswitch
                                                 </h3>
                                             </div>
                                             <div class="card-body">
@@ -231,7 +229,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                         @endif
                                                     </div>
 
-                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2|| $info->contratacion == 3 || $info->contratacion == 4 || $info->contratacion == 5) oculto @endif " id="div_fecha_compra_bases">
+                                                    <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2 || $info->contratacion == 3 || $info->contratacion == 4 || $info->contratacion == 5) oculto @endif " id="div_fecha_compra_bases">
                                                         <label for="fecha_compra_bases">Fecha de compra de bases </label>
                                                         @if($info->fecha_compra_bases != null || $info->fecha_compra_bases != "")
                                                             <input type="text" id="fecha_compra_bases" name="fecha_compra_bases" class="form-control" value="{{ date('d/m/Y', strtotime($info->fecha_compra_bases))}}" readonly>
@@ -254,9 +252,9 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                     <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2) oculto @endif " id="div_fecha_junta_aclaraciones">
                                                         <label>Fecha y hora de Junta de aclaración de bases de concurso</label>
                                                         @if($info->junta_aclaraciones != null || $info->junta_aclaraciones != "")
-                                                            <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="{{ $info->junta_aclaraciones }}" required/>
+                                                            <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="{{ $info->junta_aclaraciones }}"/>
                                                         @else
-                                                            <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value="" required/>
+                                                            <input type="datetime-local" class="form-control" name="junta_aclaraciones" id="junta_aclaraciones" value=""/>
                                                         @endif
                                                     </div>
                                                     <div class="col-lg-4 form-group @if($info->contratacion == 1 || $info->contratacion == 2) oculto @endif " id="fecha_entrega_propuestas_div">
@@ -284,7 +282,14 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                                             <input type="text" class="form-control" name="fecha_apertura_economica" id="fecha_apertura_economica" readonly  value="" />
                                                         @endif
                                                     </div>
-
+                                                    <div class="col-lg-4 @if($info->contratacion == 1 || $info->contratacion == 2) oculto @endif " id="fecha_subasta_div">
+                                                        <label>Fecha de subasta</label>
+                                                        @if($info->fecha_subasta != null || $info->fecha_subasta != "")
+                                                            <input type="text" class="form-control" name="fecha_subasta" id="fecha_subasta" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_subasta))}}" />
+                                                        @else
+                                                            <input type="text" class="form-control" name="fecha_subasta" id="fecha_subasta" readonly  value="" />
+                                                        @endif
+                                                    </div>
                                                     <div class="col-lg-4 form-group " id="inicio_vigencia_serv_div">
                                                         <label>Fecha de inicio de vigencia de los servicios</label>
                                                         @if($info->fecha_entrega != null || $info->fecha_entrega!="")
@@ -313,11 +318,6 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
 
                             <div class="row form-group">
                                 <div class="col-lg-6">
-
-                                </div>
-
-
-                                <div class="col-lg-6">
                                     <label>¿Aplica la fecha de visita?</label>
                                     <div class="radio-inline">
                                         <label class="radio">
@@ -333,12 +333,7 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                     </div>
                                     <input type="hidden" name="op_fecha" id="op_fecha" value="{{ $info->fecha_visita_aplica }}">
                                 </div>
-
-                            </div>
-
-                            <div class="row form-group">
-
-                                <div class="col-lg-6 {{($info->fecha_visita_aplica == 1) ? 'oculto' : ''}} mt-4" id="div_fecha_visita">
+                               <div class="col-lg-6 {{($info->fecha_visita_aplica == 1) ? 'oculto' : ''}} mt-4" id="div_fecha_visita">
                                     <label>Fecha de visita</label>
                                     @if($info->fecha_visita != null || $info->fecha_visita != "")
                                         <input type="datetime-local" class="form-control" name="fecha_visita" id="fecha_visita"  value="{{$info->fecha_visita }}"/>
@@ -346,53 +341,22 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                         <input type="datetime-local" class="form-control" name="fecha_visita" id="fecha_visita"  value=""/>
                                     @endif
                                 </div>
-                                <div class="col-lg-6">
-
-                                </div>
                             </div>
 
 
-                                <div class="row form-group">
+                            <div class="row form-group">
 
-                                    <div class="col-lg-6">
-                                        <label>Fecha de presentación de propuesta</label>
-                                        @if($info->apertura_proposiciones != null || $info->apertura_proposiciones != "")
-                                            <input type="text" class="form-control" name="apertura_proposiciones" id="apertura_proposiciones" readonly  value="{{ date('d/m/Y', strtotime($info->apertura_proposiciones))}}" required />
-                                        @else
-                                            <input type="text" class="form-control" name="apertura_proposiciones" id="apertura_proposiciones" readonly  value=""  required/>
-                                        @endif
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <label>¿Aplica la fecha de subasta?</label>
-                                        <div class="radio-inline">
-                                            <label class="radio">
-                                                <input type="radio" checked name="fecha_subasta_aplica" {{($info->fecha_subasta_aplica == 0) ? 'checked' : ''}} id="fsp_uno" value="0" />
-                                                <span></span>
-                                                Si
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="fecha_subasta_aplica" {{($info->fecha_subasta_aplica == 1) ? 'checked' : ''}} id="fsp_dos" value="1" />
-                                                <span></span>
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6  {{($info->fecha_subasta_aplica == 1) ? 'oculto' : ''}}" id="fecha_subasta_div">
-                                        <label>Fecha de subasta</label>
-                                        @if($info->fecha_subasta != null || $info->fecha_subasta != "")
-                                            <input type="text" class="form-control" name="fecha_subasta" id="fecha_subasta" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_subasta))}}" />
-                                        @else
-                                            <input type="text" class="form-control" name="fecha_subasta" id="fecha_subasta" readonly  value="" />
-                                        @endif
-
-
-                                            <input type="hidden" name="op_fecha_subasta" id="op_fecha_subasta" value="{{ $info->fecha_subasta_aplica }}">
-                                    </div>
+                                <div class="col-lg-6">
+                                    <label>Fecha de presentación de propuesta</label>
+                                    @if($info->apertura_proposiciones != null || $info->apertura_proposiciones != "")
+                                        <input type="text" class="form-control" name="apertura_proposiciones" id="apertura_proposiciones" readonly  value="{{ date('d/m/Y', strtotime($info->apertura_proposiciones))}}" required />
+                                    @else
+                                        <input type="text" class="form-control" name="apertura_proposiciones" id="apertura_proposiciones" readonly  value=""  required/>
+                                    @endif
                                 </div>
 
 
+                            </div>
 
 {{--                             <div class="row form-group">
                                 <div class="col-lg-6">
@@ -421,33 +385,31 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                             </div>
  --}}
                             <div class="row form-group">
-                                    <div class="col-lg-6">
-                                        <label>¿Aplica la fecha de repreguntas?</label>
-                                        <div class="radio-inline">
-                                            <label class="radio">
-                                                <input type="radio" checked name="fecha_repreguntas_aplica" {{($info->fecha_repreguntas_aplica == 0) ? 'checked' : ''}} id="frp_uno" value="0" />
-                                                <span></span>
-                                                Si
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="fecha_repreguntas_aplica" {{($info->fecha_repreguntas_aplica == 1) ? 'checked' : ''}} id="frp_dos" value="1" />
-                                                <span></span>
-                                                No
-                                            </label>
-                                        </div>
+                                <div class="col-lg-6">
+                                    <label>¿Aplica la fecha de repreguntas?</label>
+                                    <div class="radio-inline">
+                                        <label class="radio">
+                                            <input type="radio" checked name="fecha_repreguntas_aplica" {{($info->fecha_repreguntas_aplica == 0) ? 'checked' : ''}} id="frp_uno" value="0" />
+                                            <span></span>
+                                            Si
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="fecha_repreguntas_aplica" {{($info->fecha_repreguntas_aplica == 1) ? 'checked' : ''}} id="frp_dos" value="1" />
+                                            <span></span>
+                                            No
+                                        </label>
                                     </div>
+                                </div>
 
-                                    <div class="col-lg-6  {{($info->fecha_repreguntas_aplica == 1) ? 'oculto' : ''}}" id="fecha_repreguntas_div">
-                                        <label>Fecha de repreguntas</label>
-                                        @if($info->fecha_repreguntas != null || $info->fecha_repreguntas != "")
-                                            <input type="text" class="form-control" name="fecha_repreguntas" id="fecha_repreguntas" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_repreguntas))}}" />
-                                        @else
-                                            <input type="text" class="form-control" name="fecha_repreguntas" id="fecha_repreguntas" readonly  value="" />
-                                        @endif
-
-
-                                            <input type="hidden" name="op_fecha_repreguntas" id="op_fecha_repreguntas" value="{{ $info->fecha_repreguntas_aplica }}">
-                                    </div>
+                                <div class="col-lg-6  {{($info->fecha_repreguntas_aplica == 1) ? 'oculto' : ''}}" id="fecha_repreguntas_div">
+                                    <label>Fecha de repreguntas</label>
+                                    @if($info->fecha_repreguntas != null || $info->fecha_repreguntas != "")
+                                        <input type="text" class="form-control" name="fecha_repreguntas" id="fecha_repreguntas" readonly  value="{{ date('d/m/Y', strtotime($info->fecha_repreguntas))}}" />
+                                    @else
+                                        <input type="text" class="form-control" name="fecha_repreguntas" id="fecha_repreguntas" readonly  value="" />
+                                    @endif
+                                    <input type="hidden" name="op_fecha_repreguntas" id="op_fecha_repreguntas" value="{{ $info->fecha_repreguntas_aplica }}">
+                                </div>
                             </div>
 
                             <div class="row form-group">
@@ -640,17 +602,16 @@ box-shadow: 0px 7px 5px -2px rgba(174,251,117,0.74);
                                 </thead>
                                 <tbody id='tbodyDocumentos'>
                                     @foreach($documentos as $documento)
-                                    <tr id="trDocumento{{ $documento->id }}">
-                                        <td><a href="{{ route('archivo.documentoLicitacion', ['id'=>$documento->id]) }}" class="link-primary" target="_blank"> {{ $documento->tipoDocumentosLicitaciones->documento_licitacion }} </a></td>
-                                        <td>{{ $documento->tipoDocumentosLicitaciones->documento_licitacion }}</td>
-                                        <td>
-                                            <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminar' data-id='{{ $documento->id }}' data-documento='{{ $documento->documento }}'  data-toggle='tooltip' data-theme='dark' title='Eliminar'>
-                                                <i class='flaticon-delete'></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                        <tr id="trDocumento{{ $documento->id }}">
+                                            <td><a href="{{ route('archivo.documentoLicitacion', ['id'=>$documento->id]) }}" class="link-primary" target="_blank"> {{ $documento->tipoDocumentosLicitaciones->documento_licitacion }} </a></td>
+                                            <td>{{ $documento->tipoDocumentosLicitaciones->documento_licitacion }}</td>
+                                            <td>
+                                                <a href='#' class='btn btn-sm btn-clean btn-hover-icon-success btn-icon hrefEliminar' data-id='{{ $documento->id }}' data-documento='{{ $documento->documento }}'  data-toggle='tooltip' data-theme='dark' title='Eliminar'>
+                                                    <i class='flaticon-delete'></i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
 

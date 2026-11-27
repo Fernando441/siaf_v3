@@ -37,6 +37,17 @@
             }
         });
     </script>
+
+    <script>
+        $(".modal-pdf").on('click', function () {
+            var path = $(this).attr('rel-path');
+            var modal = $("#exampleModalSizeSm");
+            var object_pdf = $("#modal-body");
+            var content = `<object id="object_pdf" type="application/pdf" data="`+path+`" width="100%" height="500" style="height: 85vh;">No Support</object>`;
+            object_pdf.html(content);
+            modal.modal("show");
+        });
+    </script>
 @endpush
 
 @section('content')
@@ -249,7 +260,7 @@
                                             <td>{{ $siniestro->siniestro_completo }}</td>
                                             <td>{{ $siniestro->serie }}</td>
                                             <td>
-                                                <button rel-path="" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
+                                                <button rel-path="{{ route('siniestro.versiniestrosicurezzaPDF', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon modal-pdf" title="Ver PDF" data-theme="dark"  data-toggle="tooltip" data-placement="top">
                                                         <i class="far fa-file-pdf"></i>
                                                 </button>
                                                 <a href="{{ route('siniestro.versiniestrosic', $siniestro->id) }}" class="btn btn-sm btn-clean btn-hover-icon-success btn-icon" title="Ver registro" data-theme="dark" data-toggle="tooltip" data-placement="top"> <i class="flaticon-eye"></i></a>
@@ -339,5 +350,8 @@
             </div>
         </div>
     </div>
+
+
+
 
 @endsection

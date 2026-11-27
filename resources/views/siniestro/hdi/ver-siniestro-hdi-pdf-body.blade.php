@@ -1,0 +1,245 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+
+        div {
+                            /*border: 1px solid #000000;*/
+        }
+        body {
+            font-family:'Helvetica, Arial, sans-serif; font-size: 12px;';
+            font-size: 12px;
+            /*               border: 1px solid black;*/
+        }
+
+        #divDatos div {
+            padding-bottom: 7px;
+        }
+        #div-pie p {
+            margin: 0px auto auto 200px;
+            text-align: right;
+            font-size: 70%;
+        }
+
+
+
+        .table {
+            /*width: 100%;*/
+            margin-bottom: 0.9rem;
+            background-color: rgba(0,0,0,0);
+        }
+        table {
+            border-collapse: collapse;
+            page-break-inside: avoid;
+        }
+        thead {
+            display: table-header-group;
+            vertical-align: middle;
+            /*border-color: inherit;*/
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #f4f5f8;
+        }
+
+        .table th {
+            font-weight: 500;
+        }
+
+        .table th, .table td {
+            padding: .75rem;
+            vertical-align: top;
+            border-top: 1px solid #f4f5f8;
+        }
+
+
+        .borde_gris {
+            background: white;
+            border: 1px solid #e7e7ea;
+            padding: 20px;
+        }
+
+        thead th {
+            background: #C4C4C4;
+            color: #000000;
+            border-bottom: 0;
+            border-top: 0;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #f4f5f8;
+        }
+        .table th {
+            font-weight: 500;
+        }
+        .table th, .table td {
+            padding: .75rem;
+            vertical-align: top;
+            border-top: 1px solid #e7e7ea;
+        }
+        table tr {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+
+
+        <br>
+
+        <table class="table" cellpadding="8" style="page-break-inside: avoid;">
+            <thead>
+                <tr>
+                    <th class="table_header" width="33%" colspan="2" style="text-align: center;" ><strong style="font-size: 16px;">INFORMACIÓN GENERAL</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr>
+                    <td ><strong>PROVEEDOR: </strong></td>
+                    <td ><strong>ECO.:</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><strong>TIPO DE SINIESTRO: {{ $siniestro_hdi->tipo_siniestro }}</strong> </td>
+                    <td ><strong>VEHICULO: {{ $siniestro_hdi->vehiculo }}</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><strong>No. SIN y/o REP.: </strong> 
+                    </td>
+                    <td ><strong>MODELO: {{ $siniestro_hdi->year }}</strong> 
+                    </td>
+                </tr>
+                <tr>
+                    <td ><strong>FECHA SINIESTRO: {{ $siniestro_hdi->fecha_ocurrido }}</strong> 
+                    </td>
+                    <td ><strong>SERIE: {{ $siniestro_hdi->serie }} </strong> 
+                    </td>
+                </tr>   
+                <tr>
+                    <td ><strong>PROYECTO: {{ $siniestro_hdi->proyecto }}</strong> 
+                    </td>
+                    <td ><strong>PLACA: {{ $siniestro_hdi->placa }}</strong> 
+                    </td>
+                </tr>   
+ 
+            </tbody>
+        </table>
+
+        
+        <table class="table" cellpadding="8" style="page-break-inside: avoid;" >
+            <thead>
+                <tr>
+                    <th class="table_header" width="33%" colspan="2" style="text-align: center;" ><strong>MONTO A PAGAR</strong></th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr>
+                    <td ><strong>FUENTE DEL VALOR: </strong></td>
+                    <td ><strong>SE RECUPERA DEDUCIBLE:</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><strong>SUMA ASEGURADA: </strong> </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td ><strong>PORCENTAJE: </strong> </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td ><strong>DEDUCIBLE A PAGAR: </strong> </td>
+                    <td></td>
+                </tr>   
+ 
+            </tbody>
+        </table>
+
+
+        <table class="table" cellpadding="8" style="overflow:wrap" >
+            <thead>
+                <tr>
+                    <th class="table_header" width="100%" colspan="8" style="text-align: center;" ><strong>COMENTARIOS</strong></th>
+                </tr>
+                
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td width="100%" colspan="8" style="text-align: justify;">
+                        <span>
+                            
+                        </span>
+                    </td>
+                </tr>
+
+               
+            </tbody>
+        </table>
+
+
+        <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 80px;">
+            <tr>
+                <td style="width: 50%; padding: 15px;">
+                    <h2>ELABORÓ</h2> <br><br><br><br><br><br>
+                    <p>_____________________________________________________</p>
+                    <h2></h2>
+                    <span style="font-size: 15px;">ANALISTA DE SINIESTROS</span>
+                </td>
+
+                <td style="width: 50%; padding: 15px;">
+                    <h2>AUTORIZÓ</h2> <br><br><br><br><br><br>
+                    <p>_____________________________________________________</p>
+                    <h2>VERÓNICA ROMERO ANAYA</h2>
+                    <span style="font-size: 15px;">JEFATURA DE SEGUROS Y SINIESTROS</span>
+                </td>
+
+                <td style="width: 50%; padding: 15px;">
+                    <h2>RECIBIÓ</h2> <br><br><br><br><br><br>
+                    <p>_____________________________________________________</p>
+                    <h2>ROSA GALLEGOS</h2>
+                    <span style="font-size: 15px;">TESORERIA</span>
+                </td>
+            </tr>
+        </table>
+
+
+
+        <table width="100%" cellpadding="5" style="margin-top: 80px;">
+            <thead>
+                <tr>
+                    <th class="table_header" width="33%" colspan="8" style="text-align: center;" ><strong>DATOS DESPUÉS DEL PAGO</strong></th>
+                </tr>
+            </thead>
+            <tbody> 
+
+                <tr>
+                    <td width="40%" height="40">
+                        <strong>FECHA DE PAGO:</strong>
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                    </td>
+
+                    <td width="28%">
+                        <strong>BANCO:</strong>
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                    </td>
+
+                    <td width="32%">
+                        <strong>FOLIO O REF.:</strong>
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+
+
+</body>
+</html>

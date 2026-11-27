@@ -25,6 +25,7 @@
     	Route::post('/delete-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'deletesicurezzaevidencia'])->name('siniestro.deletesicurezzaevidencia');
     	Route::get('/crear-siniestro-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'crearsiniestrosic'])->name('siniestro.crearsiniestrosic');
     	Route::post('/add-siniestro-sicurezza', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'addsiniestrosic'])->name('siniestro.addsiniestrosic');
+        Route::get('/ver-siniestro-sicurezza-pdf/{id}', [App\Http\Controllers\Siniestros\SiniestrosSicurezzaController::class, 'versiniestrosicurezzaPDF'])->name('siniestro.versiniestrosicurezzaPDF');
 
     //Listado de Siniestros HDI
     	Route::get('/catalogo-hdi', [App\Http\Controllers\Siniestros\SiniestrosHdiController::class, 'catalogohdi'])->name('siniestro.catalogohdi');
@@ -35,3 +36,4 @@
         Route::get('/ver-siniestro-hdi/{id}', [App\Http\Controllers\Siniestros\SiniestrosHdiController::class, 'versiniestrohdi'])->name('siniestro.versiniestrohdi');
         Route::get('/crear-siniestro-hdi', [App\Http\Controllers\Siniestros\SiniestrosHdiController::class, 'crearsiniestrohdi'])->name('siniestro.crearsiniestrohdi');
         Route::post('/create-hdi', [App\Http\Controllers\Siniestros\SiniestrosHdiController::class, 'createhdievidencia'])->name('siniestro.createhdievidencia');
+        Route::get('/ver-siniestro-hdi-pdf/{id}', [App\Http\Controllers\Siniestros\SiniestrosHdiController::class, 'versiniestroshdiPDF'])->name('siniestro.versiniestroshdiPDF');

@@ -124,7 +124,7 @@
                                             onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" />
                                     </div>
                                 </div>
-                                
+
                                 {{-- TIPO DE CONTRATACION DIV --}}
                                 <div class="row form-group oculto" id="div_fechas_show">
                                     <div class="col-lg-12">
@@ -173,6 +173,14 @@
                                                         <input type="text" class="form-control" readonly name="fecha_apertura_economica"
                                                             id="fecha_apertura_economica" readonly/>
                                                     </div>
+
+                                                    <div class="col-lg-4 form-group" id="fecha_subasta_div">
+                                                        <label>Fecha de subasta</label>
+                                                        <input type="text" class="form-control" readonly name="fecha_subasta"
+                                                            id="fecha_subasta" readonly/>
+                                                            <input type="hidden" name="fecha_subasta_aplica" id="fecha_subasta_aplica" value="1">
+                                                    </div>
+
 
                                                     <div class="col-lg-4 form-group" id="inicio_vigencia_serv_div">
                                                         <label>Fecha de inicio de vigencia de los servicios</label>
@@ -223,29 +231,6 @@
                                         <input type="text" class="form-control" readonly name="apertura_proposiciones"
                                             id="apertura_proposiciones" readonly/>
                                     </div>
-                                    <div class="col-lg-6 oculto">
-                                        <label>¿Aplica la fecha de subasta?</label>
-                                        <div class="radio-inline">
-                                            <label class="radio">
-                                                <input type="radio" checked name="fecha_subasta_aplica" id="fsp_uno" value="0" />
-                                                <span></span>
-                                                Si
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="fecha_subasta_aplica" id="fsp_dos" value="1" />
-                                                <span></span>
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 mt-3 oculto" id="fecha_subasta_div">
-                                        <label>Fecha de subasta</label>
-                                        <input type="text" class="form-control" readonly name="fecha_subasta"
-                                            id="fecha_subasta" readonly/>
-                                            <input type="hidden" name="op_fecha_subasta" id="op_fecha_subasta" value="1">
-                                    </div>
-
 
                                 </div>
 
@@ -584,6 +569,5 @@
         </div>
     </div>
     <!--end::Card-->
-
 
 @endsection

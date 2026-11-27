@@ -33,7 +33,6 @@ use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
 use Illuminate\Support\Facades\File;
 
-
 class SiniestrosHdiController extends Controller
 {
     protected $folio;
@@ -298,5 +297,44 @@ class SiniestrosHdiController extends Controller
 
         session()->flash('success', 'El siniestro se creo correctamente');
         return redirect()->route('siniestro.catalogohdi');
+    }
+
+    public function versiniestroshdiPDF($id_siniestro)
+    {
+        $siniestro_hdi = SiniestroHdi::where('id', $id_siniestro)->first(); 
+        
+        $header = view('siniestro.hdi.ver-siniestro-hdi-pdf-header',compact('id_siniestro', 'siniestro_hdi'))->render();
+        $footer = view('siniestro.hdi.ver-siniestro-hdi-pdf-footer')->render();
+        $body = view('siniestro.hdi.ver-siniestro-hdi-pdf-body',compact('id_siniestro', 'siniestro_hdi'))->render();
+
+        $path = public_path('theme/assets/media/logos/logojetvan-pdf.png');
+
+        $mpdf = new Mpdf([
+            'format' => [216, 340],
+            'mode' => 'utf-8',
+            'tempDir' => storage_path('app/mpdf_temp'),
+        ]);
+
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->setAutoTopMargin = 'stretch';
+        $mpdf->setAutoBottomMargin = 'stretch';
+
+        // Cargar logo antes de generar el PDF
+        if (File::exists($path)) {
+            $mpdf->imageVars['logo'] = File::get($path);
+        }
+
+        $mpdf->SetHTMLHeader($header);
+        $mpdf->SetHTMLFooter($footer);
+
+        $mpdf->WriteHTML($body);
+
+        // Mostrar PDF en navegador
+        $pdf = $mpdf->Output('', Destination::STRING_RETURN);
+
+        return response($pdf, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="Siniestro No.'.$siniestro_hdi->numero_siniestro.'.pdf"');        
     }
 }
